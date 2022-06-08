@@ -2,7 +2,8 @@ const {Sequelize} = require('sequelize')
 
 
 let sequelize;
-
+console.log('Node environment: ',process.env.NODE_ENV)
+console.log('Connection string: ',process.env.HEROKU_POSTGRESQL_NAVY)
 if (process.env.NODE_ENV === "production"){
     sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_NAVY,{
         dialect:'postgres'
