@@ -4,7 +4,9 @@ const {Sequelize} = require('sequelize')
 let sequelize;
 
 if (process.env.NODE_ENV === "production"){
-    sequelize = new Sequelize(process.env.DATABASE_URL)
+    sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_NAVY,{
+        dialect:'postgres'
+    })
 }else{
     sequelize = new Sequelize(
         process.env.PG_DATABASE,
