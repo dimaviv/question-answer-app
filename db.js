@@ -4,9 +4,15 @@ const {Sequelize} = require('sequelize')
 let sequelize;
 console.log('Node environment: ',process.env.NODE_ENV)
 console.log('Connection string: ',process.env.DATABASE_URL)
+
 if (process.env.NODE_ENV === "production"){
     sequelize = new Sequelize(process.env.DATABASE_URL,{
-        dialect:'postgres'
+        dialect:'postgres',
+        ssl: true,
+        dialectOptions: {
+            "ssl": true
+        }
+
     })
 }else{
     sequelize = new Sequelize(
