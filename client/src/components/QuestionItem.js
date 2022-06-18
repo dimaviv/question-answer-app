@@ -11,7 +11,7 @@ const QuestionItem = ({question}) => {
                 <div className="text-justify comment mt-4 float-right">
                 <Image width={50} height={50} src={'https://i.imgur.com/CFpa3nK.jpg'} />
                     <h4>{question.userId}</h4> <span>- {question.createdAt}</span>
-                    <p>{question.title}</p>
+                    <p>{question.text}</p>
                 </div>
             </Card>
         </div>
