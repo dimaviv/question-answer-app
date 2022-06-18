@@ -16,7 +16,7 @@ const Questions = observer(() => {
         <div>
             <ul>
                 {question.categories.map(category =>
-                    <li>{category.name}</li>
+                    <li>{category.text}</li>
                 )}
             </ul>
             <div className="container mt-4">
