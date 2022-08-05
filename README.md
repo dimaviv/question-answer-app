@@ -2,7 +2,8 @@
 [znanija.com](https://znanija.com/) clone
 
 Backend using express, postgesql(sequelize).
-Client using react, mobx, axios etc.
+
+Client using react, mobx, axios etc. (Unfinished)
 
 # Implemented:
   * CRUD APIs
