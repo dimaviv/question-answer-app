@@ -1,5 +1,5 @@
 # question-answer-app
-znanija.com clone
+[znanija.com](https://znanija.com/) clone
 
 Backend using express, postgesql(sequelize).
 
