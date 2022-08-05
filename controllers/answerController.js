@@ -64,15 +64,7 @@ class AnswerController{
             return res.json("Deleted successfully!")
         }else { return res.json("Deletion error!")}
     }
-    async update(req, res){
-        const {id} = req.params
 
-        const answer = await Answer.destroy({where: {id}})
-        if (answer){
-            return res.json("Deleted successfully!")
-        }else { return res.json("Deletion error!")}
-
-    }
 }
 
 module.exports = new AnswerController()
