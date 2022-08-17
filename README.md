@@ -3,6 +3,8 @@
 
 Backend using express, postgesql(sequelize).
 
+Client using react, mobx, axios etc. (Unfinished)
+
 # Implemented:
   * CRUD APIs
   * static files
