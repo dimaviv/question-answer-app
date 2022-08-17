@@ -18,13 +18,13 @@ if (process.env.NODE_ENV === "production"){
     })
 }else{
     sequelize = new Sequelize(
-        process.env.PG_DATABASE,
-        process.env.PG_USER,
-        process.env.PG_PASSWORD,
+        process.env.POSTGRES_DATABASE,
+        process.env.POSTGRES_USER,
+        process.env.POSTGRES_PASSWORD,
         {
             dialect:'postgres',
-            host:process.env.PG_HOST,
-            port:process.env.PG_PORT
+            host:process.env.POSTGRES_HOST,
+            port:process.env.POSTGRES_PORT
         }
     )
 }
