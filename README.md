@@ -14,4 +14,5 @@ Client using react, mobx, axios etc. (Unfinished)
   * roles guard system
   * bcrypt password-hashing
   * simplified client side
+  * Docker
   * deployed on heroku (https://pern-education-app.herokuapp.com/)
