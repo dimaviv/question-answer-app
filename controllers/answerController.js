@@ -3,7 +3,7 @@ const path = require('path')
 const {Answer, File} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
-class AnswerController{
+class AnswerController {
     async create(req, res, next) {
         try {
             let {text, userId, questionId} = req.body
@@ -13,7 +13,7 @@ class AnswerController{
                 let {file} = req.files
                 let extension;
 
-                if (!file.length){
+                if (!file.length) {
                     extension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
                     let fileName = uuid.v4() + '.' + extension
 
@@ -25,7 +25,7 @@ class AnswerController{
                         answerId: answer.id
                     })
 
-                }else {
+                } else {
                     file.forEach(f => {
                         extension = f.name.slice((f.name.lastIndexOf(".") - 1 >>> 0) + 2);
                         let fileName = uuid.v4() + '.' + extension
@@ -48,21 +48,25 @@ class AnswerController{
         }
 
     }
-    async getAll(req, res){
 
-        let answers = await Answer.findAndCountAll( {
-            include: [{model:File, as: 'files'}]
+    async getAll(req, res) {
+
+        let answers = await Answer.findAndCountAll({
+            include: [{model: File, as: 'files'}]
         },)
 
         return res.json(answers)
     }
-    async delete(req, res){
+
+    async delete(req, res) {
         const {id} = req.params
 
         const answer = await Answer.destroy({where: {id}})
-        if (answer){
+        if (answer) {
             return res.json("Deleted successfully!")
-        }else { return res.json("Deletion error!")}
+        } else {
+            return res.json("Deletion error!")
+        }
     }
 
 }

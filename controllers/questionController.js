@@ -13,7 +13,7 @@ class QuestionController {
                 let {file} = req.files
                 let extension;
 
-                if (!file.length){
+                if (!file.length) {
                     extension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
                     let fileName = uuid.v4() + '.' + extension
 
@@ -25,7 +25,7 @@ class QuestionController {
                         questionId: question.id
                     })
 
-                }else {
+                } else {
                     file.forEach(f => {
 
                         extension = f.name.slice((f.name.lastIndexOf(".") - 1 >>> 0) + 2);
@@ -59,13 +59,13 @@ class QuestionController {
             questions = await Question.findAndCountAll({limit, offset})
         }
         if (categoryId && !isAnswered) {
-            questions = await Question.findAndCountAll({where:{categoryId}, limit, offset})
+            questions = await Question.findAndCountAll({where: {categoryId}, limit, offset})
         }
         if (!categoryId && isAnswered) {
-            questions = await Question.findAndCountAll({where:{isAnswered}, limit, offset})
+            questions = await Question.findAndCountAll({where: {isAnswered}, limit, offset})
         }
         if (categoryId && isAnswered) {
-            questions = await Question.findAndCountAll({where:{isAnswered, categoryId}, limit, offset})
+            questions = await Question.findAndCountAll({where: {isAnswered, categoryId}, limit, offset})
         }
         return res.json(questions)
     }
@@ -75,19 +75,24 @@ class QuestionController {
         const question = await Question.findOne(
             {
                 where: {id},
-                include: [{model:Answer, as: 'answers', include:[{model:File, as:'files'}]}, {model:File, as: 'files'}]
+                include: [{model: Answer, as: 'answers', include: [{model: File, as: 'files'}]}, {
+                    model: File,
+                    as: 'files'
+                }]
             },
         )
         return res.json(question)
     }
 
-    async delete(req, res){
+    async delete(req, res) {
         const {id} = req.params
         let question = await Question.destroy({where: {id}})
 
-        if (question){
+        if (question) {
             return res.json("Deleted successfully")
-        }else { return res.json("Deletion error")}
+        } else {
+            return res.json("Deletion error")
+        }
 
     }
 }
