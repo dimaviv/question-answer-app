@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface) => {
     return queryInterface.bulkInsert('questions', [
       {
         text: "Исследовать функцию на локальные экстремумы : z = x^2+y^2+2y-6x-4xy",
@@ -86,7 +86,7 @@ module.exports = {
     ]);
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.bulkDelete('questions', null, {});
   }
 };

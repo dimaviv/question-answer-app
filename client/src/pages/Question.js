@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {observer} from "mobx-react-lite";
 import {Card, Container, Image, Row} from "react-bootstrap";
 import {useParams} from 'react-router-dom'
 import {fetchOneQuestion} from "../http/questionAPI";
@@ -13,7 +12,7 @@ const Question = () => {
     useEffect(() => {
         fetchOneQuestion(id).then(data =>setQuestion(data))
 
-    },[])
+    })
 
     return (
         <Container>

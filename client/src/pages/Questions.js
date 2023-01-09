@@ -10,7 +10,7 @@ const Questions = observer(() => {
     useEffect(()=>{
         fetchCategories().then(data => question.setCategories(data))
         fetchQuestions().then(data => question.setQuestions(data.rows))
-    }, [])
+    })
 
     return (
         <div>

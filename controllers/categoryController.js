@@ -1,5 +1,4 @@
 const {Category} = require('../models/models')
-const ApiError = require('../error/ApiError')
 
 class CategoryController {
     async create(req, res) {
@@ -25,11 +24,12 @@ class CategoryController {
     }
 
     async update(req, res) {
-        const {id} = req.params
+        const {id, name, avatar} = req.params
 
         const category = await Category.update(
             {
-                name
+                name,
+                avatar
             },
             {
                 where: {id: id}
