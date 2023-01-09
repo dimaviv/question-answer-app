@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [],
@@ -28,6 +30,8 @@
     "npm": "8.1.0"
   },
   "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-plugin-react": "^7.31.11",
     "sequelize-cli": "^6.5.2"
   }
 }
