@@ -6,29 +6,66 @@ export default class QuestionStore {
         this._answers = []
         this._questions = []
         this._selectedCategory = {}
+        this._page = 1
+        this._totalCount = 0
+        this._limit = 5
         makeAutoObservable(this)
     }
 
-    setCategories(categories){
+    setCategories(categories) {
         this._categories = categories
     }
-    setAnswers(answers){
+
+    setAnswers(answers) {
         this._answers = answers
     }
-    setQuestions(questions){
+
+    setQuestions(questions) {
         this._questions = questions
     }
-    setSelectedCategory(category){
+
+    setSelectedCategory(category) {
+        this.setPage(1)
         this._selectedCategory = category
     }
 
-    get categories(){
+    setPage(page) {
+        this._page = page
+    }
+
+    setTotalCount(count) {
+        this._totalCount = count
+    }
+
+    setLimit(limit) {
+        this._limit = limit
+    }
+
+    get categories() {
         return this._categories
     }
-    get answers(){
+
+    get answers() {
         return this._answers
     }
-    get questions(){
+
+    get questions() {
         return this._questions
+    }
+
+    get selectedCategory() {
+        return this._selectedCategory
+    }
+
+    get page() {
+        return this._page
+    }
+
+    get totalCount() {
+        return this._totalCount
+    }
+
+    get limit() {
+        return this._limit
     }
 }

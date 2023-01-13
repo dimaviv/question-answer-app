@@ -12,7 +12,7 @@ const Question = () => {
     useEffect(() => {
         fetchOneQuestion(id).then(data =>setQuestion(data))
 
-    })
+    }, [])
 
     return (
         <Container>

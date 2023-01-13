@@ -24,8 +24,12 @@ export const createQuestion = async (question) => {
     return data
 }
 
-export const fetchQuestions = async () => {
-    const {data} = await $host.get('api/question')
+export const fetchQuestions = async (categoryId, isAnswered, limit, page = 5) => {
+    const {data} = await $host.get('api/question', {
+        params: {
+            categoryId, isAnswered, limit, page
+        }
+    })
     return data
 }
 export const fetchOneQuestion = async (id) => {
