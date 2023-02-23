@@ -1,0 +1,61 @@
+.sectionInform {
+    display: flex;
+    justify-content: center;
+    color: #FFFFFF;
+}
+
+.informContainer {
+    width: 1280px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.leftBar {
+    display: flex;
+    gap: 47px;
+}
+
+.rightBar {
+    display: flex;
+}
+
+.leftBar .contentContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.informContainer .titleText {
+    margin-bottom: 37px;
+    font-weight: bold;
+    font-size: 22.5px;
+}
+
+.leftBar .imgBox {
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.leftBar .textBox {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.leftBar .textBox a:hover {
+    text-decoration: underline;
+}
+
+.cookieWarningText {
+    margin-top: auto;
+    width: 230px;
+    font-size: 14.4px;
+    font-weight: 300;
+}
+
+.rightBar .imgBox {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    cursor: pointer;
+}

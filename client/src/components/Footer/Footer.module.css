@@ -1,0 +1,7 @@
+footer {
+    padding: 74px 0;
+    background: #584B53;
+    display: flex;
+    flex-direction: column;
+}
+

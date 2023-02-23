@@ -1,20 +1,19 @@
-import React, {createContext} from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import './styles/index.css';
 import App from './App';
-import UserStore from "./store/UserStore";
-import QuestionStore from "./store/QuestionStore";
+import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
+import store from "./store";
 
-export const Context = createContext(null)
-
-
-ReactDOM.render(
-    <Context.Provider value={{
-        user: new UserStore(),
-        question: new QuestionStore(),
-    }}>
-        <App />
-    </Context.Provider>,
-
-  document.getElementById('root')
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <React.StrictMode>
+        <Provider store={store}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Provider>
+    </React.StrictMode>
 );
-
