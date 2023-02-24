@@ -14,13 +14,13 @@
 }
 
 .categories {
-    padding: 37px 0;
-    max-height: 106px;
+    padding: 27px 0;
+    max-height: 86px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 37px 0;
+    gap: 37px 37px;
     transition: max-height .6s cubic-bezier(.18,.98,.32,.98);
 }
 
@@ -30,15 +30,15 @@
 }
 
 .category {
-    width: 256px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .category__text {
+    padding-top: 6px;
     margin-left: 5px;
-    font-size: 18px;
+    font-size: 14px;
     color: #584B53;
 }
 

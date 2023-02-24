@@ -20,7 +20,7 @@
 .logo__text {
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 28.13px;
+    font-size: 25px;
 }
 
 nav {
@@ -47,7 +47,7 @@ nav li:hover {
 .li__text {
     text-transform: uppercase;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 nav li.li__decor {

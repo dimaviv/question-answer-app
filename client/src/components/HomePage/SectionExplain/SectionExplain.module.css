@@ -35,7 +35,7 @@
 
 .explainFrame p {
     text-transform: uppercase;
-    font-size: 43.95px;
+    font-size: 39.06px;
     font-weight: 900;
 }
 
@@ -44,11 +44,11 @@
 }
 
 .showExplainFrame {
-    margin-top: 37px;
+    margin-top: 74px;
 }
 
 .showExplainFrame a {
-    font-size: 28.13px;
+    font-size: 20px;
     color: #9D5C63;
 }
 
