@@ -1,4 +1,3 @@
-
 export const AuthActionCreator = {
     // singIn: (email, password) => dispatch => {
     //     try {

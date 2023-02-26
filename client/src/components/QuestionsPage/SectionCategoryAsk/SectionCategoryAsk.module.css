@@ -1,0 +1,75 @@
+.sectionCategoryAsk {
+    padding: 17px 0 37px 0 ;
+    display: flex;
+    justify-content: center;
+}
+
+.contentContainer {
+    width: 1280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.askQuestionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainTitleContainer {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.mainTitleContainer .title {
+    padding: 0 28px;
+    font-size: 31.25px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.searchFormContainer {
+    margin-top: 20px;
+}
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchBtnBox {
+    display: flex;
+}
+
+.searchBtnBox input[type="text"] {
+    padding: 1px 0 1px 40px;
+    width: 870px;
+    height: 60px;
+    font-size: 20px;
+    color: #584B53;
+    background: #FFFFFF;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    border-color: #584B53;
+    border-radius: 100px 0 0 100px;
+}
+
+.searchBtnBox button {
+    width: 90px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #9D5C63;
+    border-width: 1px 1px 1px 0;
+    border-style: solid;
+    border-color: #584B53;
+    border-radius: 0 100px 100px 0;
+}
+
+.searchForm button:hover {
+    background: #8D5359;
+}

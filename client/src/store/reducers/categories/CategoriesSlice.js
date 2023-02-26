@@ -23,12 +23,16 @@ const initialState = {
         {id: 14, name: 'Computer science', img: ComputerScienceImg},
         {id: 15, name: 'English', img: AlgebraImg},
     ],
+    selectedCategory: {},
 }
 
 export const categoriesSlice = createSlice({
     name: 'categories',
     initialState,
     reducers: {
+        setSelectedCategory(state, action) {
+           state.selectedCategory = action.payload
+        },
     }
 })
 

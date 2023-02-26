@@ -1,13 +1,25 @@
 import React, {useState} from 'react';
 import classes from "./SectionCategories.module.css";
 import {useSelector} from "react-redux";
-import {ROUTE_LOGIN} from "../../../utils/consts";
 import decorTriangle from "../../../static/Header/Decor/decor__triangle.svg"
+import {useNavigate} from "react-router-dom";
+import {ROUTE_QUESTIONS} from "../../../utils/consts";
+import {useActions} from "../../../hooks/UseActions";
 
 const SectionCategories = () => {
+    const navigate = useNavigate()
+
     const {categories} = useSelector(state => state.categoriesReducer)
 
+    const {setSelectedCategory} = useActions()
+
     const [hiddenCategories, setHiddenCategories] = useState(true)
+
+    const onCategoryClick = (category) => {
+        setSelectedCategory(category)
+        navigate(ROUTE_QUESTIONS + `/${category.name}`)
+    }
+
 
     return (
         <div className={classes.sectionCategories}>
@@ -16,7 +28,12 @@ const SectionCategories = () => {
                     {categories.map(category =>
                         <div className={classes.category} key={category.id}>
                             <img src={category.img} alt={category.name} width={32} height={32}/>
-                            <a href={ROUTE_LOGIN} className={classes.category__text}>{category.name}</a>
+                            <button
+                                className={classes.category__text}
+                                onClick={() => onCategoryClick(category)}
+                            >
+                                {category.name}
+                            </button>
                         </div>
                     )}
                 </div>

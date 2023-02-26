@@ -38,6 +38,8 @@
 .category__text {
     padding-top: 6px;
     margin-left: 5px;
+    border: none;
+    background: transparent;
     font-size: 14px;
     color: #584B53;
 }
