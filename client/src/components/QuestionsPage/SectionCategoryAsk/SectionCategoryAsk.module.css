@@ -17,16 +17,33 @@
 }
 
 .mainTitleContainer {
+    width: 100%;
     display: flex;
     justify-content: center;
     position: relative;
 }
 
+.mainTitleContainer .decorBox {
+    z-index: 0;
+}
+
 .mainTitleContainer .title {
     padding: 0 28px;
+    background-color: #FEF5EF;
     font-size: 31.25px;
     font-weight: bold;
     z-index: 1;
+}
+
+.mainTitleContainer .decorBox::before {
+    content: "";
+    margin-top: -1px;
+    border-top: 1px solid #D9D3D8;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: -1;
 }
 
 .searchFormContainer {

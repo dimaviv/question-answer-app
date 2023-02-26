@@ -17,7 +17,7 @@ const SectionCategories = () => {
 
     const onCategoryClick = (category) => {
         setSelectedCategory(category)
-        navigate(ROUTE_QUESTIONS + `/${category.name}`)
+        navigate(ROUTE_QUESTIONS + `/${category.id}`)
     }
 
 
@@ -29,7 +29,7 @@ const SectionCategories = () => {
                         <div className={classes.category} key={category.id}>
                             <img src={category.img} alt={category.name} width={32} height={32}/>
                             <button
-                                className={classes.category__text}
+                                className={`${classes.category__text} ${!(window.location.href.search(`/${category.id}`) === -1) && classes.active}`}
                                 onClick={() => onCategoryClick(category)}
                             >
                                 {category.name}

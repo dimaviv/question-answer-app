@@ -36,9 +36,11 @@ const SectionCategoryAsk = () => {
             <div className={classes.contentContainer}>
                 <div className={classes.askQuestionContainer}>
                     <div className={classes.mainTitleContainer}>
-                        <h1 className={classes.title}>
-                            {selectedCategory.name}
-                        </h1>
+                        <div className={classes.decorBox}>
+                            <h1 className={classes.title}>
+                                {selectedCategory.name}
+                            </h1>
+                        </div>
                     </div>
                     <div className={classes.searchFormContainer}>
                         <form className={classes.searchForm} onSubmit={handleSubmit}>

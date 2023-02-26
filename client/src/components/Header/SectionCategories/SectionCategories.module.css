@@ -44,6 +44,10 @@
     color: #584B53;
 }
 
+.category__text.active {
+    text-decoration: underline;
+}
+
 .category__text:hover {
     text-decoration: underline;
 }

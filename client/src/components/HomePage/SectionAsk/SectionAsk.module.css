@@ -103,7 +103,7 @@
 .secondTitleContainer .decorBox::before {
     content: "";
     margin-top: -1px;
-    border-top: 2px solid #D9D3D8;
+    border-top: 1px solid #D9D3D8;
     position: absolute;
     left: 0;
     right: 0;
