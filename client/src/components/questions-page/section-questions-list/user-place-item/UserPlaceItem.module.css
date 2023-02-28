@@ -1,0 +1,54 @@
+.userPlaceItem {
+    padding: 15px 20px 15px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.userPlaceItem:nth-child(1)  {
+    background: #FEF2D7;
+}
+
+.userPlaceItem:nth-child(2) {
+    background: #EBEBEB;
+}
+
+.userPlaceItem:nth-child(3)  {
+    background: #F7EBDE;
+}
+
+.leftBar__userInform {
+    display: flex;
+    align-items: center;
+}
+
+.ratingBox {
+    width: 65px;
+    display: flex;
+    justify-content: center;
+}
+
+.userBox {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    gap: 0 15px;
+}
+
+.userBox a {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.userBox a:hover {
+    text-decoration: underline;
+}
+
+.rightBar__userScore {
+    display: flex;
+    align-items: center;
+}
+
+.rightBar__userScore p {
+    font-size: 20px;
+    font-weight: bold;
+}
