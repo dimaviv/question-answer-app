@@ -4,8 +4,11 @@ import decorTriangleImg from "../../../static/home-page/decor/decor__triangle.sv
 import {useSelector} from "react-redux";
 import UserPlaceItem from "./user-place-item/UserPlaceItem";
 import QuestionItem from "./question-item/QuestionItem";
+import {useNavigate} from "react-router-dom";
+import {ROUTE_LOGIN} from "../../../utils/consts";
 
 const SectionQuestionsList = () => {
+    const navigate = useNavigate()
     const {selectedCategory} = useSelector(state => state.categoriesReducer)
     const {questions} = useSelector(state => state.questionsReducer)
     const {users} = useSelector(state => state.usersReducer)
@@ -41,7 +44,7 @@ const SectionQuestionsList = () => {
                     </div>
                     <h2 className={classes.titleText}>Ask your own</h2>
                 </div>
-                <button>
+                <button onClick={() => navigate(ROUTE_LOGIN)}>
                     I want to ask...
                 </button>
             </div>
