@@ -9,7 +9,7 @@ const initialState = {
             avatar: userAvatarImg,
             categoryId: 1,
             question: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?',
-            date: '- 6 min ago',
+            date: '2023-02-28T18:02:00',
         },
         {
             id: 2,
@@ -17,7 +17,7 @@ const initialState = {
             avatar: userAvatarImg,
             categoryId: 2,
             question: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua? At augue eget arcu dictum varius duis at. Dictum non consectetur a erat nam at lectus?',
-            date: '- 21 min ago',
+            date: '2023-02-28T17:56:00',
         },
         {
             id: 3,
@@ -25,7 +25,7 @@ const initialState = {
             avatar: userAvatarImg,
             categoryId: 3,
             question: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, magna aliqua?',
-            date: '- 34 min ago',
+            date: '2023-02-28T17:24:00',
         },
         {
             id: 4,
@@ -33,7 +33,7 @@ const initialState = {
             avatar: userAvatarImg,
             categoryId: 4,
             question: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua? Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua? Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?',
-            date: '- 1 hour ago',
+            date: '2023-02-28T17:00:00',
         },
     ],
 }
