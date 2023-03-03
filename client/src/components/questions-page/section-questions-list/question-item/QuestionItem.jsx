@@ -2,7 +2,7 @@ import React from 'react';
 import classes from "./QuestionItem.module.css";
 import {ROUTE_LOGIN} from "../../../../utils/consts";
 
-const QuestionItem = (props) => {
+const QuestionItem = ({question, selectedCategory}) => {
     function formatDate(date) {
         const currentDate = new Date();
         const addedDate = new Date(date);
@@ -37,20 +37,20 @@ const QuestionItem = (props) => {
         <div className={classes.questionBox}>
             <div className={classes.title}>
                 <div className={classes.avatar}>
-                    <img src={props.question.avatar} alt={props.question.user}/>
+                    <img src={question.avatar} alt={question.user}/>
                 </div>
                 <a href={ROUTE_LOGIN} className={classes.userName}>
-                    {props.question.user}
+                    {question.user}
                 </a>
                 <p className={classes.categoryName}>
-                    {props.selectedCategory.name}
+                    {selectedCategory.name}
                 </p>
                 <p className={classes.date}>
-                    {formatDate(props.question.date)}
+                    {formatDate(question.date)}
                 </p>
             </div>
             <div className={classes.text}>
-                <p>{props.question.question}</p>
+                <p>{question.question}</p>
             </div>
             <button>Answer</button>
         </div>

@@ -6,6 +6,8 @@ import UserPlaceItem from "./user-place-item/UserPlaceItem";
 import QuestionItem from "./question-item/QuestionItem";
 import {useNavigate} from "react-router-dom";
 import {ROUTE_LOGIN} from "../../../utils/consts";
+import {topImages} from "../../../utils/questions-page/img-places";
+
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate()
@@ -67,7 +69,7 @@ const SectionQuestionsList = () => {
                             <UserPlaceItem
                                 key={user.id}
                                 user={user}
-                                place={index + 1}
+                                img={topImages[index]}
                             />
                         )}
                     </div>
