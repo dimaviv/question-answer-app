@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import classes from './SectionQuestionsList.module.css'
 import decorTriangleImg from "../../../static/home-page/decor/decor__triangle.svg";
 import {useSelector} from "react-redux";
@@ -7,6 +7,8 @@ import QuestionItem from "./question-item/QuestionItem";
 import {useNavigate} from "react-router-dom";
 import {ROUTE_LOGIN} from "../../../utils/consts";
 import {topImages} from "../../../utils/questions-page/img-places";
+import {fetchQuestions} from "../../../http/questionAPI";
+import {useActions} from "../../../hooks/UseActions";
 
 
 const SectionQuestionsList = () => {
@@ -14,22 +16,18 @@ const SectionQuestionsList = () => {
     const {selectedCategory} = useSelector(state => state.categoriesReducer)
     const {questions} = useSelector(state => state.questionsReducer)
     const {users} = useSelector(state => state.usersReducer)
+    const {setQuestions} = useActions()
 
-    const [selectedCategoryQuestions, setSelectedCategoryQuestions] = useState([])
-
-    const fetchQuestions = useCallback(() => {
-        const newArray = []
-        for (let i = 0; i < questions.length; i++) {
-            if (questions[i].categoryId === selectedCategory.id) {
-                newArray.push(questions[i])
-            }
-        }
-        setSelectedCategoryQuestions(newArray)
-    }, [questions, selectedCategory]);
+    const fetchQuestionsCallback = useCallback(() => {
+        fetchQuestions(selectedCategory.id, null, 5, 1)
+            .then(data =>
+            setQuestions(data.rows)
+        );
+    }, [selectedCategory.id, setQuestions]);
 
     useEffect(() => {
-        fetchQuestions()
-    }, [fetchQuestions])
+        fetchQuestionsCallback()
+    }, [fetchQuestionsCallback])
 
     return (
         <div className={classes.sectionQuestionList}>
@@ -52,7 +50,7 @@ const SectionQuestionsList = () => {
             </div>
             <div className={classes.questionsContainer}>
                 <div className={classes.leftBar__questionsList}>
-                    {selectedCategoryQuestions.map(question =>
+                    {questions.map(question =>
                         <QuestionItem
                             key={question.id}
                             question={question}
