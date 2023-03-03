@@ -1,0 +1,75 @@
+.questionBox {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #ECE9EC;
+    border-radius: 15px;
+    gap: 15px 0;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 0 15px;
+}
+
+.title .avatar {
+    width: 50px;
+    height: 50px;
+}
+
+.title .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.title .userName {
+    font-size: 20px;
+    font-weight: bold;
+    color: #9D5C63;
+}
+
+.title .categoryName {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #AB9CA6;
+}
+
+.title .userName:hover {
+    text-decoration: underline;
+}
+
+.title .date {
+    font-size: 20px;
+    font-weight: bold;
+    color: #9D5C63;
+}
+
+.text {
+    padding-left: 65px;
+}
+
+.text p {
+    font-size: 20px;
+}
+
+.questionBox button {
+    margin-top: 15px;
+    margin-left: auto;
+    padding: 7px 28px 5px 28px;
+    background: transparent;
+    border: 2px solid #9D5C63;
+    border-radius: 100px;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    color: #9D5C63;
+}
+
+.questionBox button:hover {
+    background: #9D5C63;
+    color: #FFFFFF;
+}

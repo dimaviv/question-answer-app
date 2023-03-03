@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from "./components/Header/Header";
+import Header from "./components/header/Header";
 import AppRouter from "./components/AppRouter";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/footer/Footer";
 
 const App = () => {
     return (

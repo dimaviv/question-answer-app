@@ -1,0 +1,112 @@
+.sectionAsk {
+    padding: 17px 0 37px 0 ;
+    display: flex;
+    justify-content: center;
+}
+
+.contentContainer {
+    width: 1280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.askQuestionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainTitleContainer {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.mainTitleContainer .title {
+    padding: 0 28px;
+    font-size: 31.25px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.searchFormContainer {
+    margin-top: 20px;
+}
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchBtnBox {
+    display: flex;
+}
+
+.searchBtnBox input[type="text"] {
+    padding: 1px 0 1px 40px;
+    width: 870px;
+    height: 60px;
+    font-size: 20px;
+    color: #584B53;
+    background: #FFFFFF;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    border-color: #584B53;
+    border-radius: 100px 0 0 100px;
+}
+
+.searchBtnBox button {
+    width: 90px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #9D5C63;
+    border-width: 1px 1px 1px 0;
+    border-style: solid;
+    border-color: #584B53;
+    border-radius: 0 100px 100px 0;
+}
+
+.searchForm button:hover {
+    background: #8D5359;
+}
+
+.searchForm label {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #8E7B87;
+}
+
+.secondTitleContainer {
+    margin-top: 74px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.secondTitleContainer .decorBox {
+    z-index: 0;
+}
+
+.secondTitleContainer .title {
+    padding: 0 28px;
+    background-color: #FEF5EF;
+    font-size: 31.25px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.secondTitleContainer .decorBox::before {
+    content: "";
+    margin-top: -1px;
+    border-top: 1px solid #D9D3D8;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: -1;
+}
