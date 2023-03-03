@@ -62,7 +62,8 @@ const SectionQuestionsList = () => {
                 </div>
                 <div className={classes.rightBar__usersRating}>
                     <div className={classes.title}>
-                        <p>Top 10 {selectedCategory.name}</p>
+                        {/*<p>Top 10 {selectedCategory.name}</p>*/}
+                        <p>Top 10</p>
                     </div>
                     <div className={classes.usersRatingBox}>
                         {users.map((user, index) =>
