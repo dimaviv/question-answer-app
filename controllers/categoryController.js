@@ -9,6 +9,7 @@ class CategoryController {
 
     async getAll(req, res) {
         const categories = await Category.findAll()
+        res.status(200)
         return res.json(categories)
     }
 

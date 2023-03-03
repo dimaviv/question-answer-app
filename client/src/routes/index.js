@@ -1,6 +1,7 @@
 import {ROUTE_HOME, ROUTE_LOGIN} from "../utils/consts";
 import loadable from "@loadable/component";
 import LoaderPage from "../components/UI/LoaderPage/LoaderPage";
+import React from 'react';
 
 const HomePage = loadable(() => import("../pages/HomePage/HomePage"), {
     fallback: <LoaderPage/>
