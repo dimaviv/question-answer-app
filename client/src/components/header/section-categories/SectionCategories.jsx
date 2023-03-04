@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import classes from "./SectionCategories.module.css";
 import {useSelector} from "react-redux";
 import decorTriangle from "../../../static/header/decor/decor__triangle.svg"
 import {useNavigate} from "react-router-dom";
 import {useActions} from "../../../hooks/UseActions";
 import {fetchCategories} from "../../../http/questionAPI";
-import { transliterate } from 'transliteration';
 
 const SectionCategories = () => {
     const navigate = useNavigate()
@@ -18,14 +17,18 @@ const SectionCategories = () => {
 
     const onCategoryClick = (category) => {
         setSelectedCategory(category)
-        navigate(transliterate(`/${category.name.toLowerCase()}/${category.id}`))
+        navigate(`/${category.name.toLowerCase()}/${category.id}`)
     }
 
-    useEffect(() => {
+    const fetchCategoriesCallback = useCallback(() => {
         fetchCategories().then(data =>
             setCategories(data)
         )
-    }, [])
+    }, [setCategories])
+
+    useEffect(() => {
+        fetchCategoriesCallback()
+    }, [fetchCategoriesCallback])
 
 
     return (
