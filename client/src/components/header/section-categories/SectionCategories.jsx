@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from "./SectionCategories.module.css";
 import {useSelector} from "react-redux";
 import decorTriangle from "../../../static/header/decor/decor__triangle.svg"
@@ -20,15 +20,15 @@ const SectionCategories = () => {
         navigate(`/${category.name.toLowerCase()}/${category.id}`)
     }
 
-    const fetchCategoriesCallback = useCallback(() => {
-        fetchCategories().then(data =>
-            setCategories(data)
-        )
-    }, [setCategories])
-
     useEffect(() => {
-        fetchCategoriesCallback()
-    }, [fetchCategoriesCallback])
+        fetchCategories()
+            .then(data =>
+                setCategories(data)
+            )
+            .catch(error => {
+                console.error(error)
+            })
+    }, [])
 
 
     return (

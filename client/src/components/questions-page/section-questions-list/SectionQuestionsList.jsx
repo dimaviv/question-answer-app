@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import classes from './SectionQuestionsList.module.css'
+import _ from 'lodash';
 import decorTriangleImg from "../../../static/home-page/decor/decor__triangle.svg";
 import {useSelector} from "react-redux";
 import UserPlaceItem from "./user-place-item/UserPlaceItem";
@@ -13,17 +14,23 @@ import {useActions} from "../../../hooks/UseActions";
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate()
+
     const {selectedCategory} = useSelector(state => state.categoriesReducer)
     const {questions} = useSelector(state => state.questionsReducer)
     const {users} = useSelector(state => state.usersReducer)
+
     const {setQuestions} = useActions()
 
     const fetchQuestionsCallback = useCallback(() => {
-        fetchQuestions(selectedCategory.id, null, 5, 1)
-            .then(data =>
-            setQuestions(data.rows)
-        );
-    }, [selectedCategory.id, setQuestions]);
+        fetchQuestions(selectedCategory.id, null, null, null)
+            .then(data => {
+                const sortedQuestions = _.sortBy(data.rows, 'createdAt').reverse()
+                setQuestions(sortedQuestions)
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }, [selectedCategory.id]);
 
     useEffect(() => {
         fetchQuestionsCallback()
@@ -60,7 +67,6 @@ const SectionQuestionsList = () => {
                 </div>
                 <div className={classes.rightBar__usersRating}>
                     <div className={classes.title}>
-                        {/*<p>Top 10 {selectedCategory.name}</p>*/}
                         <p>Top 10</p>
                     </div>
                     <div className={classes.usersRatingBox}>
