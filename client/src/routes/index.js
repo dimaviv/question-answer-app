@@ -9,6 +9,9 @@ const HomePage = loadable(() => import("../pages/home-page/HomePage"), {
 const QuestionsPage = loadable(() => import("../pages/questions-page/QuestionsPage"), {
     fallback: <LoaderPage/>
 });
+const QuestionPage = loadable(() => import("../pages/question-page/QuestionPage"), {
+    fallback: <LoaderPage/>
+});
 const LoginPage = loadable(() => import("../pages/login-page/LoginPage"), {
     fallback: <LoaderPage/>
 });
@@ -20,7 +23,8 @@ const ErrorPage = loadable(() => import("../pages/error-page/ErrorPage"), {
 export const publicRoutes = [
     {path: '/', component: HomePage},
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/:id/:id', component: QuestionsPage},
+    {path: '/:id', component: QuestionsPage},
+    {path: '/:id/:id', component: QuestionPage},
     {path: ROUTE_LOGIN, component: LoginPage},
     {path: '*', component: ErrorPage},
 ]
@@ -28,6 +32,7 @@ export const publicRoutes = [
 export const privateRoutes = [
     {path: '/', component: HomePage},
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/:id/:id', component: QuestionsPage},
+    {path: '/:id', component: QuestionsPage},
+    {path: '/:id/:id', component: QuestionPage},
     {path: '*', component: ErrorPage},
 ]

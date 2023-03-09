@@ -15,11 +15,16 @@ import {useActions} from "../../../hooks/UseActions";
 const SectionQuestionsList = () => {
     const navigate = useNavigate()
 
-    const {selectedCategory} = useSelector(state => state.categoriesReducer)
+    const {selectedCategory, categories} = useSelector(state => state.categoriesReducer)
     const {questions} = useSelector(state => state.questionsReducer)
     const {users} = useSelector(state => state.usersReducer)
 
-    const {setQuestions} = useActions()
+    const {setSelectedCategory, setQuestions} = useActions()
+
+    const fetchCategoryCallback = useCallback(() => {
+        const category = categories.find(category => category.id === JSON.parse(sessionStorage.getItem('categoryId')))
+        setSelectedCategory(category)
+    }, [categories])
 
     const fetchQuestionsCallback = useCallback(() => {
         fetchQuestions(selectedCategory.id, null, null, null)
@@ -33,8 +38,9 @@ const SectionQuestionsList = () => {
     }, [selectedCategory.id]);
 
     useEffect(() => {
+        fetchCategoryCallback()
         fetchQuestionsCallback()
-    }, [fetchQuestionsCallback])
+    }, [fetchCategoryCallback, fetchQuestionsCallback])
 
     return (
         <div className={classes.sectionQuestionList}>
