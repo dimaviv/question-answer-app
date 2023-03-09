@@ -1,6 +1,5 @@
-import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 import classes from './SectionQuestionsList.module.css'
-import _ from 'lodash';
 import decorTriangleImg from "../../../static/home-page/decor/decor__triangle.svg";
 import {useSelector} from "react-redux";
 import UserPlaceItem from "./user-place-item/UserPlaceItem";
@@ -8,39 +7,14 @@ import QuestionItem from "./question-item/QuestionItem";
 import {useNavigate} from "react-router-dom";
 import {ROUTE_LOGIN} from "../../../utils/consts";
 import {topImages} from "../../../utils/questions-page/img-places";
-import {fetchQuestions} from "../../../http/questionAPI";
-import {useActions} from "../../../hooks/UseActions";
 
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate()
 
-    const {selectedCategory, categories} = useSelector(state => state.categoriesReducer)
     const {questions} = useSelector(state => state.questionsReducer)
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
     const {users} = useSelector(state => state.usersReducer)
-
-    const {setSelectedCategory, setQuestions} = useActions()
-
-    const fetchCategoryCallback = useCallback(() => {
-        const category = categories.find(category => category.id === JSON.parse(sessionStorage.getItem('categoryId')))
-        setSelectedCategory(category)
-    }, [categories])
-
-    const fetchQuestionsCallback = useCallback(() => {
-        fetchQuestions(selectedCategory.id, null, null, null)
-            .then(data => {
-                const sortedQuestions = _.sortBy(data.rows, 'createdAt').reverse()
-                setQuestions(sortedQuestions)
-            })
-            .catch(error => {
-                console.error(error)
-            })
-    }, [selectedCategory.id]);
-
-    useEffect(() => {
-        fetchCategoryCallback()
-        fetchQuestionsCallback()
-    }, [fetchCategoryCallback, fetchQuestionsCallback])
 
     return (
         <div className={classes.sectionQuestionList}>

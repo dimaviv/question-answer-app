@@ -11,7 +11,7 @@ const SectionCategories = () => {
 
     const {categories} = useSelector(state => state.categoriesReducer)
 
-    const {setSelectedCategory, setCategories} = useActions()
+    const {setCategories, setSelectedCategory} = useActions()
 
     const [hiddenCategories, setHiddenCategories] = useState(true)
 
@@ -28,6 +28,7 @@ const SectionCategories = () => {
             .catch(error => {
                 console.error(error)
             })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 

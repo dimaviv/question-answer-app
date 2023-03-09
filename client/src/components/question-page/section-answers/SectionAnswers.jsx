@@ -1,28 +1,13 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import classes from './SectionAnswers.module.css'
 import userAvatarImg from "../../../static/questions-page/userAvatar.svg";
 import {ROUTE_LOGIN} from "../../../utils/consts";
 import {useSelector} from "react-redux";
-import {fetchOneQuestion} from "../../../http/questionAPI";
-import {useActions} from "../../../hooks/UseActions";
 import {formatDate} from "../../../utils/questions-page/formatDate";
 
 const SectionAnswers = () => {
-    const {selectedCategory} = useSelector(state => state.categoriesReducer)
     const {question} = useSelector(state => state.questionsReducer)
-
-    const {setSelectedQuestion} = useActions()
-
-    useEffect(() => {
-        const questionId = JSON.parse(sessionStorage.getItem('questionId'))
-        fetchOneQuestion(questionId)
-            .then(
-                data => setSelectedQuestion(data)
-            )
-            .catch(
-                error => console.error(error)
-            )
-    }, [])
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
 
     return (
         <div className={classes.sectionAnswers}>

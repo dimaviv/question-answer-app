@@ -1,27 +1,11 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import classes from './SectionCategoryAsk.module.css'
 import searchImg from "../../../static/icons/search.svg";
 import {useSelector} from "react-redux";
-import {useActions} from "../../../hooks/UseActions";
 
 const SectionCategoryAsk = () => {
-    const {categories, selectedCategory} = useSelector(state => state.categoriesReducer)
-
-    const {setSelectedCategory} = useActions()
-
-    const fetchCategories = useCallback(() => {
-        for (let i = 0; i < categories.length; i++) {
-            if (categories[i].id === parseInt(localStorage.getItem('categoryId'))) {
-                setSelectedCategory(categories[i])
-            }
-        }
-    }, [categories, setSelectedCategory]);
-
-    useEffect(() => {
-        fetchCategories()
-    }, [fetchCategories])
-
     const [searchAnswer, setSearchAnswer] = useState('');
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
 
     const handleSubmit = (e) => {
         e.preventDefault();
