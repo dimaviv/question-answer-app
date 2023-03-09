@@ -1,9 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
-// import userAvatarImg from '../../../../static/questions-page/userAvatar.svg'
 
 const initialState = {
     questions: [],
-    question: {}
+    question: {},
 }
 
 export const questionsSlice = createSlice({
@@ -15,7 +14,7 @@ export const questionsSlice = createSlice({
         },
         setSelectedQuestion(state,action) {
             state.question = action.payload
-        }
+        },
     }
 })
 

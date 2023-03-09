@@ -1,4 +1,6 @@
 .sectionAnswers {
+    margin-top: 37px;
+    padding-bottom: 74px;
     display: flex;
     justify-content: center;
 }
@@ -9,65 +11,81 @@
     flex-direction: column;
 }
 
-.mainQuestionBox {
-    padding: 30px;
+.questionBox {
+    padding: 60px;
     display: flex;
     flex-direction: column;
     border: 2px solid #ECE9EC;
     border-radius: 15px;
-    gap: 15px 0;
+    background: #FFFFFF;
+    gap: 20px 0;
 }
 
-.title {
+.questionTitle {
     display: flex;
     align-items: center;
     gap: 0 15px;
 }
 
-.title .avatar {
+.questionTitle .avatar {
     width: 50px;
     height: 50px;
 }
 
-.title .avatar img {
+.questionTitle .avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.title .userName {
+.questionTitle .userName {
     font-size: 20px;
     font-weight: bold;
     color: #9D5C63;
 }
 
-.title .categoryName {
+.questionTitle .categoryName {
     font-size: 20px;
     font-weight: bold;
     text-transform: uppercase;
-    color: #AB9CA6;
+    color: #D9D3D8;
 }
 
-.title .userName:hover {
+.questionTitle .userName:hover {
     text-decoration: underline;
 }
 
-.title .date {
+.questionTitle .date {
     font-size: 20px;
     font-weight: bold;
     color: #9D5C63;
 }
 
-.text {
-    padding-left: 65px;
+.questionTitle .reportBtn {
+    margin-left: auto;
+    padding: 0;
+    height: 30px;
+    border: none;
+    background: none;
 }
 
-.text p {
+.questionTitle .reportBtn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.questionText {
+    padding-left: 65px;
+    font-weight: bold;
+}
+
+.questionText p {
     font-size: 20px;
 }
 
-.questionBox button {
+.questionBox .answerBtn {
     margin-top: 15px;
     margin-left: auto;
     padding: 7px 28px 5px 28px;
@@ -80,7 +98,48 @@
     color: #9D5C63;
 }
 
-.questionBox button:hover {
+.questionBox .answerBtn:hover {
     background: #9D5C63;
     color: #FFFFFF;
+}
+
+.answersTitleContainer {
+    margin: 74px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.answersTitleContainer .decorBox {
+    z-index: 0;
+}
+
+.answersTitleContainer .text {
+    padding: 0 28px;
+    background-color: #FEF5EF;
+    color: #9D5C63;
+    text-transform: uppercase;
+    font-size: 31.25px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.answersTitleContainer .decorBox::before {
+    content: "";
+    margin-top: -1px;
+    border-top: 2px solid #9D5C63;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: -1;
+}
+
+.answersBox {
+    margin-left: auto;
+    width: 1220px;
+    display: flex;
+    flex-direction: column;
+    gap: 74px 0;
 }

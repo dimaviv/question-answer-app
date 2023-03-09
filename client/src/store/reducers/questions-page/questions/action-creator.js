@@ -6,5 +6,5 @@ export const QuestionsActionCreator = {
     },
     setSelectedQuestion: (question) => dispatch => {
         dispatch(questionsSlice.actions.setSelectedQuestion(question))
-    }
+    },
 }
