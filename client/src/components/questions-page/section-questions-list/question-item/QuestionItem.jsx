@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from "./QuestionItem.module.css";
 import {ROUTE_LOGIN} from "../../../../utils/consts";
+import userAvatarImg from '../../../../static/questions-page/userAvatar.svg'
 
 const QuestionItem = ({question, selectedCategory}) => {
     function formatDate(date) {
@@ -37,20 +38,20 @@ const QuestionItem = ({question, selectedCategory}) => {
         <div className={classes.questionBox}>
             <div className={classes.title}>
                 <div className={classes.avatar}>
-                    <img src={question.avatar} alt={question.user}/>
+                    <img src={userAvatarImg} alt=''/>
                 </div>
                 <a href={ROUTE_LOGIN} className={classes.userName}>
-                    {question.user}
+                    userNick
                 </a>
                 <p className={classes.categoryName}>
                     {selectedCategory.name}
                 </p>
                 <p className={classes.date}>
-                    {formatDate(question.date)}
+                    {formatDate(question.createdAt)}
                 </p>
             </div>
             <div className={classes.text}>
-                <p>{question.question}</p>
+                <p>{question.text}</p>
             </div>
             <button>Answer</button>
         </div>
