@@ -4,10 +4,14 @@ import {ROUTE_LOGIN} from "../../../../utils/consts";
 import userAvatarImg from '../../../../static/questions-page/userAvatar.svg'
 import {useNavigate} from "react-router-dom";
 import {formatDate} from "../../../../utils/questions-page/formatDate";
+import {useSelector} from "react-redux";
 
 const QuestionItem = ({question, selectedCategory}) => {
     const navigate = useNavigate()
     const pathToCategory = (selectedCategory.name.toLowerCase()).replace(/\s+/g, "")
+    const {categories} = useSelector(state => state.categoriesReducer)
+
+    const categoryName = categories.find(category => category.id === question.categoryId)
 
     const handleRedirectQuestion = (questionId) => {
         sessionStorage.setItem('questionId', JSON.stringify(questionId))
@@ -24,7 +28,7 @@ const QuestionItem = ({question, selectedCategory}) => {
                     userNick
                 </a>
                 <p className={classes.categoryName}>
-                    {selectedCategory.name}
+                    {categoryName.name}
                 </p>
                 <p className={classes.date}>
                     {formatDate(question.createdAt)}

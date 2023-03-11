@@ -7,7 +7,7 @@ const SectionCategoryAsk = () => {
     const [searchAnswer, setSearchAnswer] = useState('');
     const {selectedCategory} = useSelector(state => state.categoriesReducer)
 
-    const handleSubmit = (e) => {
+    const handleSubmitForm = (e) => {
         e.preventDefault();
     }
 
@@ -27,7 +27,7 @@ const SectionCategoryAsk = () => {
                         </div>
                     </div>
                     <div className={classes.searchFormContainer}>
-                        <form className={classes.searchForm} onSubmit={handleSubmit}>
+                        <form className={classes.searchForm} onSubmit={handleSubmitForm}>
                             <div className={classes.searchBtnBox}>
                                 <input
                                     id='search-input'

@@ -5,20 +5,25 @@ import {ROUTE_LOGIN} from "../../../../utils/consts";
 import {formatDate} from "../../../../utils/questions-page/formatDate";
 import reportBtnHoverImg from "../../../../static/question-page/reportBtnHover.svg";
 import reportBtnImg from "../../../../static/question-page/reportBtn.svg";
+import commentOnBtnImg from "../../../../static/question-page/commentOnBtn.svg";
+import commentOffBtnImg from "../../../../static/question-page/commentOffBtn.svg";
 import gradeUpBtnImg from "../../../../static/question-page/gradeUpBtn.svg";
 import gradeDownBtnImg from "../../../../static/question-page/gradeDownBtn.svg";
 
 const AnswerItem = ({answer}) => {
-    const [hovered, setHovered] = useState(false);
+    const [hoveredReport, setHoveredReport] = useState(false);
+    const [hoveredComment, setHoveredComment] = useState(false);
     const [grade, setGrade] = useState(0)
+    const [isReport, setIsReport] = useState(false)
+    const [isComment, setIsComment] = useState(false)
+    const [comments, setComments] = useState([
+        {id: 1, text: 'Good', avatar: userAvatarImg},
+        {id: 2, text: 'Good job', avatar: userAvatarImg},
+    ])
+    const [commentText, setCommentText] = useState('')
 
-    const handleMouseEnter = () => {
-        setHovered(true);
-    };
-
-    const handleMouseLeave = () => {
-        setHovered(false);
-    };
+    const handleMouseEnter = (handler) => () => handler(true);
+    const handleMouseLeave = (handler) => () => handler(false);
 
     const handleGradeUp = () => {
         setGrade((prevGrade) => prevGrade + 1);
@@ -27,6 +32,23 @@ const AnswerItem = ({answer}) => {
     const handleGradeDown = () => {
         setGrade((prevGrade) => prevGrade - 1);
     };
+
+    const handleReport = () => {
+        setIsReport(!isReport)
+    }
+
+    const handleComment = () => {
+        setIsComment(!isComment)
+    }
+
+    const handleSubmitForm = async (e) => {
+        e.preventDefault()
+        if (commentText) {
+            const newComment = {id: Date.now(), text: commentText, avatar: userAvatarImg}
+            setComments([...comments, newComment])
+            setCommentText('')
+        }
+    }
     return (
         <div className={classes.answerBox}>
             <div className={classes.answerTitle}>
@@ -42,22 +64,38 @@ const AnswerItem = ({answer}) => {
                 <p className={classes.date}>
                     {formatDate(answer.createdAt)}
                 </p>
-                <button className={classes.reportBtn}>
-                    <img
-                        src={hovered ? reportBtnHoverImg : reportBtnImg}
-                        alt='report'
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                    />
-                </button>
+                <div className={classes.btnBox}>
+                    <button className={classes.reportBtn} onClick={handleReport}>
+                        <img
+                            src={(isReport && reportBtnHoverImg) || (hoveredReport ? reportBtnHoverImg : reportBtnImg)}
+                            alt='report'
+                            onMouseEnter={handleMouseEnter(setHoveredReport)}
+                            onMouseLeave={handleMouseLeave(setHoveredReport)}
+                        />
+                    </button>
+                    <button className={classes.reportBtn} onClick={handleComment}>
+                        <img
+                            src={
+                                isComment
+                                    ?
+                                    (hoveredComment ? commentOffBtnImg : commentOnBtnImg)
+                                    :
+                                    (!hoveredComment ? commentOffBtnImg : commentOnBtnImg)
+                            }
+                            alt='comment'
+                            onMouseEnter={handleMouseEnter(setHoveredComment)}
+                            onMouseLeave={handleMouseLeave(setHoveredComment)}
+                        />
+                    </button>
+                </div>
             </div>
-            <div className={classes.answerText}>
+            <div className={classes.answerTextBox}>
                 <div className={classes.gradeBox}>
                     <button className={classes.gradeBtn} onClick={handleGradeUp}>
                         <img src={gradeUpBtnImg} alt='like'/>
                     </button>
                     <div>
-                        <p>
+                        <p className={classes.grade}>
                             {grade}
                         </p>
                     </div>
@@ -65,9 +103,43 @@ const AnswerItem = ({answer}) => {
                         <img src={gradeDownBtnImg} alt='dislike'/>
                     </button>
                 </div>
-                <p>{answer.text}</p>
+                <p className={classes.answerText}>{answer.text}</p>
             </div>
-            <button className={classes.answerBtn}>Comment</button>
+            <div className={classes.commentBox}>
+                {isComment
+                    ?
+                    <div className={classes.commentBox__content}>
+                        {comments && comments.length > 0 &&
+                            <div className={classes.commentList}>
+                                {comments.map(comment =>
+                                    <div className={classes.commentItem} key={comment.id}>
+                                        <div className={classes.commentAvatar}>
+                                            <img src={comment.avatar} alt='user-avatar'/>
+                                        </div>
+                                        <p>{comment.text}</p>
+                                    </div>
+                                )}
+                            </div>
+                        }
+                        <form className={classes.commentSendForm} onSubmit={handleSubmitForm}>
+                            <div className={classes.userAvatar}>
+                                <img src={userAvatarImg} alt='user-avatar'/>
+                            </div>
+                            <input
+                                type='text'
+                                placeholder='Comment'
+                                value={commentText}
+                                onChange={e => setCommentText(e.target.value)}
+                            />
+                            <button>
+                                Send
+                            </button>
+                        </form>
+                    </div>
+                    :
+                    <button className={classes.answerBtn} onClick={() => setIsComment(!isComment)}>Comment</button>
+                }
+            </div>
         </div>
     );
 };

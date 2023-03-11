@@ -12,14 +12,25 @@ const QuestionsPage = () => {
     const {setSelectedCategory, setQuestions} = useActions()
 
     const fetchQuestionsCallback = useCallback(() => {
-        fetchQuestions(selectedCategory.id, null, null, null)
-            .then(data => {
-                const sortedQuestions = _.sortBy(data.rows, 'createdAt').reverse()
-                setQuestions(sortedQuestions)
-            })
-            .catch(error => {
-                console.error(error)
-            })
+        if(!(window.location.href.search('/all') === -1)) {
+            fetchQuestions(null, null, null, null)
+                .then(data => {
+                    const sortedQuestions = _.sortBy(data.rows, 'createdAt').reverse()
+                    setQuestions(sortedQuestions)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        } else {
+            fetchQuestions(selectedCategory.id, null, null, null)
+                .then(data => {
+                    const sortedQuestions = _.sortBy(data.rows, 'createdAt').reverse()
+                    setQuestions(sortedQuestions)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCategory.id]);
 
