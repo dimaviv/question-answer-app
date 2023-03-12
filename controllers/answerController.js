@@ -1,6 +1,6 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Answer, File} = require('../models/models')
+const {Answer, File, User} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class AnswerController {
@@ -48,16 +48,7 @@ class AnswerController {
         }
 
     }
-
-    async getAll(req, res) {
-
-        let answers = await Answer.findAndCountAll({
-            include: [{model: File, as: 'files'}]
-        },)
-
-        return res.json(answers)
-    }
-
+    
     async delete(req, res) {
         const {id} = req.params
 
