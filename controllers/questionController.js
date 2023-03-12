@@ -1,6 +1,6 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Question, Answer, File} = require('../models/models')
+const {Question, Answer, File, User} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class QuestionController {
@@ -56,16 +56,28 @@ class QuestionController {
         let offset = page * limit - limit
         let questions;
         if (!categoryId && !isAnswered) {
-            questions = await Question.findAndCountAll({limit, offset})
+            questions = await Question.findAndCountAll({
+                limit, offset,
+                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},}
+            })
         }
         if (categoryId && !isAnswered) {
-            questions = await Question.findAndCountAll({where: {categoryId}, limit, offset})
+            questions = await Question.findAndCountAll({
+                where: {categoryId}, limit, offset,
+                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},}
+            })
         }
         if (!categoryId && isAnswered) {
-            questions = await Question.findAndCountAll({where: {isAnswered}, limit, offset})
+            questions = await Question.findAndCountAll({
+                where: {isAnswered}, limit, offset,
+                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},}
+            })
         }
         if (categoryId && isAnswered) {
-            questions = await Question.findAndCountAll({where: {isAnswered, categoryId}, limit, offset})
+            questions = await Question.findAndCountAll({
+                where: {isAnswered, categoryId}, limit, offset,
+                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},}
+            })
         }
         return res.json(questions)
     }
@@ -78,7 +90,9 @@ class QuestionController {
                 include: [{model: Answer, as: 'answers', include: [{model: File, as: 'files'}]}, {
                     model: File,
                     as: 'files'
-                }]
+                }, {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}}
+                ],
+
             },
         )
         return res.json(question)
@@ -95,7 +109,7 @@ class QuestionController {
         }
 
     }
-    
+
 }
 
 module.exports = new QuestionController()

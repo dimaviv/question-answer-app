@@ -8,6 +8,7 @@ router.post('/', answerController.create)
 router.get('/', answerController.getAll)
 router.delete('/:id', checkRole('ADMIN'), answerController.delete)
 
+
 /**
  * @swagger
  * tags:
