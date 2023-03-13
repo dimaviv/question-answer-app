@@ -62,15 +62,6 @@ router.delete('/:id', checkRole('ADMIN'), answerController.delete)
  *       '200':
  *         description: Answer created successfully.
  *
- *   get:
- *     tags: [Answer]
- *     summary: Get all answers
- *     description: Get a list of all answers with file information
- *     responses:
- *       '200':
- *         description: A list of answer objects.
- *
- *
  * /api/answer/{id}:
  *   delete:
  *     tags: [Answer]
