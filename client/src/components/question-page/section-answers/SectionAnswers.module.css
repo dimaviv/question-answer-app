@@ -6,13 +6,13 @@
 }
 
 .answersContainer {
-    width: 1280px;
+    width: 1080px;
     display: flex;
     flex-direction: column;
 }
 
 .questionBox {
-    padding: 60px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     border: 2px solid #D9D3D8;
@@ -77,7 +77,6 @@
 }
 
 .questionText {
-    padding-left: 65px;
     font-weight: bold;
 }
 
@@ -86,7 +85,6 @@
 }
 
 .questionBox .answerBtn {
-    margin-top: 15px;
     margin-left: auto;
     padding: 7px 28px 5px 28px;
     background: transparent;
@@ -137,8 +135,6 @@
 }
 
 .answersBox {
-    margin-left: auto;
-    width: 1220px;
     display: flex;
     flex-direction: column;
     gap: 74px 0;

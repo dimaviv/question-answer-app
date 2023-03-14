@@ -1,5 +1,5 @@
 .answerBox {
-    padding-top: 60px;
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     border: 2px solid #D9D3D8;
@@ -9,7 +9,7 @@
 }
 
 .answerTitle {
-    padding: 0 60px;
+    padding: 0 40px;
     display: flex;
     align-items: center;
     gap: 0 15px;
@@ -69,8 +69,9 @@
 }
 
 .answerTextBox {
-    padding-right: 60px;
+    padding: 0 60px 0 40px;
     display: flex;
+    gap: 0 15px;
 }
 
 .answerText {
@@ -79,7 +80,7 @@
 }
 
 .gradeBox {
-    width: 125px;
+    width: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -105,7 +106,7 @@
 }
 
 .commentBox {
-    padding: 0 60px 20px;
+    padding: 0 40px 20px;
     display: flex;
     border-top: 2px solid #D9D3D8;
 }
