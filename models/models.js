@@ -15,17 +15,19 @@ const User = sequelize.define('user', {
 const Question = sequelize.define('question', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     text: {type: DataTypes.STRING, unique: true},
-    //likes: {type: DataTypes.INTEGER, defaultValue:0},
     isAnswered: {type: DataTypes.BOOLEAN, defaultValue: false},
 })
 
 const Answer = sequelize.define('answer', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     text: {type: DataTypes.TEXT},
-    //likes: {type: DataTypes.INTEGER, defaultValue:0},
-    //likes: {type: DataTypes.INTEGER},
     rating: {type: DataTypes.INTEGER, defaultValue: 0},
     isBest: {type: DataTypes.BOOLEAN, defaultValue: false},
+})
+
+const Comment = sequelize.define('comments', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    text: {type: DataTypes.TEXT, allowNull: false}
 })
 
 const Category = sequelize.define('category', {
@@ -44,6 +46,7 @@ const File = sequelize.define('file', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     extension: {type: DataTypes.STRING, allowNull: false},
 })
+
 
 User.hasMany(Question)
 Question.belongsTo(User)
@@ -64,6 +67,17 @@ Question.hasMany(Answer)
 Answer.belongsTo(Question)
 
 
+//Comments
+Question.hasMany(Comment, {as: 'comments'})
+Comment.belongsTo(Question)
+
+Answer.hasMany(Comment, {as: 'comments'})
+Comment.belongsTo(Answer)
+
+User.hasMany(Comment, {as: 'comments'})
+Comment.belongsTo(User)
+
+
 //File
 Question.hasMany(File, {as: 'files'})
 File.belongsTo(Question)
@@ -78,5 +92,6 @@ module.exports = {
     Answer,
     Category,
     Rate,
-    File
+    File,
+    Comment
 }

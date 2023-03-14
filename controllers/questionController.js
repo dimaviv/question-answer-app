@@ -1,6 +1,6 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Question, Answer, File, User} = require('../models/models')
+const {Question, Answer, File, User, Comment} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class QuestionController {
@@ -87,10 +87,23 @@ class QuestionController {
         const question = await Question.findOne(
             {
                 where: {id},
-                include: [{model: Answer, as: 'answers', include: [{model: File, as: 'files'}]}, {
+                include: [{
+                    model: Answer, as: 'answers', include: [{model: File, as: 'files'},
+                        {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}},
+                        {
+                            model: Comment,
+                            as: 'comments',
+                            include: [{model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}}]
+                        }]
+                }, {
                     model: File,
                     as: 'files'
-                }, {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}}
+                }, {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}},
+                    {
+                        model: Comment,
+                        as: 'comments',
+                        include: [{model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}}]
+                    }
                 ],
 
             },
