@@ -35,7 +35,7 @@
     font-size: 20px;
     font-weight: bold;
     text-transform: uppercase;
-    color: #AB9CA6;
+    color: #D9D3D8;
 }
 
 .title .userName:hover {
@@ -58,7 +58,7 @@
 
 .questionBox button {
     margin-left: auto;
-    padding: 7px 28px 5px 28px;
+    padding: 7px 28px 5px;
     background: transparent;
     border: 2px solid #9D5C63;
     border-radius: 100px;

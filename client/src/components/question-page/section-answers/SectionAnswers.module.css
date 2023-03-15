@@ -15,7 +15,7 @@
     padding: 40px;
     display: flex;
     flex-direction: column;
-    border: 2px solid #D9D3D8;
+    border: 2px solid #ECE9EC;
     border-radius: 15px;
     background: #FFFFFF;
     gap: 20px 0;
@@ -86,7 +86,7 @@
 
 .questionBox .answerBtn {
     margin-left: auto;
-    padding: 7px 28px 5px 28px;
+    padding: 7px 28px 5px;
     background: transparent;
     border: 2px solid #9D5C63;
     border-radius: 100px;

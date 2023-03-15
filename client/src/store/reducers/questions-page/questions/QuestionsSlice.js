@@ -16,9 +16,10 @@ export const questionsSlice = createSlice({
         setSelectedQuestion(state,action) {
             state.question = action.payload
         },
+
         setIsLoading(state, action) {
             state.isLoading = action.payload
-        }
+        },
     }
 })
 

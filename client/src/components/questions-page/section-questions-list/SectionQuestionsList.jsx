@@ -4,19 +4,18 @@ import decorTriangleImg from "../../../static/home-page/decor/decor__triangle.sv
 import {useSelector} from "react-redux";
 import UserPlaceItem from "./user-place-item/UserPlaceItem";
 import QuestionItem from "./question-item/QuestionItem";
-import {useNavigate} from "react-router-dom";
-import {ROUTE_LOGIN} from "../../../utils/consts";
 import {topImages} from "../../../utils/questions-page/img-places";
-import Loader from "../../UI/Loader/Loader";
+import Loader from "../../UI/loaders/loader/Loader";
 import _ from 'lodash'
-
+import {useNavigate} from "react-router-dom";
+import {ROUTE_ASK_QUESTION} from "../../../utils/consts";
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate()
-
     const {questions, isLoading} = useSelector(state => state.questionsReducer)
     const {selectedCategory} = useSelector(state => state.categoriesReducer)
     const {users} = useSelector(state => state.usersReducer)
+
     const [top10List, setTop10List] = useState([])
     const [sortedByTimeQuestions, setSortedByTimeQuestions] = useState([])
 
@@ -47,7 +46,7 @@ const SectionQuestionsList = () => {
                     </div>
                     <h2 className={classes.titleText}>Ask your own</h2>
                 </div>
-                <button onClick={() => navigate(ROUTE_LOGIN)}>
+                <button onClick={() => navigate(ROUTE_ASK_QUESTION)}>
                     I want to ask...
                 </button>
             </div>
