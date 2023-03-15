@@ -3,6 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     questions: [],
     question: {},
+    isLoading: false,
 }
 
 export const questionsSlice = createSlice({
@@ -15,6 +16,9 @@ export const questionsSlice = createSlice({
         setSelectedQuestion(state,action) {
             state.question = action.payload
         },
+        setIsLoading(state, action) {
+            state.isLoading = action.payload
+        }
     }
 })
 

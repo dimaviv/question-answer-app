@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import classes from './SectionQuestionsList.module.css'
 import decorTriangleImg from "../../../static/home-page/decor/decor__triangle.svg";
 import {useSelector} from "react-redux";
@@ -7,14 +7,30 @@ import QuestionItem from "./question-item/QuestionItem";
 import {useNavigate} from "react-router-dom";
 import {ROUTE_LOGIN} from "../../../utils/consts";
 import {topImages} from "../../../utils/questions-page/img-places";
+import Loader from "../../UI/Loader/Loader";
+import _ from 'lodash'
 
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate()
 
-    const {questions} = useSelector(state => state.questionsReducer)
+    const {questions, isLoading} = useSelector(state => state.questionsReducer)
     const {selectedCategory} = useSelector(state => state.categoriesReducer)
     const {users} = useSelector(state => state.usersReducer)
+    const [top10List, setTop10List] = useState([])
+    const [sortedByTimeQuestions, setSortedByTimeQuestions] = useState([])
+
+    const fetchTop10ListCallback = useCallback(() => {
+        setTop10List(_.sortBy(users, 'score').reverse().slice(0, 10))
+    }, [users])
+    const fetchSortedByTimeQuestionsCallback = useCallback(() => {
+        setSortedByTimeQuestions(_.sortBy(questions, 'createdAt').reverse())
+    }, [questions])
+
+    useEffect(() => {
+        fetchTop10ListCallback()
+        fetchSortedByTimeQuestionsCallback()
+    }, [fetchSortedByTimeQuestionsCallback, fetchTop10ListCallback])
 
     return (
         <div className={classes.sectionQuestionList}>
@@ -37,27 +53,34 @@ const SectionQuestionsList = () => {
             </div>
             <div className={classes.questionsContainer}>
                 <div className={classes.leftBar__questionsList}>
-                    {questions.map(question =>
-                        <QuestionItem
-                            key={question.id}
-                            question={question}
-                            selectedCategory={selectedCategory}
-                        />
-                    )}
+                    {isLoading
+                        ?
+                        <Loader/>
+                        :
+                        sortedByTimeQuestions.map(question =>
+                            <QuestionItem
+                                key={question.id}
+                                question={question}
+                                selectedCategory={selectedCategory}
+                            />
+                        )
+                    }
                 </div>
                 <div className={classes.rightBar__usersRating}>
                     <div className={classes.title}>
                         <p>Top 10</p>
                     </div>
-                    <div className={classes.usersRatingBox}>
-                        {users.map((user, index) =>
-                            <UserPlaceItem
-                                key={user.id}
-                                user={user}
-                                img={topImages[index]}
-                            />
-                        )}
-                    </div>
+                    {top10List && top10List.length > 0 &&
+                        <div className={classes.usersRatingBox}>
+                            {top10List.map((user, index) =>
+                                <UserPlaceItem
+                                    key={user.id}
+                                    user={user}
+                                    img={topImages[index]}
+                                />
+                            )}
+                        </div>
+                    }
                 </div>
             </div>
         </div>

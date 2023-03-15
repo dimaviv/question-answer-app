@@ -16,10 +16,6 @@ const AnswerItem = ({answer}) => {
     const [grade, setGrade] = useState(0)
     const [isReport, setIsReport] = useState(false)
     const [isComment, setIsComment] = useState(false)
-    const [comments, setComments] = useState([
-        {id: 1, text: 'Good', avatar: userAvatarImg},
-        {id: 2, text: 'Good job', avatar: userAvatarImg},
-    ])
     const [commentText, setCommentText] = useState('')
 
     const handleMouseEnter = (handler) => () => handler(true);
@@ -44,8 +40,7 @@ const AnswerItem = ({answer}) => {
     const handleSubmitForm = async (e) => {
         e.preventDefault()
         if (commentText) {
-            const newComment = {id: Date.now(), text: commentText, avatar: userAvatarImg}
-            setComments([...comments, newComment])
+            // const newComment = {id: Date.now(), text: commentText, avatar: userAvatarImg}
             setCommentText('')
         }
     }
@@ -109,14 +104,17 @@ const AnswerItem = ({answer}) => {
                 {isComment
                     ?
                     <div className={classes.commentBox__content}>
-                        {comments && comments.length > 0 &&
+                        {answer.comments && answer.comments.length > 0 &&
                             <div className={classes.commentList}>
-                                {comments.map(comment =>
+                                {answer.comments.map(comment =>
                                     <div className={classes.commentItem} key={comment.id}>
                                         <div className={classes.commentAvatar}>
-                                            <img src={comment.avatar} alt='user-avatar'/>
+                                            <img src={userAvatarImg} alt='user-avatar'/>
                                         </div>
-                                        <p>{comment.text}</p>
+                                        <div className={classes.commentTextBox}>
+                                            <p className={classes.commentText}>{comment.text}</p>
+                                            <p className={classes.commentDate}>{formatDate(comment.createdAt)}</p>
+                                        </div>
                                     </div>
                                 )}
                             </div>

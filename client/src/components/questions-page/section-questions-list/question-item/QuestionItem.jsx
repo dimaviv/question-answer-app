@@ -14,7 +14,7 @@ const QuestionItem = ({question, selectedCategory}) => {
     const categoryName = categories.find(category => category.id === question.categoryId)
 
     const handleRedirectQuestion = (questionId) => {
-        sessionStorage.setItem('questionId', JSON.stringify(questionId))
+        sessionStorage.setItem('questionId', questionId)
         navigate(`/${pathToCategory}/${questionId}`)
     }
 

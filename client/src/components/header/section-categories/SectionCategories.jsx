@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import classes from "./SectionCategories.module.css";
 import {useSelector} from "react-redux";
 import decorTriangle from "../../../static/header/decor/decor__triangle.svg"
@@ -8,28 +8,36 @@ import {fetchCategories} from "../../../http/questionAPI";
 
 const SectionCategories = () => {
     const navigate = useNavigate()
-
     const {categories} = useSelector(state => state.categoriesReducer)
-
     const {setCategories, setSelectedCategory} = useActions()
 
     const [hiddenCategories, setHiddenCategories] = useState(true)
 
     const handleRedirectCategory = (category) => {
+        sessionStorage.setItem('categoryId', category.id)
         setSelectedCategory(category)
         navigate(`/${(category.name.toLowerCase()).replace(/\s+/g, "")}`)
     }
+
+    const fetchCategoryCallback = useCallback(() => {
+        const category = categories.find(
+            category => category.id === JSON.parse(sessionStorage.getItem('categoryId'))
+        )
+        setSelectedCategory(category)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [categories])
 
     useEffect(() => {
         fetchCategories()
             .then(data =>
                 setCategories(data)
             )
-            .catch(error => {
-                console.error(error)
-            })
+            .catch(error =>
+                console.error('Ошибка при получении данных:', error)
+            )
+        fetchCategoryCallback()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [fetchCategoryCallback])
 
 
     return (

@@ -160,8 +160,19 @@
     border-radius: 50%;
 }
 
-.commentItem p {
+.commentTextBox {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.commentTextBox .commentText {
     font-size: 16px;
+}
+
+.commentTextBox .commentDate {
+    font-size: 16px;
+    color: #D9D3D8;
 }
 
 .commentSendForm {

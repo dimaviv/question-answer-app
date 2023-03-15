@@ -1,4 +1,5 @@
 .loader {
+    margin: 0 auto;
     width: 210px;
     height: 310px;
     display: flex;

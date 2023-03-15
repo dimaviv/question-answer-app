@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './SectionAnswers.module.css'
 import userAvatarImg from "../../../static/questions-page/userAvatar.svg";
 import {ROUTE_LOGIN} from "../../../utils/consts";
@@ -7,11 +7,13 @@ import {formatDate} from "../../../utils/questions-page/formatDate";
 import reportBtnImg from "../../../static/question-page/reportBtn.svg"
 import reportBtnHoverImg from "../../../static/question-page/reportBtnHover.svg"
 import AnswerItem from "./answer-item/AnswerItem";
+import _ from "lodash";
 
 const SectionAnswers = () => {
     const {question} = useSelector(state => state.questionsReducer)
     const {selectedCategory} = useSelector(state => state.categoriesReducer)
     const [hovered, setHovered] = useState(false);
+    const [sortedAnswers, setSortedAnswers] = useState([])
 
     const handleMouseEnter = () => {
         setHovered(true);
@@ -20,6 +22,12 @@ const SectionAnswers = () => {
     const handleMouseLeave = () => {
         setHovered(false);
     };
+
+    useEffect(() => {
+        if (question.answers) {
+            setSortedAnswers(_.sortBy(question.answers, 'createdAt'))
+        }
+    }, [question.answers])
 
     return (
         <div className={classes.sectionAnswers}>
@@ -61,7 +69,7 @@ const SectionAnswers = () => {
                 </div>
                 {question.answers && question.answers.length > 0 &&
                     <div className={classes.answersBox}>
-                        {question.answers.map(answer =>
+                        {sortedAnswers.map(answer =>
                             <AnswerItem
                                 key={answer.id}
                                 answer={answer}
