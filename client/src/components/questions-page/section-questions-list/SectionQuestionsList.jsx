@@ -8,7 +8,6 @@ import {topImages} from "../../../utils/questions-page/img-places";
 import Loader from "../../UI/loaders/loader/Loader";
 import _ from 'lodash'
 import {useNavigate} from "react-router-dom";
-import {ROUTE_ASK_QUESTION} from "../../../utils/consts";
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate()
@@ -22,6 +21,7 @@ const SectionQuestionsList = () => {
     const fetchTop10ListCallback = useCallback(() => {
         setTop10List(_.sortBy(users, 'score').reverse().slice(0, 10))
     }, [users])
+
     const fetchSortedByTimeQuestionsCallback = useCallback(() => {
         setSortedByTimeQuestions(_.sortBy(questions, 'createdAt').reverse())
     }, [questions])
@@ -46,7 +46,7 @@ const SectionQuestionsList = () => {
                     </div>
                     <h2 className={classes.titleText}>Ask your own</h2>
                 </div>
-                <button onClick={() => navigate(ROUTE_ASK_QUESTION)}>
+                <button onClick={() => navigate(`/${(selectedCategory.name.toLowerCase()).replace(/\s+/g, "")}/ask`)}>
                     I want to ask...
                 </button>
             </div>

@@ -1,31 +1,23 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import classes from './QuestionsPage.module.css'
 import SectionCategoryAsk from "../../components/questions-page/section-category-ask/SectionCategoryAsk";
 import SectionQuestionsList from "../../components/questions-page/section-questions-list/SectionQuestionsList";
 import {fetchQuestions} from "../../http/questionAPI";
 import {useActions} from "../../hooks/UseActions";
 import {useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
+import useCategory from "../../hooks/UseCategory";
 
 const QuestionsPage = () => {
-        const {selectedCategory, categories} = useSelector(state => state.categoriesReducer)
-        const {setQuestions, setSelectedCategory, setIsLoading} = useActions()
+        const {selectedCategory} = useSelector(state => state.categoriesReducer)
+        const {setQuestions, setIsLoading} = useActions()
+        const categoryName = useParams().categoryId
 
-        const fetchCategoryCallback = useCallback(() => {
-            if (sessionStorage.getItem('categoryId')) {
-                const category = categories.find(
-                    category => category.id === JSON.parse(sessionStorage.getItem('categoryId'))
-                )
-                setSelectedCategory(category)
-            }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [categories])
-
-
+        useCategory();
 
         useEffect(() => {
-            fetchCategoryCallback()
             fetchQuestions(
-                (!(window.location.href.search('/all') === -1) ? null : selectedCategory.id),
+                (categoryName === 'all' ? null : selectedCategory.id),
                 null,
                 null,
                 null
@@ -39,7 +31,7 @@ const QuestionsPage = () => {
                     console.error('Ошибка при получении данных:', error)
                 )
             // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [selectedCategory.id, fetchCategoryCallback])
+        }, [selectedCategory])
 
         return (
             <div className={classes.questionsPage}>

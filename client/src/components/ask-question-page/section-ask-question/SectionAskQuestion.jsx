@@ -1,10 +1,17 @@
 import React, {useState} from 'react';
 import classes from './SectionAskQuestion.module.css'
+import {createQuestion} from "../../../http/questionAPI";
+import {useSelector} from "react-redux";
 
 const SectionAskQuestion = () => {
     const [questionText, setQuestionText] = useState('')
-
     const [selectedFile, setSelectedFile] = useState(null);
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
+
+    const clearValues = () => {
+        setQuestionText('')
+        setSelectedFile(null)
+    }
 
     const handleFileInput = e => {
         setSelectedFile(e.target.files[0]);
@@ -12,8 +19,22 @@ const SectionAskQuestion = () => {
 
     const handleSubmitForm = (e) => {
         e.preventDefault()
-        const formData = new FormData();
-        formData.append("file", selectedFile);
+        const newQuestion = {
+            text: questionText,
+            userId: 1,
+            categoryId: selectedCategory.id,
+            file: selectedFile
+        }
+        createQuestion(newQuestion)
+            .then(
+                () => {
+                    alert('Question was created')
+                    clearValues()
+                }
+            )
+            .catch(
+                error => console.error('Ошибка при получении данных:', error)
+            )
     }
 
     return (

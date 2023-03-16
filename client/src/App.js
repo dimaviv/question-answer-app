@@ -4,6 +4,7 @@ import AppRouter from "./components/AppRouter";
 import Footer from "./components/footer/Footer";
 
 const App = () => {
+
     return (
         <>
             <Header/>

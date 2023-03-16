@@ -1,4 +1,4 @@
-import {ROUTE_ASK_QUESTION, ROUTE_HOME, ROUTE_LOGIN} from "../utils/consts";
+import {ROUTE_HOME, ROUTE_LOGIN} from "../utils/consts";
 import loadable from "@loadable/component";
 import LoaderPage from "../components/UI/loaders/loader-page/LoaderPage";
 import React from 'react';
@@ -26,9 +26,9 @@ const ErrorPage = loadable(() => import("../pages/error-page/ErrorPage"), {
 export const publicRoutes = [
     {path: '/', component: HomePage},
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/:id', component: QuestionsPage},
-    {path: ROUTE_ASK_QUESTION, component: AskQuestionPage},
-    {path: '/:id/:id', component: QuestionPage},
+    {path: '/:categoryId', component: QuestionsPage},
+    {path: '/:categoryId/ask', component: AskQuestionPage},
+    {path: '/:categoryId/:questionId', component: QuestionPage},
     {path: ROUTE_LOGIN, component: LoginPage},
     {path: '*', component: ErrorPage},
 ]
@@ -36,8 +36,8 @@ export const publicRoutes = [
 export const privateRoutes = [
     {path: '/', component: HomePage},
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/:id', component: QuestionsPage},
-    {path: ROUTE_ASK_QUESTION, component: AskQuestionPage},
-    {path: '/:id/:id', component: QuestionPage},
+    {path: '/:categoryId', component: QuestionsPage},
+    {path: '/:categoryId/ask', component: AskQuestionPage},
+    {path: '/:categoryId/:questionId', component: QuestionPage},
     {path: '*', component: ErrorPage},
 ]
