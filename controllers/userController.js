@@ -12,6 +12,19 @@ const generateJwt = (id, email, role) => {
 }
 
 class UserController {
+    async getMostScored(req, res) {
+        let {categoryId, limit} = req.query
+        limit = limit || 10
+        let users
+        if (categoryId) {
+            users = await User.findAll({where: {categoryId}, limit, order: [['score', 'ASC']]})
+        } else {
+            users = await User.findAll({limit, order: [['score', 'DESC']]})
+        }
+
+        return res.json(users)
+    }
+
     async registration(req, res, next) {
         const {email, password, role} = req.body
         if (!email || !password) {

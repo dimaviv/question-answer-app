@@ -6,6 +6,7 @@ const authMiddleware = require('../middleware/AuthMiddleware')
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
 router.get('/auth', authMiddleware, userController.check)
+router.get('/most-scored', userController.getMostScored)
 
 /**
  * @swagger
@@ -98,6 +99,28 @@ router.get('/auth', authMiddleware, userController.check)
  *               properties:
  *                 token:
  *                   type: string
+ */
+
+/**
+ * @swagger
+ * /api/user/most-scored:
+ *  get:
+ *     summary: Get a list of most scored users
+ *     tags: [User]
+ *     parameters:
+ *       - in: query
+ *         name: categoryId
+ *         schema:
+ *           type: integer
+ *         description: ID of the category to filter by
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Maximum number of users to return
+ *     responses:
+ *       200:
+ *         description: An array of question objects
  */
 
 
