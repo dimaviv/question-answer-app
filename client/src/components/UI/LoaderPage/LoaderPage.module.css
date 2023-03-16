@@ -15,7 +15,7 @@
 .loaderPage__container p{
     margin-top: 20px;
     font-size: 30px;
-    color: #a8461a;
+    color: #9D5C63;
 }
 
 .loaderPage__container p span:nth-child(1) {
@@ -46,7 +46,7 @@
 .roller {
     width: 130px;
     height: 130px;
-    border: 13px dotted #a8461a;
+    border: 13px dotted #9D5C63;
     border-radius: 50%;
     display: inline-block;
     position: relative;

@@ -11,13 +11,13 @@ const SectionCategories = () => {
 
     const {categories} = useSelector(state => state.categoriesReducer)
 
-    const {setSelectedCategory, setCategories} = useActions()
+    const {setCategories, setSelectedCategory} = useActions()
 
     const [hiddenCategories, setHiddenCategories] = useState(true)
 
-    const onCategoryClick = (category) => {
+    const handleRedirectCategory = (category) => {
         setSelectedCategory(category)
-        navigate(`/${category.name.toLowerCase()}/${category.id}`)
+        navigate(`/${(category.name.toLowerCase()).replace(/\s+/g, "")}`)
     }
 
     useEffect(() => {
@@ -28,6 +28,7 @@ const SectionCategories = () => {
             .catch(error => {
                 console.error(error)
             })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -37,10 +38,10 @@ const SectionCategories = () => {
                 <div className={`${classes.categories} ${!hiddenCategories && classes.show}`}>
                     {categories.map(category =>
                         <div className={classes.category} key={category.id}>
-                            <img src={process.env.REACT_APP_API_URL + category.image + '.png'} alt={category.name} width={32} height={32}/>
+                            <img src={process.env.REACT_APP_API_URL + category.image + '.png'} alt={category.name}/>
                             <button
-                                className={`${classes.category__text} ${!(window.location.href.search(`/${category.id}`) === -1) && classes.active}`}
-                                onClick={() => onCategoryClick(category)}
+                                className={`${classes.category__text} ${!(window.location.href.search(`/${(category.name.toLowerCase()).replace(/\s+/g, "")}`) === -1) && classes.active}`}
+                                onClick={() => handleRedirectCategory(category)}
                             >
                                 {category.name}
                             </button>

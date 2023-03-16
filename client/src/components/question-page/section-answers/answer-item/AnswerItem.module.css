@@ -1,0 +1,216 @@
+.answerBox {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #D9D3D8;
+    border-radius: 15px;
+    background: #FFFFFF;
+    gap: 20px 0;
+}
+
+.answerTitle {
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 0 15px;
+}
+
+.answerTitle .avatar {
+    width: 50px;
+    height: 50px;
+}
+
+.answerTitle .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.answerTitle .userName {
+    font-size: 20px;
+    font-weight: bold;
+    color: #9D5C63;
+}
+
+.answerTitle .categoryName {
+    font-size: 20px;
+    font-weight: bold;
+    color: #D9D3D8;
+}
+
+.answerTitle .userName:hover {
+    text-decoration: underline;
+}
+
+.answerTitle .date {
+    font-size: 20px;
+    font-weight: bold;
+    color: #9D5C63;
+}
+
+.answerTitle .btnBox {
+    margin-left: auto;
+    display: flex;
+    gap: 0 15px;
+}
+
+.answerTitle .reportBtn {
+    padding: 0;
+    height: 30px;
+    border: none;
+    background: none;
+}
+
+.answerTitle .reportBtn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.answerTextBox {
+    padding: 0 60px 0 40px;
+    display: flex;
+    gap: 0 15px;
+}
+
+.answerText {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.gradeBox {
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px 0;
+}
+
+.gradeBtn {
+    padding: 0;
+    width: 32px;
+    height: 16px;
+    border: none;
+    background: none;
+}
+
+.gradeBtn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.grade {
+    font-size: 25px;
+}
+
+.commentBox {
+    padding: 0 40px 20px;
+    display: flex;
+    border-top: 2px solid #D9D3D8;
+}
+
+.answerBtn {
+    margin: 20px 0 0 auto;
+    padding: 7px 28px 5px 28px;
+    background: transparent;
+    border: 2px solid #D9D3D8;
+    border-radius: 100px;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    color: #D9D3D8;
+}
+
+.answerBtn:hover {
+    border: 2px solid #9D5C63;
+    background: #9D5C63;
+    color: #FFFFFF;
+}
+
+.commentBox__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.commentList {
+    display: flex;
+    flex-direction: column;
+}
+
+.commentItem {
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    gap: 0 10px;
+    border-bottom: 1px solid #D9D3D8;
+}
+
+.commentAvatar {
+    width: 40px;
+    height: 40px;
+}
+
+.commentItem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.commentItem p {
+    font-size: 16px;
+}
+
+.commentSendForm {
+    margin-top: 20px;
+    padding-left: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0 15px;
+}
+
+.commentSendForm .userAvatar {
+    width: 50px;
+    height: 50px;
+}
+
+.commentSendForm .userAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.commentSendForm input {
+    padding: 10px 28px;
+    width: 100%;
+    border: 2px solid #D9D3D8;
+    border-radius: 100px;
+    color: #584B53;
+    font-size: 16px;
+}
+
+.commentSendForm input::placeholder {
+    font-weight: 900;
+    font-size: 20px;
+    color: #D9D3D8;
+    text-transform: uppercase;
+}
+
+.commentSendForm button {
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: #D9D3D8;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.commentSendForm button:hover {
+    color: #9D5C63;
+}

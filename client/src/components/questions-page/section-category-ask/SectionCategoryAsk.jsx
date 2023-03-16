@@ -1,29 +1,13 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import classes from './SectionCategoryAsk.module.css'
 import searchImg from "../../../static/icons/search.svg";
 import {useSelector} from "react-redux";
-import {useActions} from "../../../hooks/UseActions";
 
 const SectionCategoryAsk = () => {
-    const {categories, selectedCategory} = useSelector(state => state.categoriesReducer)
-
-    const {setSelectedCategory} = useActions()
-
-    const fetchCategories = useCallback(() => {
-        for (let i = 0; i < categories.length; i++) {
-            if (categories[i].id === parseInt(localStorage.getItem('categoryId'))) {
-                setSelectedCategory(categories[i])
-            }
-        }
-    }, [categories, setSelectedCategory]);
-
-    useEffect(() => {
-        fetchCategories()
-    }, [fetchCategories])
-
     const [searchAnswer, setSearchAnswer] = useState('');
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
 
-    const handleSubmit = (e) => {
+    const handleSubmitForm = (e) => {
         e.preventDefault();
     }
 
@@ -43,7 +27,7 @@ const SectionCategoryAsk = () => {
                         </div>
                     </div>
                     <div className={classes.searchFormContainer}>
-                        <form className={classes.searchForm} onSubmit={handleSubmit}>
+                        <form className={classes.searchForm} onSubmit={handleSubmitForm}>
                             <div className={classes.searchBtnBox}>
                                 <input
                                     id='search-input'

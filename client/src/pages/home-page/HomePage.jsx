@@ -5,7 +5,6 @@ import SectionExplain from "../../components/home-page/section-explain/SectionEx
 
 const HomePage = () => {
 
-
     return (
         <div className={classes.homePage}>
             <SectionAsk/>

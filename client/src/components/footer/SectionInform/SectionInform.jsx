@@ -19,10 +19,18 @@ const SectionInform = () => {
                     <div className={classes.contentContainer}>
                         <p className={classes.titleText}>FOLLOW US</p>
                         <div className={classes.imgBox}>
-                            <img src={facebookImg} alt='our-facebook' onClick={() => navigate(ROUTE_HOME)}/>
-                            <img src={instagramImg} alt='our-instagram' onClick={() => navigate(ROUTE_HOME)}/>
-                            <img src={youtubeImg} alt='our-youtube' onClick={() => navigate(ROUTE_HOME)}/>
-                            <img src={tiktokImg} alt='our-tiktok' onClick={() => navigate(ROUTE_HOME)}/>
+                            <button className={classes.logoBtn}>
+                                <img src={facebookImg} alt='our-facebook' onClick={() => navigate(ROUTE_HOME)}/>
+                            </button>
+                            <button className={classes.logoBtn}>
+                                <img src={instagramImg} alt='our-instagram' onClick={() => navigate(ROUTE_HOME)}/>
+                            </button>
+                            <button className={classes.logoBtn}>
+                                <img src={youtubeImg} alt='our-youtube' onClick={() => navigate(ROUTE_HOME)}/>
+                            </button>
+                            <button className={classes.logoBtn}>
+                                <img src={tiktokImg} alt='our-tiktok' onClick={() => navigate(ROUTE_HOME)}/>
+                            </button>
                         </div>
                         <p className={classes.cookieWarningText}>This site is using cookies under cookie policy. You
                             can specify conditions of storing and accessing cookies in your browser.</p>
