@@ -58,25 +58,29 @@ class QuestionController {
         if (!categoryId && !isAnswered) {
             questions = await Question.findAndCountAll({
                 limit, offset,
-                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},}
+                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},},
+                order: [['createdAt', 'DESC']]
             })
         }
         if (categoryId && !isAnswered) {
             questions = await Question.findAndCountAll({
                 where: {categoryId}, limit, offset,
-                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},}
+                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},},
+                order: [['createdAt', 'DESC']]
             })
         }
         if (!categoryId && isAnswered) {
             questions = await Question.findAndCountAll({
                 where: {isAnswered}, limit, offset,
-                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},}
+                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},},
+                order: [['createdAt', 'DESC']]
             })
         }
         if (categoryId && isAnswered) {
             questions = await Question.findAndCountAll({
                 where: {isAnswered, categoryId}, limit, offset,
-                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},}
+                include: {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']},},
+                order: [['createdAt', 'DESC']]
             })
         }
         return res.json(questions)
@@ -88,24 +92,31 @@ class QuestionController {
             {
                 where: {id},
                 include: [{
-                    model: Answer, as: 'answers', include: [{model: File, as: 'files'},
+                    model: Answer, as: 'answers', include: [{model: File, as: 'files', order: [['createdAt', 'ASC']]},
                         {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}},
                         {
                             model: Comment,
                             as: 'comments',
-                            include: [{model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}}]
+                            include: [{
+                                model: User,
+                                as: 'user',
+                                attributes: {exclude: ['password', 'role', 'balance']}
+                            }],
+                            order: [['createdAt', 'ASC']]
                         }]
                 }, {
                     model: File,
-                    as: 'files'
+                    as: 'files',
+                    order: [['createdAt', 'ASC']]
                 }, {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}},
                     {
                         model: Comment,
                         as: 'comments',
-                        include: [{model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}}]
+                        include: [{model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}}],
+                        order: [['createdAt', 'ASC']]
                     }
                 ],
-
+                order: [['createdAt', 'DESC']]
             },
         )
         return res.json(question)
