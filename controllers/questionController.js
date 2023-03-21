@@ -1,7 +1,8 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Question, Answer, File, User, Comment} = require('../models/models')
+const {Question, Answer, File, User, Comment, Vote} = require('../models/models')
 const ApiError = require('../error/ApiError')
+const {Sequelize} = require("sequelize");
 
 class QuestionController {
     async create(req, res, next) {
@@ -95,6 +96,10 @@ class QuestionController {
                     model: Answer, as: 'answers', include: [{model: File, as: 'files', order: [['createdAt', 'ASC']]},
                         {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}},
                         {
+                            model: Vote,
+                            as: 'votes'
+                        },
+                        {
                             model: Comment,
                             as: 'comments',
                             include: [{
@@ -114,12 +119,34 @@ class QuestionController {
                         as: 'comments',
                         include: [{model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}}],
                         order: [['createdAt', 'ASC']]
-                    }
+                    },
+                    {
+                        model: Vote,
+                        as: 'votes'
+                    },
+
                 ],
                 order: [['createdAt', 'DESC']]
             },
         )
-        return res.json(question)
+        let result = JSON.parse(JSON.stringify(question))
+
+        let count = 0;
+        result.votes.forEach(function (arrayItem) {
+            count += arrayItem.vote;
+        });
+        result.votes = count;
+
+        let sum = 0;
+        result.answers.forEach(function (answer) {
+            sum = 0
+            answer.votes.forEach(function (voteObj) {
+                sum += voteObj.vote;
+            })
+            answer.votes = sum;
+        });
+
+        return res.json(result)
     }
 
     async delete(req, res) {

@@ -36,9 +36,9 @@ const Category = sequelize.define('category', {
     image: {type: DataTypes.STRING},
 })
 
-const Rate = sequelize.define('rate', {
+const Vote = sequelize.define('votes', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    rate: {type: DataTypes.STRING, allowNull: false},
+    vote: {type: DataTypes.SMALLINT, allowNull: false, validate: {isIn: [[1, -1]],}},
 })
 
 const File = sequelize.define('file', {
@@ -48,26 +48,31 @@ const File = sequelize.define('file', {
 })
 
 
+// Category
+Category.hasMany(Question)
+Question.belongsTo(Category)
+
+// User
 User.hasMany(Question)
 Question.belongsTo(User)
 
 User.hasMany(Answer)
 Answer.belongsTo(User)
 
-User.hasMany(Rate)
-Rate.belongsTo(User)
+// Votes
+User.hasMany(Vote)
+Vote.belongsTo(User)
 
-Category.hasMany(Question)
-Question.belongsTo(Category)
+Answer.hasMany(Vote, {as: 'votes'})
+Vote.belongsTo(Answer)
 
-// Answer.hasMany(Rating)
-// Rating.belongsTo(Answer)
+Question.hasMany(Vote, {as: 'votes'})
+Vote.belongsTo(Question)
 
 Question.hasMany(Answer)
 Answer.belongsTo(Question)
 
-
-//Comments
+// Comments
 Question.hasMany(Comment, {as: 'comments'})
 Comment.belongsTo(Question)
 
@@ -77,8 +82,7 @@ Comment.belongsTo(Answer)
 User.hasMany(Comment, {as: 'comments'})
 Comment.belongsTo(User)
 
-
-//File
+// File
 Question.hasMany(File, {as: 'files'})
 File.belongsTo(Question)
 
@@ -91,7 +95,7 @@ module.exports = {
     Question,
     Answer,
     Category,
-    Rate,
+    Vote,
     File,
     Comment
 }

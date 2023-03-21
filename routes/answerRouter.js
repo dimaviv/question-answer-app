@@ -64,6 +64,8 @@ router.delete('/:id', checkRole('ADMIN'), answerController.delete)
  *
  * /api/answer/{id}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Answer]
  *     summary: Delete an answer by ID
  *     description: Deletes the answer with the specified ID. Requires ADMIN role.
@@ -74,8 +76,6 @@ router.delete('/:id', checkRole('ADMIN'), answerController.delete)
  *         description: Numeric ID of the answer to delete.
  *         schema:
  *           type: integer
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Answer deleted successfully.
