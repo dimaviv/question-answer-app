@@ -1,29 +1,33 @@
 const Router = require('express')
 const router = new Router()
-const commentController = require('../controllers/commentController')
 const authMiddleware = require("../middleware/AuthMiddleware");
+const voteController = require('../controllers/voteController')
 
-router.post('/', authMiddleware, commentController.create)
-router.delete('/:id', authMiddleware, commentController.delete)
+router.post('/', authMiddleware, voteController.create)
+router.delete('/', authMiddleware, voteController.delete)
+router.get('/:questionId', authMiddleware, voteController.getUserVotes)
 
 /**
  * @swagger
  * tags:
- *   name: Comment
- *   description: API for managing answers
+ *   name: Vote
+ *   description: API for managing votes
  *   components:
  *     securitySchemes:
- *       BearerAuth:
+ *       bearerAuth:
  *         type: http
  *         scheme: bearer
+ *         bearerFormat: JWT
  */
 
 /**
  * @swagger
- * /api/comment:
+ * /api/vote:
  *   post:
- *     tags: [Comment]
- *     summary: Create a new answer
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Vote]
+ *     summary: Create a new vote
  *     description: Create a new comment for question or answer
  *     parameters:
  *       - in: header
@@ -39,8 +43,8 @@ router.delete('/:id', authMiddleware, commentController.delete)
  *           schema:
  *             type: object
  *             properties:
- *               text:
- *                 type: string
+ *               vote:
+ *                 type: number
  *               userId:
  *                 type: number
  *               questionId:
@@ -50,26 +54,56 @@ router.delete('/:id', authMiddleware, commentController.delete)
  *             required:
  *               - text
  *               - userId
- *     security:
- *       - BearerAuth: []
  *     responses:
  *       '200':
- *         description: Comment created successfully.
+ *         description: Vote created successfully.
  *       '400':
  *         description: Bad Request. Invalid input data.
  *       '401':
  *         description: Unauthorized. User is not authenticated.
  *       '500':
  *         description: Internal server error.
- *
- *
+ */
+
+/**
  * @swagger
- *
- * /api/comment/{id}:
+ * /api/vote/{answerId}:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Vote]
+ *     summary: Get all votes
+ *     description: Get all user's votes for specified question
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         description: Bearer token
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: param
+ *         name: questionId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       '200':
+ *         description: Votes fetched successfully.
+ *       '400':
+ *         description: Bad Request. Invalid input data.
+ *       '401':
+ *         description: Unauthorized. User is not authenticated.
+ *       '500':
+ *         description: Internal server error.
+ */
+
+/**
+ * @swagger
+ * /api/vote:
  *   delete:
- *     tags: [Comment]
- *     summary: Delete a comment by ID
- *     description: Deletes the comment with the specified ID. Requires ADMIN role.
+ *     tags: [Vote]
+ *     summary: Delete a vote by userId, questionId, answerId
+ *     description: Deletes the vote. Requires authentication.
  *     parameters:
  *       - in: header
  *         name: Authorization
@@ -78,20 +112,26 @@ router.delete('/:id', authMiddleware, commentController.delete)
  *         schema:
  *           type: string
  *       - in: path
- *         name: id
- *         required: true
- *         description: Numeric ID of the answer to delete.
+ *         name: answerId
+ *         required: false
+ *         description: Numeric ID of the answer.
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: questionId
+ *         required: false
+ *         description: Numeric ID of the question.
  *         schema:
  *           type: integer
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       '200':
- *         description: Comment deleted successfully.
+ *         description: Vote deleted successfully.
  *       '401':
  *         description: Unauthorized. User is not authenticated or does not have ADMIN role.
  *       '404':
- *         description: Comment not found.
+ *         description: Vote not found.
  *       '500':
  *         description: Internal server error.
  */
