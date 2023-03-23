@@ -26,9 +26,9 @@ const ErrorPage = loadable(() => import("../pages/error-page/ErrorPage"), {
 export const publicRoutes = [
     {path: '/', component: HomePage},
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/:categoryId', component: QuestionsPage},
-    {path: '/:categoryId/ask', component: AskQuestionPage},
-    {path: '/:categoryId/:questionId', component: QuestionPage},
+    {path: '/:categoryName', component: QuestionsPage},
+    {path: '/:categoryName/ask', component: AskQuestionPage},
+    {path: '/:categoryName/:questionId', component: QuestionPage},
     {path: ROUTE_LOGIN, component: LoginPage},
     {path: '*', component: ErrorPage},
 ]
@@ -36,8 +36,8 @@ export const publicRoutes = [
 export const privateRoutes = [
     {path: '/', component: HomePage},
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/:categoryId', component: QuestionsPage},
-    {path: '/:categoryId/ask', component: AskQuestionPage},
-    {path: '/:categoryId/:questionId', component: QuestionPage},
+    {path: '/:categoryName', component: QuestionsPage},
+    {path: '/:categoryName/ask', component: AskQuestionPage},
+    {path: '/:categoryName/:questionId', component: QuestionPage},
     {path: '*', component: ErrorPage},
 ]

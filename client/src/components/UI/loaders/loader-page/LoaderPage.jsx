@@ -7,7 +7,7 @@ const LoaderPage = () => {
             <div className={classes.loaderPage__container}>
                 <div className={classes.roller}>
                 </div>
-                <p>Згадуємо<span>.</span><span>.</span><span>.</span></p>
+                <p>Loading<span>.</span><span>.</span><span>.</span></p>
             </div>
         </div>
     );

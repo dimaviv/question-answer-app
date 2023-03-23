@@ -3,7 +3,7 @@ import classes from './SectionAnswers.module.css'
 import userAvatarImg from "../../../static/questions-page/userAvatar.svg";
 import {ROUTE_LOGIN} from "../../../utils/consts";
 import {useSelector} from "react-redux";
-import {formatDate} from "../../../utils/questions-page/formatDate";
+import {formatDate} from "../../../utils/questions-page/format-date";
 import reportBtnImg from "../../../static/question-page/reportBtn.svg"
 import reportBtnHoverImg from "../../../static/question-page/reportBtnHover.svg"
 import AnswerItem from "./answer-item/AnswerItem";

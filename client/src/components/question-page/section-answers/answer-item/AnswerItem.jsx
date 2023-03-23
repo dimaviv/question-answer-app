@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import classes from './AnswerItem.module.css'
 import userAvatarImg from "../../../../static/questions-page/userAvatar.svg";
 import {ROUTE_LOGIN} from "../../../../utils/consts";
-import {formatDate} from "../../../../utils/questions-page/formatDate";
+import {formatDate} from "../../../../utils/questions-page/format-date";
 import reportBtnHoverImg from "../../../../static/question-page/reportBtnHover.svg";
 import reportBtnImg from "../../../../static/question-page/reportBtn.svg";
 import commentOnBtnImg from "../../../../static/question-page/commentOnBtn.svg";

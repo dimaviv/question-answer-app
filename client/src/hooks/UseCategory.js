@@ -6,7 +6,7 @@ import {useActions} from "./UseActions";
 function useCategory() {
     const {categories} = useSelector(state => state.categoriesReducer)
     const {setSelectedCategory} = useActions()
-    const categoryName = useParams().categoryId
+    const categoryName = useParams().categoryName
 
     const fetchCategory = () => {
         const category = categories.find(category => category.name.toLowerCase().replace(/\s+/g, "") === categoryName);

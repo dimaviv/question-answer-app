@@ -11,15 +11,15 @@ import useCategory from "../../hooks/UseCategory";
 const QuestionsPage = () => {
         const {selectedCategory} = useSelector(state => state.categoriesReducer)
         const {setQuestions, setIsLoading} = useActions()
-        const categoryName = useParams().categoryId
+        const categoryName = useParams().categoryName
 
         useCategory();
 
         useEffect(() => {
             fetchQuestions(
-                (categoryName === 'all' ? null : selectedCategory.id),
+                (categoryName !== 'all' ? selectedCategory.id : null),
                 null,
-                null,
+                400,
                 null
             )
                 .then(data => {

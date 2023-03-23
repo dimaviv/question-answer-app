@@ -3,7 +3,7 @@ import classes from "./QuestionItem.module.css";
 import {ROUTE_LOGIN} from "../../../../utils/consts";
 import userAvatarImg from '../../../../static/questions-page/userAvatar.svg'
 import {useNavigate} from "react-router-dom";
-import {formatDate} from "../../../../utils/questions-page/formatDate";
+import {formatDate} from "../../../../utils/questions-page/format-date";
 import {useSelector} from "react-redux";
 
 const QuestionItem = ({question, selectedCategory}) => {

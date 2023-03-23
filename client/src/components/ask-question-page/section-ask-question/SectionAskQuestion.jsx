@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import classes from './SectionAskQuestion.module.css'
 import {createQuestion} from "../../../http/questionAPI";
 import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 const SectionAskQuestion = () => {
+    const navigate = useNavigate()
     const [questionText, setQuestionText] = useState('')
     const [selectedFile, setSelectedFile] = useState(null);
     const {selectedCategory} = useSelector(state => state.categoriesReducer)
@@ -19,22 +21,24 @@ const SectionAskQuestion = () => {
 
     const handleSubmitForm = (e) => {
         e.preventDefault()
-        const newQuestion = {
-            text: questionText,
-            userId: 1,
-            categoryId: selectedCategory.id,
-            file: selectedFile
+        if(questionText !== '') {
+            const newQuestion = {
+                text: questionText,
+                userId: 1,
+                categoryId: selectedCategory.id,
+                file: selectedFile
+            }
+            createQuestion(newQuestion)
+                .then(
+                    () => {
+                        clearValues()
+                        navigate(`/${selectedCategory.name.toLowerCase().replace(/\s+/g, "")}`)
+                    }
+                )
+                .catch(
+                    error => console.error('Ошибка при получении данных:', error)
+                )
         }
-        createQuestion(newQuestion)
-            .then(
-                () => {
-                    alert('Question was created')
-                    clearValues()
-                }
-            )
-            .catch(
-                error => console.error('Ошибка при получении данных:', error)
-            )
     }
 
     return (
