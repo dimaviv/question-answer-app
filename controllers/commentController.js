@@ -19,17 +19,14 @@ class CommentController {
         try {
             const {id} = req.params
 
-            const answer = await Comment.destroy({where: {id}})
-            if (answer) {
-                return res.json("Deleted successfully!")
-            } else {
-                return res.json("Deletion error!")
-            }
+            const comment = await Comment.destroy({where: {id}})
+            if (!comment) return next(ApiError.notFound('Comment not found'))
+
+            return res.json(comment)
 
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
-
     }
 
 }

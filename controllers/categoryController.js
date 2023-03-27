@@ -1,30 +1,23 @@
 const {Category} = require('../models/models')
+const ApiError = require("../error/ApiError");
 
 class CategoryController {
-    async create(req, res) {
+    async create(req, res, next) {
         const {name} = req.body
         const category = await Category.create({name})
+            .catch(err => next(ApiError.badRequest(err.message)))
+
         return res.json(category)
     }
 
-    async getAll(req, res) {
+    async getAll(req, res, next) {
         const categories = await Category.findAll({order: [['id', 'ASC']]})
-        res.status(200)
+            .catch(err => next(ApiError.badRequest(err.message)))
+
         return res.json(categories)
     }
 
-    async delete(req, res) {
-        const {id} = req.params
-
-        const category = await Category.destroy({where: {id}})
-        if (category) {
-            return res.json("Deleted successfully!")
-        } else {
-            return res.json("Deletion error!")
-        }
-    }
-
-    async update(req, res) {
+    async update(req, res, next) {
         const {id, name, avatar} = req.params
 
         const category = await Category.update(
@@ -35,12 +28,21 @@ class CategoryController {
             {
                 where: {id: id}
             }
-        );
-        if (category) {
-            return res.json(category)
-        } else {
-            return res.json("Updating error!")
-        }
+        )
+            .catch(err => next(ApiError.badRequest(err.message)))
+
+        if (!category) return next(ApiError.notFound('Category not found'))
+        return res.json(category)
+    }
+
+    async delete(req, res, next) {
+        const {id} = req.params
+
+        const category = await Category.destroy({where: {id}})
+            .catch(err => next(ApiError.badRequest(err.message)))
+
+        if (!category) return next(ApiError.notFound('Category not found'))
+        return res.json(category)
     }
 }
 
