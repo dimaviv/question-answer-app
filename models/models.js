@@ -14,7 +14,7 @@ const User = sequelize.define('user', {
 
 const Question = sequelize.define('question', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    text: {type: DataTypes.STRING, unique: true},
+    text: {type: DataTypes.STRING},
     isAnswered: {type: DataTypes.BOOLEAN, defaultValue: false},
 })
 

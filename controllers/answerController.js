@@ -1,13 +1,13 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Answer, File, User} = require('../models/models')
+const {Answer, File} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class AnswerController {
     async create(req, res, next) {
         try {
-            let {text, userId, questionId} = req.body
-            let answer = await Answer.create({text, userId, questionId});
+            let {text, questionId} = req.body
+            let answer = await Answer.create({text, userId: req.user.id, questionId});
 
             if (req.files) {
                 let {file} = req.files
@@ -17,9 +17,9 @@ class AnswerController {
                     extension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
                     let fileName = uuid.v4() + '.' + extension
 
-                    file.mv(path.resolve(__dirname, '..', 'static', fileName))
+                    await file.mv(path.resolve(__dirname, '..', 'static', fileName))
 
-                    File.create({
+                    await File.create({
                         name: fileName,
                         extension: extension,
                         answerId: answer.id
@@ -48,16 +48,15 @@ class AnswerController {
         }
 
     }
-    
-    async delete(req, res) {
+
+    async delete(req, res, next) {
         const {id} = req.params
 
         const answer = await Answer.destroy({where: {id}})
-        if (answer) {
-            return res.json("Deleted successfully!")
-        } else {
-            return res.json("Deletion error!")
-        }
+            .catch(err => next(ApiError.badRequest(err.message)))
+
+        if (!answer) return next(ApiError.notFound('Answer not found'))
+        return res.json(answer)
     }
 
 }

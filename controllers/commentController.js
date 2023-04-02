@@ -4,8 +4,8 @@ const ApiError = require('../error/ApiError')
 class CommentController {
     async create(req, res, next) {
         try {
-            let {text, userId, questionId, answerId} = req.body
-            let comment = await Comment.create({text, userId, questionId, answerId});
+            let {text, questionId, answerId} = req.body
+            let comment = await Comment.create({text, userId: req.user.id, questionId, answerId});
 
             return res.json(comment)
 
@@ -19,17 +19,14 @@ class CommentController {
         try {
             const {id} = req.params
 
-            const answer = await Comment.destroy({where: {id}})
-            if (answer) {
-                return res.json("Deleted successfully!")
-            } else {
-                return res.json("Deletion error!")
-            }
+            const comment = await Comment.destroy({where: {id}})
+            if (!comment) return next(ApiError.notFound('Comment not found'))
+
+            return res.json(comment)
 
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
-
     }
 
 }
