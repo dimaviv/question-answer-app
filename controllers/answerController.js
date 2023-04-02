@@ -1,13 +1,13 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Answer, File, User} = require('../models/models')
+const {Answer, File} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class AnswerController {
     async create(req, res, next) {
         try {
-            let {text, userId, questionId} = req.body
-            let answer = await Answer.create({text, userId, questionId});
+            let {text, questionId} = req.body
+            let answer = await Answer.create({text, userId: req.user.id, questionId});
 
             if (req.files) {
                 let {file} = req.files

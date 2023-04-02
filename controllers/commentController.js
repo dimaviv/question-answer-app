@@ -4,8 +4,8 @@ const ApiError = require('../error/ApiError')
 class CommentController {
     async create(req, res, next) {
         try {
-            let {text, userId, questionId, answerId} = req.body
-            let comment = await Comment.create({text, userId, questionId, answerId});
+            let {text, questionId, answerId} = req.body
+            let comment = await Comment.create({text, userId: req.user.id, questionId, answerId});
 
             return res.json(comment)
 
