@@ -1,10 +1,11 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Question, Answer, File, User, Comment, Vote} = require('../models/models')
+const {Question, File, User, Comment} = require('../models/models')
 const ApiError = require('../error/ApiError')
-const {Sequelize} = require("sequelize");
+const {oneQuestionIncludes, questionVotesLiteral} = require('../utils/sequelizeOptions')
 
 class QuestionController {
+
     async create(req, res, next) {
         try {
             let {text, userId, categoryId} = req.body
@@ -93,73 +94,22 @@ class QuestionController {
 
     async getOne(req, res, next) {
         try {
-            const {id} = req.params
-            const question = await Question.findOne(
-                {
-                    where: {id},
-                    include: [{
-                        model: Answer,
-                        as: 'answers',
-                        include: [{model: File, as: 'files', order: [['createdAt', 'ASC']]},
-                            {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}},
-                            {
-                                model: Vote,
-                                as: 'votes'
-                            },
-                            {
-                                model: Comment,
-                                as: 'comments',
-                                include: [{
-                                    model: User,
-                                    as: 'user',
-                                    attributes: {exclude: ['password', 'role', 'balance']}
-                                }],
-                                order: [['createdAt', 'ASC']]
-                            }]
-                    }, {
-                        model: File,
-                        as: 'files',
-                        order: [['createdAt', 'ASC']]
-                    }, {model: User, as: 'user', attributes: {exclude: ['password', 'role', 'balance']}},
-                        {
-                            model: Comment,
-                            as: 'comments',
-                            include: [{
-                                model: User,
-                                as: 'user',
-                                attributes: {exclude: ['password', 'role', 'balance']}
-                            }],
-                            order: [['createdAt', 'ASC']]
-                        },
-                        {
-                            model: Vote,
-                            as: 'votes'
-                        },
+            const {id} = req.params;
 
-                    ],
-                    order: [['createdAt', 'DESC']]
+            const question = await Question.findOne({
+                where: {id},
+                include: oneQuestionIncludes,
+                order: [["createdAt", "DESC"]],
+                attributes: {
+                    include: [
+                        questionVotesLiteral
+                    ]
                 },
-            )
-            let result = JSON.parse(JSON.stringify(question))
-
-            let count = 0;
-            result.votes.forEach(function (arrayItem) {
-                count += arrayItem.vote;
-            });
-            result.votes = count;
-
-            let sum = 0;
-            result.answers.forEach(function (answer) {
-                sum = 0
-                answer.votes.forEach(function (voteObj) {
-                    sum += voteObj.vote;
-                })
-                answer.votes = sum;
             });
 
-            return res.json(result)
-        } catch (e) {
-            next(ApiError.badRequest(e.message))
+            return res.json(question);
+        } catch (error) {
+            next(ApiError.badRequest(error.message));
         }
     }
 
