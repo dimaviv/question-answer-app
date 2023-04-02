@@ -8,47 +8,32 @@ class QuestionController {
 
     async create(req, res, next) {
         try {
-            let {text, userId, categoryId} = req.body
-            let question = await Question.create({text, userId, categoryId});
+            let {text, categoryId} = req.body
+            let question = await Question.create({text, userId: req.user.id, categoryId});
 
             if (req.files) {
-                let {file} = req.files
-                let extension;
+                let {files} = req.files
 
-                if (!file.length) {
-                    extension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
+                let extension;
+                if (!files.length) files = [files]
+
+                await Promise.all(files.map(async (f) => {
+                    extension = f.name.slice((f.name.lastIndexOf(".") - 1 >>> 0) + 2);
                     let fileName = uuid.v4() + '.' + extension
 
-                    file.mv(path.resolve(__dirname, '..', 'static', fileName))
+                    await f.mv(path.resolve(__dirname, '..', 'static', fileName))
 
-                    File.create({
+                    await File.create({
                         name: fileName,
                         extension: extension,
                         questionId: question.id
                     })
-
-                } else {
-                    file.forEach(f => {
-
-                        extension = f.name.slice((f.name.lastIndexOf(".") - 1 >>> 0) + 2);
-                        let fileName = uuid.v4() + '.' + extension
-
-                        f.mv(path.resolve(__dirname, '..', 'static', fileName))
-
-                        File.create({
-                            name: fileName,
-                            extension: extension,
-                            questionId: question.id
-                        })
-                    })
-                }
+                }));
             }
-
             return res.json(question)
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
-
     }
 
     async getAll(req, res, next) {
