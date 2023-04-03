@@ -1,4 +1,4 @@
-.navBar {
+.nav {
     padding: 37px 0 10px 0;
     background: #9D5C63;
     display: flex;
@@ -6,15 +6,19 @@
     color: #FFFFFF;
 }
 
-.contentContainer {
+.nav__container {
     width: 1280px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.logo {
+.container__logo {
 
+}
+
+.container__menu {
+    display: flex;
 }
 
 .logo__text {
@@ -23,33 +27,29 @@
     font-size: 25px;
 }
 
-nav {
-    display: flex;
-}
-
-nav ul {
+.menu__list {
     width: 100%;
     display: flex;
     gap: 5px;
 }
 
-nav li {
+.list__item {
     padding: 7px 20px 5px 20px;
     border-radius: 100px;
     cursor: pointer;
     border: 2px solid transparent;
 }
 
-nav li:hover {
+.list__item:hover {
     background: #8D5359;
 }
 
-.li__text {
+.item__text {
     text-transform: uppercase;
     font-weight: 600;
     font-size: 16px;
 }
 
-nav li.li__decor {
+.list__itemDecor {
     border: 2px solid #FFFFFF;
 }

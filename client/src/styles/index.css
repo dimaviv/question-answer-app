@@ -1,12 +1,14 @@
+@import "./reset.css";
+
 #root  {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: #FEF5EF;
+    color: #584B53;
 }
 
-main {
+.main {
     min-height: calc(100vh - 198px);
     display: flex;
-    color: #584B53;
 }

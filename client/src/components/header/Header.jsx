@@ -1,12 +1,14 @@
 import React from 'react';
-import SectionCategories from "./section-categories/SectionCategories";
-import NavBar from "./nav-bar/NavBar";
+import SectionCategories from './section-categories/SectionCategories';
+import NavBar from './nav-bar/NavBar';
+import styles from './Header.module.css';
 
 const Header = () => {
+
     return (
-        <header>
-            <NavBar/>
-            <SectionCategories/>
+        <header className={styles.header}>
+            <NavBar />
+            <SectionCategories />
         </header>
     );
 };

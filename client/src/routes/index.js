@@ -1,4 +1,4 @@
-import {ROUTE_HOME, ROUTE_LOGIN} from "../utils/consts";
+import {ROUTE_ERROR, ROUTE_HOME, ROUTE_LOGIN} from '../utils/consts';
 import loadable from "@loadable/component";
 import LoaderPage from "../components/UI/loaders/loader-page/LoaderPage";
 import React from 'react';
@@ -30,6 +30,7 @@ export const publicRoutes = [
     {path: '/:categoryName/ask', component: AskQuestionPage},
     {path: '/:categoryName/:questionId', component: QuestionPage},
     {path: ROUTE_LOGIN, component: LoginPage},
+    {path: ROUTE_ERROR, component: ErrorPage},
     {path: '*', component: ErrorPage},
 ]
 
@@ -39,5 +40,6 @@ export const privateRoutes = [
     {path: '/:categoryName', component: QuestionsPage},
     {path: '/:categoryName/ask', component: AskQuestionPage},
     {path: '/:categoryName/:questionId', component: QuestionPage},
+    {path: ROUTE_ERROR, component: ErrorPage},
     {path: '*', component: ErrorPage},
 ]

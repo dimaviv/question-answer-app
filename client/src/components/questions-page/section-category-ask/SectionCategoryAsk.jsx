@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import classes from './SectionCategoryAsk.module.css'
 import searchImg from "../../../static/icons/search.svg";
-import {useSelector} from "react-redux";
+import useCategory from '../../../hooks/UseCategory';
 
 const SectionCategoryAsk = () => {
+    const selectedCategory = useCategory()
     const [searchAnswer, setSearchAnswer] = useState('');
-    const {selectedCategory} = useSelector(state => state.categoriesReducer)
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
@@ -22,7 +22,7 @@ const SectionCategoryAsk = () => {
                     <div className={classes.mainTitleContainer}>
                         <div className={classes.decorBox}>
                             <h1 className={classes.title}>
-                                {selectedCategory.name}
+                                {selectedCategory && selectedCategory.name}
                             </h1>
                         </div>
                     </div>

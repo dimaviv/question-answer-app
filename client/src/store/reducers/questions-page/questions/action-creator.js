@@ -8,7 +8,7 @@ export const QuestionsActionCreator = {
     setQuestions: (questions) => dispatch => {
         dispatch(questionsSlice.actions.setQuestions(questions))
     },
-    setSelectedQuestion: (question) => dispatch => {
-        dispatch(questionsSlice.actions.setSelectedQuestion(question))
+    setQuestion: (question) => dispatch => {
+        dispatch(questionsSlice.actions.setQuestion(question))
     },
 }

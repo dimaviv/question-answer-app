@@ -11,7 +11,7 @@ import _ from "lodash";
 
 const SectionAnswers = () => {
     const {question} = useSelector(state => state.questionsReducer)
-    const {selectedCategory} = useSelector(state => state.categoriesReducer)
+    const {questionCategory} = useSelector(state => state.categoriesReducer)
     const [hovered, setHovered] = useState(false);
     const [sortedAnswers, setSortedAnswers] = useState([])
 
@@ -27,7 +27,8 @@ const SectionAnswers = () => {
         if (question.answers) {
             setSortedAnswers(_.sortBy(question.answers, 'createdAt'))
         }
-    }, [question.answers])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [question.answers, question])
 
     return (
         <div className={classes.sectionAnswers}>
@@ -41,7 +42,7 @@ const SectionAnswers = () => {
                             userNick
                         </a>
                         <p className={classes.categoryName}>
-                            {selectedCategory.name}
+                            {questionCategory && questionCategory.name}
                         </p>
                         <p className={classes.date}>
                             {formatDate(question.createdAt)}

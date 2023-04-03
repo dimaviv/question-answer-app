@@ -31,12 +31,13 @@ const SectionAskQuestion = () => {
             createQuestion(newQuestion)
                 .then(
                     () => {
+                        console.log('Question created')
                         clearValues()
                         navigate(`/${selectedCategory.name.toLowerCase().replace(/\s+/g, "")}`)
                     }
                 )
                 .catch(
-                    error => console.error('Ошибка при получении данных:', error)
+                    error => console.error('Error while getting data:', error)
                 )
         }
     }

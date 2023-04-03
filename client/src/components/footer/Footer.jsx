@@ -1,10 +1,10 @@
 import React from 'react';
-import classes from "./Footer.module.css";
+import styles from "./Footer.module.css";
 import SectionInform from "./SectionInform/SectionInform";
 
 const Footer = () => {
     return (
-        <footer>
+        <footer className={styles.footer}>
             <SectionInform/>
         </footer>
     );

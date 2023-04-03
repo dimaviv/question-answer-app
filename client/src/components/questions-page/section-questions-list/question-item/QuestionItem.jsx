@@ -5,13 +5,15 @@ import userAvatarImg from '../../../../static/questions-page/userAvatar.svg'
 import {useNavigate} from "react-router-dom";
 import {formatDate} from "../../../../utils/questions-page/format-date";
 import {useSelector} from "react-redux";
+import useCategory from '../../../../hooks/UseCategory';
 
-const QuestionItem = ({question, selectedCategory}) => {
+const QuestionItem = ({question}) => {
+    const selectedCategory = useCategory();
     const navigate = useNavigate()
     const pathToCategory = (selectedCategory.name.toLowerCase()).replace(/\s+/g, "")
     const {categories} = useSelector(state => state.categoriesReducer)
 
-    const categoryName = categories.find(category => category.id === question.categoryId)
+    const category = categories.find(category => category.id === question.categoryId)
 
     const handleRedirectQuestion = (questionId) => {
         sessionStorage.setItem('questionId', questionId)
@@ -28,7 +30,7 @@ const QuestionItem = ({question, selectedCategory}) => {
                     userNick
                 </a>
                 <p className={classes.categoryName}>
-                    {categoryName.name}
+                    {category.name}
                 </p>
                 <p className={classes.date}>
                     {formatDate(question.createdAt)}

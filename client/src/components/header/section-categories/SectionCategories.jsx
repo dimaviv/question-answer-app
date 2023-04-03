@@ -1,54 +1,72 @@
 import React, {useEffect, useState} from 'react';
-import classes from "./SectionCategories.module.css";
-import {useSelector} from "react-redux";
-import decorTriangle from "../../../static/header/decor/decor__triangle.svg"
-import {useNavigate, useParams} from "react-router-dom";
-import {useActions} from "../../../hooks/UseActions";
-import {fetchCategories} from "../../../http/questionAPI";
+import styles from './SectionCategories.module.css';
+import {useSelector} from 'react-redux';
+import decorTriangle from '../../../static/header/decor/decor__triangle.svg';
+import {useNavigate, useParams} from 'react-router-dom';
+import {fetchCategories} from '../../../http/questionAPI';
+import {useActions} from '../../../hooks/UseActions';
 
 const SectionCategories = () => {
-    const navigate = useNavigate()
-    const {categories} = useSelector(state => state.categoriesReducer)
-    const [hiddenCategories, setHiddenCategories] = useState(true)
-    const categoryName = useParams().categoryId
+    const navigate = useNavigate();
+    const {categories} = useSelector(state => state.categoriesReducer);
+    const {setCategories} = useActions();
 
-    const {setCategories} = useActions()
+    const [isLoading, setIsLoading] = useState(true);
+    const [hiddenCategories, setHiddenCategories] = useState(true);
+    const categoryName = useParams().categoryName;
 
     const handleRedirectCategory = (category) => {
-        navigate(`/${(category.name.toLowerCase()).replace(/\s+/g, "")}`)
-    }
+        navigate(`/${(category.name.toLowerCase()).replace(/\s+/g, '')}`);
+    };
 
     useEffect(() => {
         fetchCategories()
-            .then(data =>
-                setCategories(data)
-            )
+            .then(data => {
+                setCategories(data);
+                setIsLoading(false);
+            })
             .catch(error =>
-                console.error('Ошибка при получении данных:', error)
-            )
+                console.error('Error while getting data:', error)
+            );
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     return (
-        <div className={classes.sectionCategories}>
-            <div className={classes.contentContainer}>
-                <div className={`${classes.categories} ${!hiddenCategories && classes.show}`}>
-                    {categories.map(category =>
-                        <div className={classes.category} key={category.id}>
-                            <img src={process.env.REACT_APP_API_URL + category.image + '.png'} alt={category.name}/>
-                            <button
-                                className={`${classes.category__text} ${categoryName === category.name.toLowerCase().replace(/\s+/g, "")} && classes.active}`}
-                                onClick={() => handleRedirectCategory(category)}
+        <div className={styles.sectionCategories}>
+            <div className={styles.sectionCategories__container}>
+                <div className={`${styles.container__categories} ${!hiddenCategories && styles.container__categories_show}`}>
+                    {isLoading ? (
+                        <div>Loading...</div>
+                    ) : (
+                        categories &&
+                        categories.map((category) => (
+                            <div className={styles.categories__item}
+                                 key={category.id}
                             >
-                                {category.name}
-                            </button>
-                        </div>
+                                <img src={process.env.REACT_APP_API_URL + category.image + '.png'}
+                                     alt={category.name}
+                                />
+                                <button
+                                    className={`${styles.item__text} ${
+                                        categoryName === category.name.toLowerCase().replace(/\s+/g, '')} && 
+                                        styles.item__text_active
+                                        }`}
+                                    onClick={() => handleRedirectCategory(category)}
+                                >
+                                    {category.name}
+                                </button>
+                            </div>
+                        ))
                     )}
                 </div>
             </div>
-            <div className={classes.sectionBtn}>
-                <div className={classes.btn__showAllCategories} onClick={() => setHiddenCategories(!hiddenCategories)}>
-                    <img src={decorTriangle} alt=''/>
+            <div className={styles.sectionCategories__sectionBtn}>
+                <div className={styles.sectionBtn__btn_showAllCategories}
+                     onClick={() => setHiddenCategories(!hiddenCategories)}
+                >
+                    <img src={decorTriangle}
+                         alt=""
+                    />
                 </div>
             </div>
         </div>
