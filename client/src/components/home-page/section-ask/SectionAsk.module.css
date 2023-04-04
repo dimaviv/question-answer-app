@@ -4,47 +4,47 @@
     justify-content: center;
 }
 
-.contentContainer {
+.sectionAsk__container {
     width: 1280px;
     display: flex;
     flex-direction: column;
 }
 
-.askQuestionContainer {
+.container__askQuestion {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.mainTitleContainer {
+.askQuestion__titleContainer {
     display: flex;
     justify-content: center;
     position: relative;
 }
 
-.mainTitleContainer .title {
+.askQuestion__searchContainer {
+    margin-top: 20px;
+}
+
+.titleContainer__text {
     padding: 0 28px;
     font-size: 31.25px;
     font-weight: bold;
     z-index: 1;
 }
 
-.searchFormContainer {
-    margin-top: 20px;
-}
-
-.searchForm {
+.searchContainer__searchForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.searchBtnBox {
+.searchForm__container {
     display: flex;
 }
 
-.searchBtnBox input[type="text"] {
+.container__inputQuestion {
     padding: 1px 0 1px 40px;
     width: 870px;
     height: 60px;
@@ -57,7 +57,7 @@
     border-radius: 100px 0 0 100px;
 }
 
-.searchBtnBox button {
+.container__btnSearch {
     width: 90px;
     height: 60px;
     display: flex;
@@ -70,29 +70,29 @@
     border-radius: 0 100px 100px 0;
 }
 
-.searchForm button:hover {
+.container__btnSearch:hover {
     background: #8D5359;
 }
 
-.searchForm label {
+.searchForm__bottomText {
     margin-top: 10px;
     font-size: 20px;
     font-weight: 500;
     color: #8E7B87;
 }
 
-.secondTitleContainer {
+.container__explainTitle {
     margin-top: 74px;
     display: flex;
     justify-content: center;
     position: relative;
 }
 
-.secondTitleContainer .decorBox {
+.explainTitle__decorTextBox {
     z-index: 0;
 }
 
-.secondTitleContainer .title {
+.decorTextBox__text {
     padding: 0 28px;
     background-color: #FEF5EF;
     font-size: 31.25px;
@@ -100,7 +100,7 @@
     z-index: 1;
 }
 
-.secondTitleContainer .decorBox::before {
+.explainTitle__decorTextBox::before {
     content: "";
     margin-top: -1px;
     border-top: 1px solid #D9D3D8;

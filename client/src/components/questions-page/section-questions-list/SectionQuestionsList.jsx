@@ -1,116 +1,75 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import classes from './SectionQuestionsList.module.css';
+import React, {useEffect, useState} from 'react';
+import styles from './SectionQuestionsList.module.css';
 import decorTriangleImg from '../../../static/home-page/decor/decor__triangle.svg';
-import {useSelector} from 'react-redux';
-import UserPlaceItem from './user-place-item/UserPlaceItem';
-import QuestionItem from './question-item/QuestionItem';
-import {topImages} from '../../../utils/questions-page/img-places';
-import Loader from '../../UI/loaders/loader/Loader';
-import _ from 'lodash';
 import {useNavigate, useParams} from 'react-router-dom';
 import useCategory from '../../../hooks/UseCategory';
 import {fetchQuestions} from '../../../http/questionAPI';
 import {useActions} from '../../../hooks/UseActions';
+import UserTopList from './user-top-list/UserTopList';
+import QuestionsList from './questions-list/QuestionsList';
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate();
-    const selectedCategory = useCategory();
-    const {setQuestions} = useActions();
-    const {questions} = useSelector(state => state.questionsReducer);
-    const {users} = useSelector(state => state.usersReducer);
+    const selectedCategory = useCategory(); // Hook returns selected category
+
+    const {setQuestions} = useActions(); // Hook for simple using useDispatch
     const categoryName = useParams().categoryName;
 
     const [isLoading, setIsLoading] = useState(true);
-    const [top10List, setTop10List] = useState([]);
-    const [sortedByTimeQuestions, setSortedByTimeQuestions] = useState([]);
-
-    const fetchTop10ListCallback = useCallback(() => {
-        setTop10List(_.sortBy(users, 'score').reverse().slice(0, 10));
-    }, [users]);
-
-    const fetchSortedByTimeQuestionsCallback = useCallback(() => {
-        setSortedByTimeQuestions(_.sortBy(questions, 'createdAt').reverse());
-    }, [questions]);
-
-    useEffect(() => {
-        fetchTop10ListCallback();
-        fetchSortedByTimeQuestionsCallback();
-    }, [fetchSortedByTimeQuestionsCallback, fetchTop10ListCallback]);
+    const pathToAskQuestionPage = selectedCategory && `/${(selectedCategory.name.toLowerCase()).replace(/\s+/g, '')}/ask`
 
     useEffect(() => {
         if (selectedCategory) {
             fetchQuestions(
-                categoryName !== 'all'
-                    ?
-                    selectedCategory.id
-                    :
-                    null,
+                categoryName !== 'all' ? selectedCategory.id : null,
                 null,
                 null,
                 null
             )
                 .then(data => {
-                    setQuestions(data.rows);
-                    setIsLoading(false);
+                        setQuestions(data.rows);
+                        setIsLoading(false);
                 })
                 .catch(
                     error => console.error('Error while getting data:', error)
                 );
 
+
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCategory]);
 
+
     return (
-        <div className={classes.sectionQuestionList}>
-            <div className={classes.sectionDecorTriangle}>
+        <div className={styles.sectionQuestionList}>
+            <div className={styles.sectionQuestionList__decorTriangleContainer}>
                 <img src={decorTriangleImg}
                      alt=""
                 />
             </div>
-            <div className={classes.askContainer}>
-                <div className={classes.titleContainer}>
-                    <h2 className={classes.titleText}>Answer questions</h2>
-                    <div className={classes.decorBox}>
-                        <h2 className={classes.decorBox__text}>
+            <div className={styles.sectionQuestionList__askQuestionContainer}>
+                <div className={styles.askQuestionContainer__titleContainer}>
+                    <h2 className={styles.titleContainer__text}>
+                        Answer questions
+                    </h2>
+                    <div className={styles.titleContainer__decorTextBox}>
+                        <h2 className={styles.decorTextBox__text}>
                             Or
                         </h2>
                     </div>
-                    <h2 className={classes.titleText}>Ask your own</h2>
+                    <h2 className={styles.titleContainer__text}>
+                        Ask your own
+                    </h2>
                 </div>
-                <button onClick={() => navigate(`/${(selectedCategory.name.toLowerCase()).replace(/\s+/g, '')}/ask`)}>
+                <button className={styles.askQuestionContainer__btnRedirect}
+                        onClick={() => navigate(pathToAskQuestionPage)}
+                >
                     I want to ask...
                 </button>
             </div>
-            <div className={classes.questionsContainer}>
-                <div className={classes.leftBar__questionsList}>
-                    {isLoading
-                        ?
-                        <Loader />
-                        :
-                        sortedByTimeQuestions.map((question) => (
-                            <QuestionItem
-                                key={question.id}
-                                question={question}
-                            />
-                        ))}
-                </div>
-                <div className={classes.rightBar__usersRating}>
-                    <div className={classes.title}>
-                        <p>Top 10</p>
-                    </div>
-                    {top10List && top10List.length > 0 &&
-                        <div className={classes.usersRatingBox}>
-                            {top10List.map((user, index) => (
-                                <UserPlaceItem
-                                    key={user.id}
-                                    user={user}
-                                    img={topImages[index]}
-                                />
-                            ))}
-                        </div>
-                    }
-                </div>
+            <div className={styles.sectionQuestionList__container}>
+                <QuestionsList isLoading={isLoading} />
+                <UserTopList />
             </div>
         </div>
     );

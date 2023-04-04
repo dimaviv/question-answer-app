@@ -16,39 +16,39 @@
     background: #F7EBDE;
 }
 
-.leftBar__userInform {
+.userPlaceItem__userInformContainer {
     display: flex;
     align-items: center;
 }
 
-.ratingBox {
+.userInformContainer__placeContainer {
     width: 65px;
     display: flex;
     justify-content: center;
 }
 
-.userBox {
+.userInformContainer__userInfoContainer {
     margin-left: 15px;
     display: flex;
     align-items: center;
     gap: 0 15px;
 }
 
-.userBox a {
+.userInfoContainer__text {
     font-size: 20px;
     font-weight: bold;
 }
 
-.userBox a:hover {
+.userInfoContainer__text:hover {
     text-decoration: underline;
 }
 
-.rightBar__userScore {
+.userPlaceItem__userScoreContainer {
     display: flex;
     align-items: center;
 }
 
-.rightBar__userScore p {
+.userScoreContainer__text {
     font-size: 20px;
     font-weight: bold;
 }

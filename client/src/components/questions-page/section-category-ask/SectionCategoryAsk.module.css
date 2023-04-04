@@ -4,30 +4,30 @@
     justify-content: center;
 }
 
-.contentContainer {
+.sectionCategoryAsk__container {
     width: 1280px;
     display: flex;
     flex-direction: column;
 }
 
-.askQuestionContainer {
+.container__askQuestionContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.mainTitleContainer {
+.askQuestionContainer__titleContainer {
     width: 100%;
     display: flex;
     justify-content: center;
     position: relative;
 }
 
-.mainTitleContainer .decorBox {
+.titleContainer__decorTextBox {
     z-index: 0;
 }
 
-.mainTitleContainer .title {
+.decorTextBox__text {
     padding: 0 28px;
     background-color: #FEF5EF;
     font-size: 31.25px;
@@ -35,7 +35,7 @@
     z-index: 1;
 }
 
-.mainTitleContainer .decorBox::before {
+.titleContainer__decorTextBox::before {
     content: "";
     margin-top: -1px;
     border-top: 1px solid #D9D3D8;
@@ -46,22 +46,22 @@
     z-index: -1;
 }
 
-.searchFormContainer {
+.askQuestionContainer__searchContainer {
     margin-top: 20px;
 }
 
-.searchForm {
+.searchContainer__searchForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.searchBtnBox {
+.searchForm__container {
     display: flex;
 }
 
-.searchBtnBox input[type="text"] {
+.container__inputQuestion {
     padding: 1px 0 1px 40px;
     width: 870px;
     height: 60px;
@@ -74,7 +74,7 @@
     border-radius: 100px 0 0 100px;
 }
 
-.searchBtnBox button {
+.container_btnSearch {
     width: 90px;
     height: 60px;
     display: flex;
@@ -87,6 +87,6 @@
     border-radius: 0 100px 100px 0;
 }
 
-.searchForm button:hover {
+.container_btnSearch:hover {
     background: #8D5359;
 }

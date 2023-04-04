@@ -1,45 +1,55 @@
 import React from 'react';
-import classes from "./QuestionItem.module.css";
-import {ROUTE_LOGIN} from "../../../../utils/consts";
-import userAvatarImg from '../../../../static/questions-page/userAvatar.svg'
-import {useNavigate} from "react-router-dom";
-import {formatDate} from "../../../../utils/questions-page/format-date";
-import {useSelector} from "react-redux";
+import styles from './QuestionItem.module.css';
+import {ROUTE_LOGIN} from '../../../../utils/consts';
+import userAvatarImg from '../../../../static/questions-page/userAvatar.svg';
+import {useNavigate} from 'react-router-dom';
+import {formatDate} from '../../../../utils/questions-page/format-date';
+import {useSelector} from 'react-redux';
 import useCategory from '../../../../hooks/UseCategory';
 
 const QuestionItem = ({question}) => {
-    const selectedCategory = useCategory();
-    const navigate = useNavigate()
-    const pathToCategory = (selectedCategory.name.toLowerCase()).replace(/\s+/g, "")
-    const {categories} = useSelector(state => state.categoriesReducer)
+    const selectedCategory = useCategory(); // Hook returns selected category
+    const navigate = useNavigate();
 
-    const category = categories.find(category => category.id === question.categoryId)
+    const {categories} = useSelector(state => state.categoriesReducer);
+    const pathToCategory = (selectedCategory.name.toLowerCase()).replace(/\s+/g, '');
+    const itemCategory = categories.find(category => category.id === question.categoryId);
 
     const handleRedirectQuestion = (questionId) => {
-        sessionStorage.setItem('questionId', questionId)
-        navigate(`/${pathToCategory}/${questionId}`)
-    }
+        sessionStorage.setItem('questionId', questionId);
+        navigate(`/${pathToCategory}/${questionId}`);
+    };
 
     return (
-        <div className={classes.questionBox}>
-            <div className={classes.title}>
-                <div className={classes.avatar}>
-                    <img src={userAvatarImg} alt=''/>
+        <div className={styles.questionItem}>
+            <div className={styles.questionItem__userInfoContainer}>
+                <div className={styles.userInfoContainer__avatarBox}>
+                    <img src={userAvatarImg}
+                         alt=""
+                    />
                 </div>
-                <a href={ROUTE_LOGIN} className={classes.userName}>
+                <a className={styles.userInfoContainer__userName}
+                   href={ROUTE_LOGIN}
+                >
                     userNick
                 </a>
-                <p className={classes.categoryName}>
-                    {category.name}
+                <p className={styles.userInfoContainer__categoryName}>
+                    {itemCategory.name}
                 </p>
-                <p className={classes.date}>
+                <p className={styles.userInfoContainer__dateAdd}>
                     {formatDate(question.createdAt)}
                 </p>
             </div>
-            <div className={classes.text}>
-                <p>{question.text}</p>
+            <div className={styles.questionItem__textContainer}>
+                <p className={styles.textContainer__text}>
+                    {question.text}
+                </p>
             </div>
-            <button onClick={() => handleRedirectQuestion(question.id)}>Answer</button>
+            <button className={styles.questionItem__btnRedirect}
+                    onClick={() => handleRedirectQuestion(question.id)}
+            >
+                Answer
+            </button>
         </div>
     );
 };

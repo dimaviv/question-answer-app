@@ -1,0 +1,96 @@
+.commentsList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.commentsList__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.content__commentItem {
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    gap: 0 10px;
+    border-bottom: 1px solid #D9D3D8;
+}
+
+.commentItem__avatarBox {
+    width: 40px;
+    height: 40px;
+}
+
+.commentItem__avatarBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.commentItem__commentInfoContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.commentInfoContainer__commentText {
+    font-size: 16px;
+}
+
+.commentInfoContainer__dateAdd {
+    font-size: 16px;
+    color: #D9D3D8;
+}
+
+.commentsList__sendForm {
+    margin-top: 20px;
+    padding-left: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0 15px;
+}
+
+.sendForm__userAvatarBox {
+    width: 50px;
+    height: 50px;
+}
+
+.sendForm__userAvatarBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.sendForm__inputComment {
+    padding: 10px 28px;
+    width: 100%;
+    border: 2px solid #D9D3D8;
+    border-radius: 100px;
+    color: #584B53;
+    font-size: 16px;
+}
+
+.sendForm__inputComment::placeholder {
+    font-weight: 900;
+    font-size: 20px;
+    color: #D9D3D8;
+    text-transform: uppercase;
+}
+
+.sendForm__btnSend {
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: #D9D3D8;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.sendForm__btnSend:hover {
+    color: #9D5C63;
+}
