@@ -5,7 +5,7 @@
     background: #FFFFFF;
 }
 
-.sectionDecorTriangle {
+.sectionExplain__decorTriangleContainer {
     width: 100%;
     height: 37px;
     display: flex;
@@ -18,7 +18,7 @@
     top: -1px;
 }
 
-.contentContainer {
+.sectionExplain__container {
     padding: 37px 0 74px 0;
     width: 1280px;
     display: flex;
@@ -26,32 +26,32 @@
     align-items: center;
 }
 
-.explainFrame {
+.container__explainFrame {
     width: 750px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.explainFrame p {
+.explainFrame__text {
     text-transform: uppercase;
     font-size: 39.06px;
     font-weight: 900;
 }
 
-.explainFrame span {
+.container__explainFrame span {
     font-weight: 300;
 }
 
-.showExplainFrame {
+.container__showExplainFrame {
     margin-top: 74px;
 }
 
-.showExplainFrame a {
+.showExplainFrame__text {
     font-size: 20px;
     color: #9D5C63;
 }
 
-.showExplainFrame a:hover {
+.showExplainFrame__text:hover {
     text-decoration: underline;
 }

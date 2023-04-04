@@ -1,64 +1,75 @@
-import React from 'react';
-import classes from './SectionQuestionsList.module.css'
-import decorTriangleImg from "../../../static/home-page/decor/decor__triangle.svg";
-import {useSelector} from "react-redux";
-import UserPlaceItem from "./user-place-item/UserPlaceItem";
-import QuestionItem from "./question-item/QuestionItem";
-import {useNavigate} from "react-router-dom";
-import {ROUTE_LOGIN} from "../../../utils/consts";
-import {topImages} from "../../../utils/questions-page/img-places";
-
+import React, {useEffect, useState} from 'react';
+import styles from './SectionQuestionsList.module.css';
+import decorTriangleImg from '../../../static/home-page/decor/decor__triangle.svg';
+import {useNavigate, useParams} from 'react-router-dom';
+import useCategory from '../../../hooks/UseCategory';
+import {fetchQuestions} from '../../../http/questionAPI';
+import {useActions} from '../../../hooks/UseActions';
+import UserTopList from './user-top-list/UserTopList';
+import QuestionsList from './questions-list/QuestionsList';
 
 const SectionQuestionsList = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const selectedCategory = useCategory(); // Hook returns selected category
 
-    const {questions} = useSelector(state => state.questionsReducer)
-    const {selectedCategory} = useSelector(state => state.categoriesReducer)
-    const {users} = useSelector(state => state.usersReducer)
+    const {setQuestions} = useActions(); // Hook for simple using useDispatch
+    const categoryName = useParams().categoryName;
+
+    const [isLoading, setIsLoading] = useState(true);
+    const pathToAskQuestionPage = selectedCategory && `/${(selectedCategory.name.toLowerCase()).replace(/\s+/g, '')}/ask`
+
+    useEffect(() => {
+        if (selectedCategory) {
+            fetchQuestions(
+                categoryName !== 'all' ? selectedCategory.id : null,
+                null,
+                null,
+                null
+            )
+                .then(data => {
+                        setQuestions(data.rows);
+                        setIsLoading(false);
+                })
+                .catch(
+                    error => console.error('Error while getting data:', error)
+                );
+
+
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedCategory]);
+
 
     return (
-        <div className={classes.sectionQuestionList}>
-            <div className={classes.sectionDecorTriangle}>
-                <img src={decorTriangleImg} alt=''/>
+        <div className={styles.sectionQuestionList}>
+            <div className={styles.sectionQuestionList__decorTriangleContainer}>
+                <img src={decorTriangleImg}
+                     alt=""
+                />
             </div>
-            <div className={classes.askContainer}>
-                <div className={classes.titleContainer}>
-                    <h2 className={classes.titleText}>Answer questions</h2>
-                    <div className={classes.decorBox}>
-                        <h2 className={classes.decorBox__text}>
+            <div className={styles.sectionQuestionList__askQuestionContainer}>
+                <div className={styles.askQuestionContainer__titleContainer}>
+                    <h2 className={styles.titleContainer__text}>
+                        Answer questions
+                    </h2>
+                    <div className={styles.titleContainer__decorTextBox}>
+                        <h2 className={styles.decorTextBox__text}>
                             Or
                         </h2>
                     </div>
-                    <h2 className={classes.titleText}>Ask your own</h2>
+                    <h2 className={styles.titleContainer__text}>
+                        Ask your own
+                    </h2>
                 </div>
-                <button onClick={() => navigate(ROUTE_LOGIN)}>
+                <button className={styles.askQuestionContainer__btnRedirect}
+                        onClick={() => navigate(pathToAskQuestionPage)}
+                >
                     I want to ask...
                 </button>
             </div>
-            <div className={classes.questionsContainer}>
-                <div className={classes.leftBar__questionsList}>
-                    {questions.map(question =>
-                        <QuestionItem
-                            key={question.id}
-                            question={question}
-                            selectedCategory={selectedCategory}
-                        />
-                    )}
-                </div>
-                <div className={classes.rightBar__usersRating}>
-                    <div className={classes.title}>
-                        <p>Top 10</p>
-                    </div>
-                    <div className={classes.usersRatingBox}>
-                        {users.map((user, index) =>
-                            <UserPlaceItem
-                                key={user.id}
-                                user={user}
-                                img={topImages[index]}
-                            />
-                        )}
-                    </div>
-                </div>
+            <div className={styles.sectionQuestionList__container}>
+                <QuestionsList isLoading={isLoading} />
+                <UserTopList />
             </div>
         </div>
     );

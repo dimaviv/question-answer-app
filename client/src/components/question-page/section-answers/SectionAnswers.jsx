@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
-import classes from './SectionAnswers.module.css'
-import userAvatarImg from "../../../static/questions-page/userAvatar.svg";
-import {ROUTE_LOGIN} from "../../../utils/consts";
-import {useSelector} from "react-redux";
-import {formatDate} from "../../../utils/questions-page/formatDate";
-import reportBtnImg from "../../../static/question-page/reportBtn.svg"
-import reportBtnHoverImg from "../../../static/question-page/reportBtnHover.svg"
-import AnswerItem from "./answer-item/AnswerItem";
+import styles from './SectionAnswers.module.css';
+import userAvatarImg from '../../../static/questions-page/userAvatar.svg';
+import {ROUTE_LOGIN} from '../../../utils/consts';
+import {useSelector} from 'react-redux';
+import {formatDate} from '../../../utils/questions-page/format-date';
+import reportBtnImg from '../../../static/question-page/reportBtn.svg';
+import reportBtnHoverImg from '../../../static/question-page/reportBtnHover.svg';
+import AnswersList from './answers-list/AnswersList';
 
 const SectionAnswers = () => {
-    const {question} = useSelector(state => state.questionsReducer)
-    const {selectedCategory} = useSelector(state => state.categoriesReducer)
+    const {question} = useSelector(state => state.questionsReducer);
+    const {questionCategory} = useSelector(state => state.categoriesReducer);
     const [hovered, setHovered] = useState(false);
 
     const handleMouseEnter = () => {
@@ -22,52 +22,58 @@ const SectionAnswers = () => {
     };
 
     return (
-        <div className={classes.sectionAnswers}>
-            <div className={classes.answersContainer}>
-                <div className={classes.questionBox}>
-                    <div className={classes.questionTitle}>
-                        <div className={classes.avatar}>
-                            <img src={userAvatarImg} alt=''/>
+        <div className={styles.sectionAnswers}>
+            <div className={styles.sectionAnswers__container}>
+                <div className={styles.container__questionContainer}>
+                    <div className={styles.questionContainer__titleContainer}>
+                        <div className={styles.titleContainer__avatarBox}>
+                            <img src={userAvatarImg}
+                                 alt=""
+                            />
                         </div>
-                        <a href={ROUTE_LOGIN} className={classes.userName}>
+                        <a className={styles.titleContainer__userName}
+                           href={ROUTE_LOGIN}
+                        >
                             userNick
                         </a>
-                        <p className={classes.categoryName}>
-                            {selectedCategory.name}
+                        <p className={styles.titleContainer__categoryName}>
+                            {questionCategory && questionCategory.name}
                         </p>
-                        <p className={classes.date}>
+                        <p className={styles.titleContainer__dateAdd}>
                             {formatDate(question.createdAt)}
                         </p>
-                        <button className={classes.reportBtn}>
+                        <button className={styles.titleContainer__btnReport}>
                             <img
                                 src={hovered ? reportBtnHoverImg : reportBtnImg}
-                                alt='report'
+                                alt="report"
                                 onMouseEnter={handleMouseEnter}
                                 onMouseLeave={handleMouseLeave}
                             />
                         </button>
                     </div>
-                    <div className={classes.questionText}>
-                        <p>{question.text}</p>
+                    <div className={styles.questionContainer__textContainer}>
+                        <p className={styles.textContainer__text}>
+                            {question.text}
+                        </p>
                     </div>
-                    <button className={classes.answerBtn}>Answer</button>
+                    <button className={styles.questionContainer__btnAnswer}>
+                        Answer
+                    </button>
                 </div>
-                <div className={classes.answersTitleContainer}>
-                    <div className={classes.decorBox}>
-                        <h1 className={classes.text}>
-                            {question.answers && question.answers.length > 0 ? 'Answers' : 'Write your answer first'}
+                <div className={styles.container__answersTitleContainer}>
+                    <div className={styles.answersTitleContainer__decorTextBox}>
+                        <h1 className={styles.decorTextBox__text}>
+                            {(question.answers && question.answers.length > 0)
+                                ?
+                                'Answers'
+                                :
+                                'Write your answer first'
+                            }
                         </h1>
                     </div>
                 </div>
                 {question.answers && question.answers.length > 0 &&
-                    <div className={classes.answersBox}>
-                        {question.answers.map(answer =>
-                            <AnswerItem
-                                key={answer.id}
-                                answer={answer}
-                            />
-                        )}
-                    </div>
+                    <AnswersList />
                 }
             </div>
         </div>

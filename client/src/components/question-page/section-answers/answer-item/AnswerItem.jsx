@@ -1,26 +1,22 @@
 import React, {useState} from 'react';
-import classes from './AnswerItem.module.css'
-import userAvatarImg from "../../../../static/questions-page/userAvatar.svg";
-import {ROUTE_LOGIN} from "../../../../utils/consts";
-import {formatDate} from "../../../../utils/questions-page/formatDate";
-import reportBtnHoverImg from "../../../../static/question-page/reportBtnHover.svg";
-import reportBtnImg from "../../../../static/question-page/reportBtn.svg";
-import commentOnBtnImg from "../../../../static/question-page/commentOnBtn.svg";
-import commentOffBtnImg from "../../../../static/question-page/commentOffBtn.svg";
-import gradeUpBtnImg from "../../../../static/question-page/gradeUpBtn.svg";
-import gradeDownBtnImg from "../../../../static/question-page/gradeDownBtn.svg";
+import styles from './AnswerItem.module.css';
+import {ROUTE_LOGIN} from '../../../../utils/consts';
+import {formatDate} from '../../../../utils/questions-page/format-date';
+import CommentsList from './comments-list/CommentsList';
+import userAvatarImg from '../../../../static/questions-page/userAvatar.svg';
+import reportBtnHoverImg from '../../../../static/question-page/reportBtnHover.svg';
+import reportBtnImg from '../../../../static/question-page/reportBtn.svg';
+import commentOnBtnImg from '../../../../static/question-page/commentOnBtn.svg';
+import commentOffBtnImg from '../../../../static/question-page/commentOffBtn.svg';
+import gradeUpBtnImg from '../../../../static/question-page/gradeUpBtn.svg';
+import gradeDownBtnImg from '../../../../static/question-page/gradeDownBtn.svg';
 
 const AnswerItem = ({answer}) => {
     const [hoveredReport, setHoveredReport] = useState(false);
     const [hoveredComment, setHoveredComment] = useState(false);
-    const [grade, setGrade] = useState(0)
-    const [isReport, setIsReport] = useState(false)
-    const [isComment, setIsComment] = useState(false)
-    const [comments, setComments] = useState([
-        {id: 1, text: 'Good', avatar: userAvatarImg},
-        {id: 2, text: 'Good job', avatar: userAvatarImg},
-    ])
-    const [commentText, setCommentText] = useState('')
+    const [isReport, setIsReport] = useState(false);
+    const [isComment, setIsComment] = useState(false);
+    const [grade, setGrade] = useState(0);
 
     const handleMouseEnter = (handler) => () => handler(true);
     const handleMouseLeave = (handler) => () => handler(false);
@@ -34,46 +30,46 @@ const AnswerItem = ({answer}) => {
     };
 
     const handleReport = () => {
-        setIsReport(!isReport)
-    }
+        setIsReport(!isReport);
+    };
 
     const handleComment = () => {
-        setIsComment(!isComment)
-    }
+        setIsComment(!isComment);
+    };
 
-    const handleSubmitForm = async (e) => {
-        e.preventDefault()
-        if (commentText) {
-            const newComment = {id: Date.now(), text: commentText, avatar: userAvatarImg}
-            setComments([...comments, newComment])
-            setCommentText('')
-        }
-    }
     return (
-        <div className={classes.answerBox}>
-            <div className={classes.answerTitle}>
-                <div className={classes.avatar}>
-                    <img src={userAvatarImg} alt=''/>
+        <div className={styles.answerItem}>
+            <div className={styles.answerItem__userInfoContainer}>
+                <div className={styles.userInfoContainer__avatarBox}>
+                    <img src={userAvatarImg}
+                         alt=""
+                    />
                 </div>
-                <a href={ROUTE_LOGIN} className={classes.userName}>
+                <a className={styles.userInfoContainer__userName}
+                   href={ROUTE_LOGIN}
+                >
                     userNick
                 </a>
-                <p className={classes.categoryName}>
+                <p className={styles.userInfoContainer__categoryName}>
                     Learner
                 </p>
-                <p className={classes.date}>
+                <p className={styles.userInfoContainer__dateAdd}>
                     {formatDate(answer.createdAt)}
                 </p>
-                <div className={classes.btnBox}>
-                    <button className={classes.reportBtn} onClick={handleReport}>
+                <div className={styles.userInfoContainer__btnBox}>
+                    <button className={styles.btnBox__btnReport}
+                            onClick={handleReport}
+                    >
                         <img
                             src={(isReport && reportBtnHoverImg) || (hoveredReport ? reportBtnHoverImg : reportBtnImg)}
-                            alt='report'
+                            alt="report"
                             onMouseEnter={handleMouseEnter(setHoveredReport)}
                             onMouseLeave={handleMouseLeave(setHoveredReport)}
                         />
                     </button>
-                    <button className={classes.reportBtn} onClick={handleComment}>
+                    <button className={styles.btnBox__btnCommentOff}
+                            onClick={handleComment}
+                    >
                         <img
                             src={
                                 isComment
@@ -82,62 +78,49 @@ const AnswerItem = ({answer}) => {
                                     :
                                     (!hoveredComment ? commentOffBtnImg : commentOnBtnImg)
                             }
-                            alt='comment'
+                            alt="comment"
                             onMouseEnter={handleMouseEnter(setHoveredComment)}
                             onMouseLeave={handleMouseLeave(setHoveredComment)}
                         />
                     </button>
                 </div>
             </div>
-            <div className={classes.answerTextBox}>
-                <div className={classes.gradeBox}>
-                    <button className={classes.gradeBtn} onClick={handleGradeUp}>
-                        <img src={gradeUpBtnImg} alt='like'/>
+            <div className={styles.answerItem__textContainer}>
+                <div className={styles.textContainer__gradeBox}>
+                    <button className={styles.gradeBox__btnGrade}
+                            onClick={handleGradeUp}
+                    >
+                        <img src={gradeUpBtnImg}
+                             alt="like"
+                        />
                     </button>
-                    <div>
-                        <p className={classes.grade}>
+                    <div className={styles.gradeBox__gradeTextContainer}>
+                        <p className={styles.gradeTextContainer__text}>
                             {grade}
                         </p>
                     </div>
-                    <button className={classes.gradeBtn} onClick={handleGradeDown}>
-                        <img src={gradeDownBtnImg} alt='dislike'/>
+                    <button className={styles.gradeBtn}
+                            onClick={handleGradeDown}
+                    >
+                        <img src={gradeDownBtnImg}
+                             alt="dislike"
+                        />
                     </button>
                 </div>
-                <p className={classes.answerText}>{answer.text}</p>
+                <p className={styles.textContainer__text}>
+                    {answer.text}
+                </p>
             </div>
-            <div className={classes.commentBox}>
+            <div className={styles.answerItem__commentContainer}>
                 {isComment
                     ?
-                    <div className={classes.commentBox__content}>
-                        {comments && comments.length > 0 &&
-                            <div className={classes.commentList}>
-                                {comments.map(comment =>
-                                    <div className={classes.commentItem} key={comment.id}>
-                                        <div className={classes.commentAvatar}>
-                                            <img src={comment.avatar} alt='user-avatar'/>
-                                        </div>
-                                        <p>{comment.text}</p>
-                                    </div>
-                                )}
-                            </div>
-                        }
-                        <form className={classes.commentSendForm} onSubmit={handleSubmitForm}>
-                            <div className={classes.userAvatar}>
-                                <img src={userAvatarImg} alt='user-avatar'/>
-                            </div>
-                            <input
-                                type='text'
-                                placeholder='Comment'
-                                value={commentText}
-                                onChange={e => setCommentText(e.target.value)}
-                            />
-                            <button>
-                                Send
-                            </button>
-                        </form>
-                    </div>
+                    <CommentsList answer={answer} />
                     :
-                    <button className={classes.answerBtn} onClick={() => setIsComment(!isComment)}>Comment</button>
+                    <button className={styles.commentContainer__btnAnswer}
+                            onClick={() => setIsComment(!isComment)}
+                    >
+                        Comment
+                    </button>
                 }
             </div>
         </div>

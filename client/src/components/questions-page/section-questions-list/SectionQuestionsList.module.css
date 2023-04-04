@@ -7,7 +7,7 @@
     background: #FFFFFF;
 }
 
-.sectionDecorTriangle {
+.sectionQuestionList__decorTriangleContainer {
     width: 100%;
     height: 37px;
     display: flex;
@@ -15,36 +15,36 @@
     position: relative;
 }
 
-.sectionDecorTriangle img {
+.sectionQuestionList__decorTriangleContainer img {
     position: absolute;
     top: -1px;
 }
 
-.askContainer {
+.sectionQuestionList__askQuestionContainer {
     margin-top: 37px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.askContainer .titleContainer {
+.askQuestionContainer__titleContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
 }
 
-.askContainer .titleText {
+.titleContainer__text {
     font-size: 39.06px;
     font-weight: 900;
     text-transform: uppercase;
 }
 
-.askContainer .decorBox {
+.titleContainer__decorTextBox {
     z-index: 0;
 }
 
-.askContainer .decorBox__text {
+.decorTextBox__text {
     padding: 0 28px;
     background-color: #FFFFFF;
     text-transform: uppercase;
@@ -53,7 +53,7 @@
     z-index: 1;
 }
 
-.askContainer .decorBox::before {
+.titleContainer__decorTextBox::before {
     content: "";
     margin-top: -1px;
     border-top: 1px solid #D9D3D8;
@@ -64,7 +64,7 @@
     z-index: -1;
 }
 
-.askContainer button {
+.askQuestionContainer__btnRedirect {
     margin-top: 10px;
     padding: 7px 28px 5px 28px;
     background: #9D5C63;
@@ -76,46 +76,14 @@
     color: #FFFFFF;
 }
 
-.askContainer button:hover {
+.askQuestionContainer__btnRedirect:hover {
     background: #8D5359;
 }
 
-.questionsContainer {
+.sectionQuestionList__container {
     margin-top: 37px;
     width: 1280px;
     display: flex;
     justify-content: space-between;
-}
-
-.leftBar__questionsList {
-    width: 840px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px 0;
-}
-
-.rightBar__usersRating {
-    width: 420px;
-    display: flex;
-    flex-direction: column;
-    border: 2px solid #ECE9EC;
-    border-radius: 15px;
-}
-
-.rightBar__usersRating > .title {
-    padding: 30px 0;
-    display: flex;
-    justify-content: center;
-}
-
-.rightBar__usersRating > .title p {
-    text-transform: uppercase;
-    font-size: 25px;
-    font-weight: 900;
-    color: #9D5C63;
-}
-
-.usersRatingBox {
-    display: flex;
-    flex-direction: column;
+    align-items: flex-start;
 }
