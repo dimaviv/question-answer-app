@@ -26,4 +26,4 @@ export const formatDate = (date) => {
         }
         return `- ${dayDiff} days ago`;
     }
-}
+};

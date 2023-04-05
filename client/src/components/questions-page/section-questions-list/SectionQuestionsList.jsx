@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import styles from './SectionQuestionsList.module.css';
-import decorTriangleImg from '../../../static/home-page/decor/decor__triangle.svg';
 import {useNavigate, useParams} from 'react-router-dom';
 import useCategory from '../../../hooks/UseCategory';
 import {fetchQuestions} from '../../../http/questionAPI';
 import {useActions} from '../../../hooks/UseActions';
 import UserTopList from './user-top-list/UserTopList';
 import QuestionsList from './questions-list/QuestionsList';
+import {useSelector} from 'react-redux';
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate();
+    const {isDarkMode} = useSelector(state => state.darkModeReducer)
     const selectedCategory = useCategory(); // Hook returns selected category
 
     const {setQuestions} = useActions(); // Hook for simple using useDispatch
@@ -42,11 +43,7 @@ const SectionQuestionsList = () => {
 
     return (
         <div className={styles.sectionQuestionList}>
-            <div className={styles.sectionQuestionList__decorTriangleContainer}>
-                <img src={decorTriangleImg}
-                     alt=""
-                />
-            </div>
+            <div className={`${styles.sectionQuestionList__decorTriangle} ${isDarkMode && styles.sectionQuestionList__decorTriangle_dark}`}></div>
             <div className={styles.sectionQuestionList__askQuestionContainer}>
                 <div className={styles.askQuestionContainer__titleContainer}>
                     <h2 className={styles.titleContainer__text}>

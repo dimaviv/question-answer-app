@@ -4,11 +4,23 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: #FEF5EF;
-    color: #584B53;
 }
 
 .main {
     min-height: calc(100vh - 198px);
     display: flex;
+}
+
+/* Light mode */
+
+body {
+    background: #FFFFFF;
+    color: #584B53;
+}
+
+/* Dark mode */
+
+body.dark {
+    background: #272727;
+    color: #FFFFFF;
 }

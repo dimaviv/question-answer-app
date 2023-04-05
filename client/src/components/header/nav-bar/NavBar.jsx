@@ -9,32 +9,36 @@ const NavBar = () => {
     return (
         <div className={styles.nav}>
             <div className={styles.nav__container}>
-                <div className={styles.container__logo}>
-                    <a href={ROUTE_HOME}
-                       className={styles.logo__text}
-                    >
-                        Logo
-                    </a>
+                <div className={styles.container__leftBarContainer}>
+                    <div className={styles.leftBarContainer__logoBox}>
+                        <a href={ROUTE_HOME}
+                           className={styles.logoBox__text}
+                        >
+                            Logo
+                        </a>
+                    </div>
                 </div>
-                <nav className={styles.container__menu}>
-                    <ul className={styles.menu__list}>
-                        <li onClick={() => navigate(ROUTE_LOGIN)}
-                            className={styles.list__item}
-                        >
-                            <p className={styles.item__text}>Log in</p>
-                        </li>
-                        <li onClick={() => navigate(ROUTE_LOGIN)}
-                            className={styles.list__item}
-                        >
-                            <p className={styles.item__text}>Sign up</p>
-                        </li>
-                        <li className={`${styles.list__item} ${styles.list__itemDecor}`}
-                            onClick={() => navigate(ROUTE_HOME)}
-                        >
-                            <p className={styles.item__text}>Ask your question</p>
-                        </li>
-                    </ul>
-                </nav>
+                <div className={styles.container__rightBarContainer}>
+                    <nav className={styles.rightBarContainer__menu}>
+                        <ul className={styles.menu__list}>
+                            <li onClick={() => navigate(ROUTE_LOGIN)}
+                                className={styles.list__item}
+                            >
+                                <p className={styles.item__text}>Log in</p>
+                            </li>
+                            <li onClick={() => navigate(ROUTE_LOGIN)}
+                                className={styles.list__item}
+                            >
+                                <p className={styles.item__text}>Sign up</p>
+                            </li>
+                            <li className={`${styles.list__item} ${styles.list__itemDecor}`}
+                                onClick={() => navigate(ROUTE_HOME)}
+                            >
+                                <p className={styles.item__text}>Ask your question</p>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     );

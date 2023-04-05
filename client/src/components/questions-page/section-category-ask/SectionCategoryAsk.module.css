@@ -1,7 +1,8 @@
 .sectionCategoryAsk {
-    padding: 17px 0 37px 0 ;
+    padding: 47px 0 37px 0 ;
     display: flex;
     justify-content: center;
+    background: #FEF5EF;
 }
 
 .sectionCategoryAsk__container {

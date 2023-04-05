@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import styles from './SectionCategories.module.css';
 import {useSelector} from 'react-redux';
-import decorTriangle from '../../../static/header/decor/decor__triangle.svg';
 import {useNavigate, useParams} from 'react-router-dom';
 import {fetchCategories} from '../../../http/questionAPI';
 import {useActions} from '../../../hooks/UseActions';
+import decorTriangle from '../../../static/header/decor/decor__triangle.svg';
 
 const SectionCategories = () => {
     const navigate = useNavigate();
+    const {isDarkMode} = useSelector(state => state.darkModeReducer);
     const {categories} = useSelector(state => state.categoriesReducer);
     const {setCategories} = useActions();
 
@@ -59,13 +60,11 @@ const SectionCategories = () => {
                         ))
                     )}
                 </div>
-            </div>
-            <div className={styles.sectionCategories__sectionBtn}>
-                <div className={styles.sectionBtn__btn_showAllCategories}
+                <div className={`${styles.btnDropMenu} ${isDarkMode && styles.btnDropMenu_dark}`}
                      onClick={() => setHiddenCategories(!hiddenCategories)}
                 >
                     <img src={decorTriangle}
-                         alt=""
+                         alt={''}
                     />
                 </div>
             </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './QuestionItem.module.css';
 import {ROUTE_LOGIN} from '../../../../utils/consts';
-import userAvatarImg from '../../../../static/questions-page/userAvatar.svg';
 import {useNavigate} from 'react-router-dom';
-import {formatDate} from '../../../../utils/questions-page/format-date';
 import {useSelector} from 'react-redux';
 import useCategory from '../../../../hooks/UseCategory';
+import {formatDate} from '../../../../utils/questions-page/format-date';
+import userAvatarImg from '../../../../static/questions-page/userAvatar.svg';
 
 const QuestionItem = ({question}) => {
     const selectedCategory = useCategory(); // Hook returns selected category

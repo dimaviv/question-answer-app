@@ -13,15 +13,25 @@
     align-items: center;
 }
 
-.container__logo {
-
-}
-
-.container__menu {
+.container__leftBarContainer {
     display: flex;
 }
 
-.logo__text {
+.leftBarContainer__logoBox {
+
+}
+
+.container__rightBarContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rightBarContainer__menu {
+    display: flex;
+}
+
+.logoBox__text {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 25px;

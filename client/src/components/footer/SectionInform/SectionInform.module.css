@@ -85,6 +85,7 @@
 }
 
 .item__imgBox_apps {
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;

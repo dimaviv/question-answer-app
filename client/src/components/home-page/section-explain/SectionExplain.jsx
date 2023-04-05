@@ -1,20 +1,17 @@
 import React from 'react';
 import styles from './SectionExplain.module.css';
+import {ROUTE_HOME} from '../../../utils/consts';
 import askQuestionImg from '../../../static/home-page/explain-frame/askQuestion.svg';
 import giveAnswerImg from '../../../static/home-page/explain-frame/answerQuestion.svg';
 import getMoneyImg from '../../../static/home-page/explain-frame/getMoney.svg';
-import decorTriangleImg from '../../../static/home-page/decor/decor__triangle.svg';
-import {ROUTE_HOME} from '../../../utils/consts';
+import {useSelector} from 'react-redux';
 
 const SectionExplain = () => {
+    const {isDarkMode} = useSelector(state => state.darkModeReducer)
 
     return (
         <div className={styles.sectionExplain}>
-            <div className={styles.sectionExplain__decorTriangleContainer}>
-                <img src={decorTriangleImg}
-                     alt=""
-                />
-            </div>
+            <div className={`${styles.sectionExplain__decorTriangle} ${isDarkMode && styles.sectionExplain__decorTriangle_dark}`}></div>
             <div className={styles.sectionExplain__container}>
                 <div className={styles.container__explainFrame}>
                     <p className={styles.explainFrame__text}>

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import styles from './AnswerItem.module.css';
 import {ROUTE_LOGIN} from '../../../../utils/consts';
-import {formatDate} from '../../../../utils/questions-page/format-date';
 import CommentsList from './comments-list/CommentsList';
+import {formatDate} from '../../../../utils/questions-page/format-date';
 import userAvatarImg from '../../../../static/questions-page/userAvatar.svg';
 import reportBtnHoverImg from '../../../../static/question-page/reportBtnHover.svg';
 import reportBtnImg from '../../../../static/question-page/reportBtn.svg';
