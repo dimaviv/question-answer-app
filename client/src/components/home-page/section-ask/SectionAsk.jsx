@@ -51,9 +51,9 @@ const SectionAsk = () => {
                 </div>
                 <div className={styles.container__explainTitle}>
                     <div className={styles.explainTitle__decorTextBox}>
-                        <h1 className={styles.decorTextBox__text}>
+                        <h2 className={styles.decorTextBox__text}>
                             How does it work?
-                        </h1>
+                        </h2>
                     </div>
                 </div>
             </div>

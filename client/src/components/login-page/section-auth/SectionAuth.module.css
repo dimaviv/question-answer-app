@@ -1,0 +1,179 @@
+.sectionAuth {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px 0
+}
+
+.sectionAuth__redirectContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.redirectContainer__text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #B8B8B8;
+}
+
+.redirectContainer__text:hover {
+    text-decoration: underline;
+}
+
+.sectionAuth__titleContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.titleContainer__text {
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.sectionAuth__loginAppsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
+}
+
+.loginAppsContainer__item {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0 10px;
+    border: 2px solid #584B53;
+    border-radius: 100px;
+}
+
+.item__text {
+    padding-top: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.loginAppsContainer__itemGoogle {
+    background: #FFFFFF;
+    color: #584B53;
+}
+
+.loginAppsContainer__itemApple {
+    background: #000000;
+    border: 2px solid #000000;
+    color: #FFFFFF;
+}
+
+.loginAppsContainer__itemFacebook {
+    background: #1877F2;
+    border: 2px solid #1877F2;
+    color: #FFFFFF;
+}
+
+.sectionAuth__decorTextContainer {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.decorTextContainer__decorTextBox {
+    z-index: 0;
+}
+
+.decorTextBox__text {
+    padding: 0 28px;
+    background-color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: lowercase;
+    z-index: 1;
+}
+
+.decorTextContainer__decorTextBox::before {
+    content: "";
+    margin-top: -1px;
+    border-top: 1px solid #E3DEE1;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: -1;
+}
+
+.sectionAuth__loginUserContainer {
+    display: flex;
+}
+
+.loginUserContainer__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px 0;
+
+}
+
+.form__inputItem {
+    padding: 0 20px;
+    height: 40px;
+    border: none;
+    border-radius: 100px;
+    background: #EBEBEB;
+    font-size: 16px;
+    color: #B8B8B8;
+}
+
+.form__inputItem::-webkit-input-placeholder {
+    color: #B8B8B8;
+}
+
+.form_btnLogin {
+    margin-top: 12px;
+    height: 40px;
+    border: none;
+    border-radius: 100px;
+    background: #9D5C63;
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-transform: uppercase;
+}
+
+.form__loginOptions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.loginOptions__keepLogBox {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.loginOptions__keepLogBox input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.loginOptions__forgotPassText {
+    color: #9D5C63;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.sectionAuth__askSignUpContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.askSignUpContainer__text {
+    font-size: 16px;
+}
+
+.askSignUpContainer__text span {
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+    color: #9D5C63;
+}
