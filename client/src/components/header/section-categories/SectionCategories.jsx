@@ -17,7 +17,7 @@ const SectionCategories = () => {
     const categoryName = useParams().categoryName;
 
     const handleRedirectCategory = (category) => {
-        navigate(`/${(category.name.toLowerCase()).replace(/\s+/g, '')}`);
+        navigate(`/categories/${(category.name.toLowerCase()).replace(/\s+/g, '')}`);
     };
 
     useEffect(() => {

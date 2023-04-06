@@ -12,12 +12,12 @@ const QuestionItem = ({question}) => {
     const navigate = useNavigate();
 
     const {categories} = useSelector(state => state.categoriesReducer);
-    const pathToCategory = (selectedCategory.name.toLowerCase()).replace(/\s+/g, '');
+    const pathToCategory = selectedCategory && selectedCategory.name.toLowerCase().replace(/\s+/g, '');
     const itemCategory = categories.find(category => category.id === question.categoryId);
 
     const handleRedirectQuestion = (questionId) => {
         sessionStorage.setItem('questionId', questionId);
-        navigate(`/${pathToCategory}/${questionId}`);
+        navigate(`/categories/${pathToCategory}/${questionId}`);
     };
 
     return (

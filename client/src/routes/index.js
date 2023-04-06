@@ -1,4 +1,4 @@
-import {ROUTE_ERROR, ROUTE_HOME, ROUTE_LOGIN} from '../utils/consts';
+import {ROUTE_ERROR, ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP} from '../utils/consts';
 import loadable from "@loadable/component";
 import LoaderPage from "../components/UI/loaders/loader-page/LoaderPage";
 import React from 'react';
@@ -18,6 +18,9 @@ const AskQuestionPage = loadable(() => import("../pages/ask-question-page/AskQue
 const LoginPage = loadable(() => import("../pages/login-page/LoginPage"), {
     fallback: <LoaderPage/>
 });
+const SignUpPage = loadable(() => import("../pages/sign-up-page/SignUpPage"), {
+    fallback: <LoaderPage/>
+});
 const ErrorPage = loadable(() => import("../pages/error-page/ErrorPage"), {
     fallback: <LoaderPage/>
 });
@@ -26,10 +29,9 @@ const ErrorPage = loadable(() => import("../pages/error-page/ErrorPage"), {
 export const publicRoutes = [
     {path: '/', component: HomePage},
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/:categoryName', component: QuestionsPage},
-    {path: '/:categoryName/ask', component: AskQuestionPage},
-    {path: '/:categoryName/:questionId', component: QuestionPage},
+    {path: '/categories/:categoryName', component: QuestionsPage},
     {path: ROUTE_LOGIN, component: LoginPage},
+    {path: ROUTE_SIGNUP, component: SignUpPage},
     {path: ROUTE_ERROR, component: ErrorPage},
     {path: '*', component: ErrorPage},
 ]
@@ -37,9 +39,9 @@ export const publicRoutes = [
 export const privateRoutes = [
     {path: '/', component: HomePage},
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/:categoryName', component: QuestionsPage},
-    {path: '/:categoryName/ask', component: AskQuestionPage},
-    {path: '/:categoryName/:questionId', component: QuestionPage},
+    {path: '/categories/:categoryName', component: QuestionsPage},
+    {path: '/categories/:categoryName/ask', component: AskQuestionPage},
+    {path: '/categories/:categoryName/:questionId', component: QuestionPage},
     {path: ROUTE_ERROR, component: ErrorPage},
     {path: '*', component: ErrorPage},
 ]

@@ -1,11 +1,11 @@
-.sectionAuth {
+.sectionSignUp {
     width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 24px 0
+    gap: 24px 0  
 }
 
-.sectionAuth__redirectContainer {
+.sectionSignUp__redirectContainer {
     display: flex;
     justify-content: flex-end;
 }
@@ -20,7 +20,7 @@
     text-decoration: underline;
 }
 
-.sectionAuth__titleContainer {
+.sectionSignUp__titleContainer {
     display: flex;
     justify-content: center;
 }
@@ -30,7 +30,7 @@
     font-weight: 900;
 }
 
-.sectionAuth__loginAppsContainer {
+.sectionSignUp__loginAppsContainer {
     display: flex;
     flex-direction: column;
     gap: 20px 0;
@@ -70,7 +70,7 @@
     color: #FFFFFF;
 }
 
-.sectionAuth__decorTextContainer {
+.sectionSignUp__decorTextContainer {
     display: flex;
     justify-content: center;
     position: relative;
@@ -100,7 +100,7 @@
     z-index: -1;
 }
 
-.sectionAuth__loginUserContainer {
+.sectionSignUp__loginUserContainer {
     display: flex;
 }
 
@@ -171,7 +171,7 @@
     font-weight: bold;
 }
 
-.sectionAuth__askSignUpContainer {
+.sectionSignUp__askSignUpContainer {
     display: flex;
     justify-content: center;
 }

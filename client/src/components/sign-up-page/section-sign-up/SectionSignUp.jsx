@@ -1,24 +1,20 @@
 import React, {useState} from 'react';
-import styles from './SectionAuth.module.css';
-import {ROUTE_HOME, ROUTE_SIGNUP} from '../../../utils/consts';
+import styles from './SectionSignUp.module.css';
+import {ROUTE_HOME, ROUTE_LOGIN} from '../../../utils/consts';
 import {useActions} from '../../../hooks/UseActions';
-import {useNavigate} from 'react-router-dom';
-import googleIcon from './../../../static/login-page/google-icon.svg';
-import appleIcon from './../../../static/login-page/apple-icon.svg';
-import facebookIcon from './../../../static/login-page/facebook-icon.svg';
+import googleIcon from '../../../static/login-page/google-icon.svg';
+import appleIcon from '../../../static/login-page/apple-icon.svg';
+import facebookIcon from '../../../static/login-page/facebook-icon.svg';
 
-const SectionAuth = () => {
-    const navigate = useNavigate();
-
+const SectionSignUp = () => {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
-    const [isKeepLoggedIn, setIsKeepLoggedIn] = useState(true);
     const [emailErrorValue, setEmailErrorValue] = useState('');
     const [passwordErrorValue, setPasswordErrorValue] = useState('');
     const emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
     const passwordPattern = /^[a-zA-Z0-9]{8,}$/;
 
-    const {logIn} = useActions();
+    const {signUp} = useActions();
 
     const handleEmailChange = (e) => {
         const emailInput = e.target.value;
@@ -26,13 +22,13 @@ const SectionAuth = () => {
         if (emailInput === '') {
             emailError = 'Email is empty';
         } else if (!emailPattern.test(emailInput)) {
-            emailError = 'Incorrect email';
+            emailError ='Incorrect email';
         }
 
         setEmailValue(emailInput);
         setTimeout(() => {
             setEmailErrorValue(emailError);
-        }, 1000);
+        }, 1000)
     };
 
     const handlePasswordChange = (e) => {
@@ -47,7 +43,7 @@ const SectionAuth = () => {
         setPasswordValue(passwordInput);
         setTimeout(() => {
             setPasswordErrorValue(passwordError);
-        }, 1000);
+        }, 1000)
     };
 
     const handleSubmit = (e) => {
@@ -57,7 +53,7 @@ const SectionAuth = () => {
         if (emailValue === '') {
             emailError = 'Email is empty';
         } else if (!emailPattern.test(emailValue)) {
-            emailError = 'Incorrect email';
+            emailError ='Incorrect email';
         }
         if (passwordValue === '') {
             passwordError = 'Password is empty';
@@ -69,36 +65,31 @@ const SectionAuth = () => {
         setPasswordErrorValue(passwordError);
 
         if (emailError === '' && passwordError === '') {
-            try {
-                logIn(emailValue, JSON.stringify(passwordValue), isKeepLoggedIn);
-                navigate(ROUTE_HOME)
-            } catch (error) {
-                console.error(error)
-            }
+            signUp(emailValue, JSON.stringify(passwordValue));
         }
     };
 
     return (
-        <div className={styles.sectionAuth}>
-            <div className={styles.sectionAuth__redirectContainer}>
+        <div className={styles.sectionSignUp}>
+            <div className={styles.sectionSignUp__redirectContainer}>
                 <a href={ROUTE_HOME}
                    className={styles.redirectContainer__text}
                 >
                     No, thanks
                 </a>
             </div>
-            <div className={styles.sectionAuth__titleContainer}>
+            <div className={styles.sectionSignUp__titleContainer}>
                 <h1 className={styles.titleContainer__text}>
-                    Welcome again
+                    Welcome
                 </h1>
             </div>
-            <div className={styles.sectionAuth__loginAppsContainer}>
+            <div className={styles.sectionSignUp__loginAppsContainer}>
                 <button className={`${styles.loginAppsContainer__item} ${styles.loginAppsContainer__itemGoogle}`}>
                     <img src={googleIcon}
                          alt={'Login with Google'}
                     />
                     <p className={styles.item__text}>
-                        Login with Google
+                        Sign up with Google
                     </p>
                 </button>
                 <button className={`${styles.loginAppsContainer__item} ${styles.loginAppsContainer__itemApple}`}>
@@ -106,7 +97,7 @@ const SectionAuth = () => {
                          alt={'Login with Apple'}
                     />
                     <p className={styles.item__text}>
-                        Login with Apple
+                        Sign up with Apple
                     </p>
                 </button>
                 <button className={`${styles.loginAppsContainer__item} ${styles.loginAppsContainer__itemFacebook}`}>
@@ -114,18 +105,18 @@ const SectionAuth = () => {
                          alt={'Login with Facebook'}
                     />
                     <p className={styles.item__text}>
-                        Login with Facebook
+                        Sign up with Facebook
                     </p>
                 </button>
             </div>
-            <div className={styles.sectionAuth__decorTextContainer}>
+            <div className={styles.sectionSignUp__decorTextContainer}>
                 <div className={styles.decorTextContainer__decorTextBox}>
                     <h2 className={styles.decorTextBox__text}>
                         Or
                     </h2>
                 </div>
             </div>
-            <div className={styles.sectionAuth__loginUserContainer}>
+            <div className={styles.sectionSignUp__loginUserContainer}>
                 <form onSubmit={handleSubmit}
                       className={styles.loginUserContainer__form}
                 >
@@ -156,33 +147,17 @@ const SectionAuth = () => {
                         </div>
                     }
                     <button className={styles.form_btnLogin}>
-                        Login
+                        Sign Up
                     </button>
-                    <div className={styles.form__loginOptions}>
-                        <label className={styles.loginOptions__keepLogBox}>
-                            <input type="checkbox"
-                                   name="keepLoggedIn"
-                                   value="true"
-                                   defaultChecked={isKeepLoggedIn}
-                                   onChange={e => setIsKeepLoggedIn(e.target.checked)}
-                            />
-                            Keep me logged in
-                        </label>
-                        <a href={ROUTE_HOME}
-                           className={styles.loginOptions__forgotPassText}
-                        >
-                            Forgot password?
-                        </a>
-                    </div>
                 </form>
             </div>
-            <div className={styles.sectionAuth__askSignUpContainer}>
+            <div className={styles.sectionSignUp__askSignUpContainer}>
                 <p className={styles.askSignUpContainer__text}>
-                    Don't have an account? <span><a href={ROUTE_SIGNUP}>Sign up</a></span>
+                    Do you have an account? <span><a href={ROUTE_LOGIN}>Log in</a></span>
                 </p>
             </div>
         </div>
     );
 };
 
-export default SectionAuth;
+export default SectionSignUp;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './NavBar.module.css';
-import {ROUTE_HOME, ROUTE_LOGIN} from '../../../utils/consts';
+import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP} from '../../../utils/consts';
 import {useNavigate} from 'react-router-dom';
 
 const NavBar = () => {
@@ -26,7 +26,7 @@ const NavBar = () => {
                             >
                                 <p className={styles.item__text}>Log in</p>
                             </li>
-                            <li onClick={() => navigate(ROUTE_LOGIN)}
+                            <li onClick={() => navigate(ROUTE_SIGNUP)}
                                 className={styles.list__item}
                             >
                                 <p className={styles.item__text}>Sign up</p>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import styles from './QuestionList.module.css';
+import styles from './QuestionsList.module.css';
 import Loader from '../../../UI/loaders/loader/Loader';
 import QuestionItem from '../question-item/QuestionItem';
 import _ from 'lodash';
