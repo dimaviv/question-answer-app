@@ -16,31 +16,31 @@ const SectionInform = () => {
     return (
         <div className={styles.sectionInform}>
             <div className={styles.sectionInform__container}>
-                <div className={styles.container__leftBar_inform}>
-                    <div className={styles.leftBar_inform__item}>
+                <div className={styles.container__leftBarInform}>
+                    <div className={styles.leftBarInform__item}>
                         <p className={styles.item__titleText}>
                             FOLLOW US
                         </p>
-                        <div className={styles.item__imgBox_logo}>
-                            <button className={styles.imgBox_logo__btn_logo}>
+                        <div className={styles.item__imgBoxLogo}>
+                            <button className={styles.imgBoxLogo__btnLogo}>
                                 <img src={facebookImg}
                                      alt="our-facebook"
                                      onClick={() => navigate(ROUTE_HOME)}
                                 />
                             </button>
-                            <button className={styles.imgBox_logo__btn_logo}>
+                            <button className={styles.imgBoxLogo__btnLogo}>
                                 <img src={instagramImg}
                                      alt="our-instagram"
                                      onClick={() => navigate(ROUTE_HOME)}
                                 />
                             </button>
-                            <button className={styles.imgBox_logo__btn_logo}>
+                            <button className={styles.imgBoxLogo__btnLogo}>
                                 <img src={youtubeImg}
                                      alt="our-youtube"
                                      onClick={() => navigate(ROUTE_HOME)}
                                 />
                             </button>
-                            <button className={styles.imgBox_logo__btn_logo}>
+                            <button className={styles.imgBoxLogo__btnLogo}>
                                 <img src={tiktokImg}
                                      alt="our-tiktok"
                                      onClick={() => navigate(ROUTE_HOME)}
@@ -53,7 +53,7 @@ const SectionInform = () => {
                             in your browser.
                         </p>
                     </div>
-                    <div className={styles.leftBar_inform__item}>
+                    <div className={styles.leftBarInform__item}>
                         <p className={styles.item__titleText}>Company</p>
                         <ul className={styles.item__informMenu}>
                             <li><a href={ROUTE_HOME}>About us</a></li>
@@ -63,7 +63,7 @@ const SectionInform = () => {
                             <li><a href={ROUTE_HOME}>Cookie Preferences</a></li>
                         </ul>
                     </div>
-                    <div className={styles.leftBar_inform__item}>
+                    <div className={styles.leftBarInform__item}>
                         <p className={styles.item__titleText}>Product</p>
                         <ul className={styles.item__informMenu}>
                             <li><a href={ROUTE_HOME}>Honor code</a></li>
@@ -74,10 +74,10 @@ const SectionInform = () => {
                         </ul>
                     </div>
                 </div>
-                <div className={styles.container__rightBar_apps}>
-                    <div className={styles.rightBar_apps__item}>
+                <div className={styles.container__rightBarApps}>
+                    <div className={styles.rightBarApps__item}>
                         <p className={styles.item__titleText}>Download our app</p>
-                        <div className={styles.item__imgBox_apps}>
+                        <div className={styles.item__imgBoxApps}>
                             <img src={appleAppImg}
                                  alt="our-app-apple"
                                  onClick={() => navigate(ROUTE_HOME)}

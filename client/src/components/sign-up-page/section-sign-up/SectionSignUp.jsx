@@ -124,7 +124,9 @@ const SectionSignUp = () => {
                            placeholder="Nick or email"
                            value={emailValue}
                            onChange={handleEmailChange}
-                           className={styles.form__inputItem}
+                           className={
+                               `${styles.form__inputItem} ${emailErrorValue !== '' && styles.form__inputItem_error}`
+                           }
                     />
                     {emailErrorValue !== '' &&
                         <div className={styles.form__errorTextBox}>
@@ -137,7 +139,9 @@ const SectionSignUp = () => {
                            placeholder="Password"
                            value={passwordValue}
                            onChange={handlePasswordChange}
-                           className={styles.form__inputItem}
+                           className={
+                               `${styles.form__inputItem} ${passwordErrorValue !== '' && styles.form__inputItem_error}`
+                           }
                     />
                     {passwordErrorValue !== '' &&
                         <div className={styles.form__errorTextBox}>

@@ -122,6 +122,11 @@
     color: #584B53;
 }
 
+.form__inputItem_error {
+    outline: #cf1d00;
+    border: 2px solid #cf1d00;
+}
+
 .form__inputItem::-webkit-input-placeholder {
     color: #B8B8B8;
 }

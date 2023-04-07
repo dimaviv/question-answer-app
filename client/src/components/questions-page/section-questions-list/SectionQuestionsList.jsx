@@ -7,17 +7,27 @@ import {useActions} from '../../../hooks/UseActions';
 import UserTopList from './user-top-list/UserTopList';
 import QuestionsList from './questions-list/QuestionsList';
 import {useSelector} from 'react-redux';
+import {ROUTE_LOGIN} from '../../../utils/consts';
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate();
-    const {isDarkMode} = useSelector(state => state.darkModeReducer)
     const selectedCategory = useCategory(); // Hook returns selected category
+    const {isDarkMode} = useSelector(state => state.darkModeReducer);
+    const {isAuth} = useSelector(state => state.authReducer);
 
     const {setQuestions} = useActions(); // Hook for simple using useDispatch
     const categoryName = useParams().categoryName;
 
     const [isLoading, setIsLoading] = useState(true);
-    const pathToAskQuestionPage = selectedCategory && `/${(selectedCategory.name.toLowerCase()).replace(/\s+/g, '')}/ask`
+    const pathToAskQuestionPage = selectedCategory && `/categories/${(selectedCategory.name.toLowerCase()).replace(/\s+/g, '')}/ask`;
+
+    const handleRedirectToAsk = () => {
+        if (isAuth) {
+            navigate(pathToAskQuestionPage);
+        } else {
+            navigate(ROUTE_LOGIN);
+        }
+    };
 
     useEffect(() => {
         if (selectedCategory) {
@@ -28,8 +38,8 @@ const SectionQuestionsList = () => {
                 null
             )
                 .then(data => {
-                        setQuestions(data.rows);
-                        setIsLoading(false);
+                    setQuestions(data.rows);
+                    setIsLoading(false);
                 })
                 .catch(
                     error => console.error('Error while getting data:', error)
@@ -59,7 +69,7 @@ const SectionQuestionsList = () => {
                     </h2>
                 </div>
                 <button className={styles.askQuestionContainer__btnRedirect}
-                        onClick={() => navigate(pathToAskQuestionPage)}
+                        onClick={handleRedirectToAsk}
                 >
                     I want to ask...
                 </button>

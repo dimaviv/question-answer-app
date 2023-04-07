@@ -40,7 +40,7 @@ export const AuthActionCreator = {
             console.error(error);
         }
     },
-    logOut: () => {
+    logOut: () => dispatch => {
         try {
             localStorage.removeItem('token');
             if (localStorage.getItem('auth')) {
@@ -49,6 +49,7 @@ export const AuthActionCreator = {
             if (sessionStorage.getItem('auth')) {
                 sessionStorage.removeItem('auth');
             }
+            dispatch(AuthActionCreator.setIsAuth(false))
         } catch (error) {
             console.error(error);
         }

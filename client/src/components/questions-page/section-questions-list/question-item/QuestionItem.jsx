@@ -11,13 +11,18 @@ const QuestionItem = ({question}) => {
     const selectedCategory = useCategory(); // Hook returns selected category
     const navigate = useNavigate();
 
+    const {isAuth} = useSelector(state => state.authReducer)
     const {categories} = useSelector(state => state.categoriesReducer);
     const pathToCategory = selectedCategory && selectedCategory.name.toLowerCase().replace(/\s+/g, '');
     const itemCategory = categories.find(category => category.id === question.categoryId);
 
     const handleRedirectQuestion = (questionId) => {
-        sessionStorage.setItem('questionId', questionId);
-        navigate(`/categories/${pathToCategory}/${questionId}`);
+        if (isAuth) {
+            sessionStorage.setItem('questionId', questionId);
+            navigate(`/categories/${pathToCategory}/${questionId}`);
+        } else {
+            navigate(ROUTE_LOGIN)
+        }
     };
 
     return (

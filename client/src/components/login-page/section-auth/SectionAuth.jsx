@@ -71,9 +71,9 @@ const SectionAuth = () => {
         if (emailError === '' && passwordError === '') {
             try {
                 logIn(emailValue, JSON.stringify(passwordValue), isKeepLoggedIn);
-                navigate(ROUTE_HOME)
+                navigate(ROUTE_HOME);
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
         }
     };
@@ -133,7 +133,9 @@ const SectionAuth = () => {
                            placeholder="Nick or email"
                            value={emailValue}
                            onChange={handleEmailChange}
-                           className={styles.form__inputItem}
+                           className={
+                               `${styles.form__inputItem} ${emailErrorValue !== '' && styles.form__inputItem_error}`
+                           }
                     />
                     {emailErrorValue !== '' &&
                         <div className={styles.form__errorTextBox}>
@@ -146,7 +148,9 @@ const SectionAuth = () => {
                            placeholder="Password"
                            value={passwordValue}
                            onChange={handlePasswordChange}
-                           className={styles.form__inputItem}
+                           className={
+                               `${styles.form__inputItem} ${passwordErrorValue !== '' && styles.form__inputItem_error}`
+                           }
                     />
                     {passwordErrorValue !== '' &&
                         <div className={styles.form__errorTextBox}>

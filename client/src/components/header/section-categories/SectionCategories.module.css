@@ -50,6 +50,10 @@
     color: inherit;
 }
 
+.item__text:hover {
+    text-decoration: underline;
+}
+
 .item__text_active {
     text-decoration: underline;
 }
