@@ -26,7 +26,7 @@ const QuestionPage = () => {
                             setQuestionCategory(categories.find((category) => category.id === data.categoryId));
                             setIsLoading(false);
                         } else {
-                            throw new Error('PAGE NOT FOUND (404)')
+                            throw new Error('PAGE NOT FOUND (404)');
                         }
                     }
                 )

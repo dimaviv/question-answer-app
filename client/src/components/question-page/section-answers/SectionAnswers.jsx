@@ -11,14 +11,19 @@ import reportBtnHoverImg from '../../../static/question-page/reportBtnHover.svg'
 const SectionAnswers = () => {
     const {question} = useSelector(state => state.questionsReducer);
     const {questionCategory} = useSelector(state => state.categoriesReducer);
-    const [hovered, setHovered] = useState(false);
+    const [hoveredReport, setHoveredReport] = useState(false);
+    const [isReport, setIsReport] = useState(false);
 
     const handleMouseEnter = () => {
-        setHovered(true);
+        setHoveredReport(true);
     };
 
     const handleMouseLeave = () => {
-        setHovered(false);
+        setHoveredReport(false);
+    };
+
+    const handleReport = () => {
+        setIsReport(!isReport);
     };
 
     return (
@@ -42,9 +47,11 @@ const SectionAnswers = () => {
                         <p className={styles.titleContainer__dateAdd}>
                             {formatDate(question.createdAt)}
                         </p>
-                        <button className={styles.titleContainer__btnReport}>
+                        <button className={styles.titleContainer__btnReport}
+                                onClick={handleReport}
+                        >
                             <img
-                                src={hovered ? reportBtnHoverImg : reportBtnImg}
+                                src={(isReport && reportBtnHoverImg) || (hoveredReport ? reportBtnHoverImg : reportBtnImg)}
                                 alt="report"
                                 onMouseEnter={handleMouseEnter}
                                 onMouseLeave={handleMouseLeave}

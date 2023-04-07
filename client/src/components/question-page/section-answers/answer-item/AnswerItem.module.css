@@ -90,6 +90,7 @@
 
 .textContainer__text {
     font-weight: bold;
+    color: #584B53;
     font-size: 20px;
 }
 
@@ -116,6 +117,7 @@
 }
 
 .gradeTextContainer__text {
+    color: #584B53;
     font-size: 25px;
 }
 

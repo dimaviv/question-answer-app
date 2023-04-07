@@ -99,7 +99,7 @@ const AnswerItem = ({answer}) => {
                             {grade}
                         </p>
                     </div>
-                    <button className={styles.gradeBtn}
+                    <button className={styles.gradeBox__btnGrade}
                             onClick={handleGradeDown}
                     >
                         <img src={gradeDownBtnImg}
