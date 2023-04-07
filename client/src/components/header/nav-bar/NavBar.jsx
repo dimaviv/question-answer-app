@@ -11,6 +11,11 @@ const NavBar = () => {
     const {logOut} = useActions()
     const {isAuth} = useSelector(state => state.authReducer)
 
+    const handleLogOut = () => {
+        logOut()
+        navigate(ROUTE_HOME)
+    }
+
     return (
         <div className={styles.nav}>
             <div className={styles.nav__container}>
@@ -28,7 +33,7 @@ const NavBar = () => {
                         {isAuth
                             ?
                             <ul className={styles.menu__list}>
-                                <li onClick={logOut}
+                                <li onClick={handleLogOut}
                                     className={styles.list__item}
                                 >
                                     <p className={styles.item__text}>Log out</p>
