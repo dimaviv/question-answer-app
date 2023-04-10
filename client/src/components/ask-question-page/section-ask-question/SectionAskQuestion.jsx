@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import classes from './SectionAskQuestion.module.css'
 import {createQuestion} from "../../../http/questionAPI";
-import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import useCategory from '../../../hooks/UseCategory';
 
 const SectionAskQuestion = () => {
     const navigate = useNavigate()
+    const selectedCategory = useCategory()
+
     const [questionText, setQuestionText] = useState('')
     const [selectedFile, setSelectedFile] = useState(null);
-    const {selectedCategory} = useSelector(state => state.categoriesReducer)
 
     const clearValues = () => {
         setQuestionText('')
@@ -21,10 +22,9 @@ const SectionAskQuestion = () => {
 
     const handleSubmitForm = (e) => {
         e.preventDefault()
-        if(questionText !== '') {
+        if(selectedCategory && questionText !== '') {
             const newQuestion = {
                 text: questionText,
-                userId: 1,
                 categoryId: selectedCategory.id,
                 file: selectedFile
             }
@@ -33,7 +33,7 @@ const SectionAskQuestion = () => {
                     () => {
                         console.log('Question created')
                         clearValues()
-                        navigate(`/${selectedCategory.name.toLowerCase().replace(/\s+/g, "")}`)
+                        navigate(`/categories/${selectedCategory.name.toLowerCase().replace(/\s+/g, "")}`)
                     }
                 )
                 .catch(

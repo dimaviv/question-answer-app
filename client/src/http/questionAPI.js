@@ -20,7 +20,7 @@ export const fetchCategories = async () => {
 }
 
 export const createQuestion = async (question) => {
-    const {data} = await $host.post('api/question', question)
+    const {data} = await $authHost.post('api/question', question)
     return data
 }
 

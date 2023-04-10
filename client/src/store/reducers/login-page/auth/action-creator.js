@@ -24,13 +24,15 @@ export const AuthActionCreator = {
     logIn: (email, password, isKeepLoggedIn) => dispatch => {
         try {
             login(email, password)
-                .then(() => {
+                .then(data => {
                     console.log('Congrats!')
                     dispatch(AuthActionCreator.setIsAuth(true));
                     if (isKeepLoggedIn) {
                         localStorage.setItem('auth', 'true');
+                        localStorage.setItem('user', JSON.stringify(data))
                     } else {
                         sessionStorage.setItem('auth', 'true');
+                        sessionStorage.setItem('user', JSON.stringify(data));
                     }
                 })
                 .catch(error => {
@@ -45,9 +47,11 @@ export const AuthActionCreator = {
             localStorage.removeItem('token');
             if (localStorage.getItem('auth')) {
                 localStorage.removeItem('auth');
+                localStorage.removeItem('user')
             }
             if (sessionStorage.getItem('auth')) {
                 sessionStorage.removeItem('auth');
+                sessionStorage.removeItem('user')
             }
             dispatch(AuthActionCreator.setIsAuth(false))
         } catch (error) {

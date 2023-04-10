@@ -18,7 +18,7 @@ const AskQuestionPage = loadable(() => import("../pages/ask-question-page/AskQue
 const LoginPage = loadable(() => import("../pages/login-page/LoginPage"), {
     fallback: <LoaderPage/>
 });
-const SignUpPage = loadable(() => import("../pages/sign-up-page/SignUpPage"), {
+const SignUpPage = loadable(() => import("../pages/signup-page/SignupPage"), {
     fallback: <LoaderPage/>
 });
 const ErrorPage = loadable(() => import("../pages/error-page/ErrorPage"), {

@@ -1,7 +1,9 @@
 /node_modules
 /client/node_modules
 /.idea
+/client/src/.idea
 npm-debug.log
 .DS_Store
 .env
+
 

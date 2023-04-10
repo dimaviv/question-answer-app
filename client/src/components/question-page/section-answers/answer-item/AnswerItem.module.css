@@ -121,6 +121,14 @@
     font-size: 25px;
 }
 
+.gradeTextContainer__text_red {
+    color: #cf1d00;
+}
+
+.gradeTextContainer__text_green {
+    color: forestgreen;
+}
+
 .answerItem__commentContainer {
     padding: 0 40px 20px;
     display: flex;

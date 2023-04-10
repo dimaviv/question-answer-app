@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import styles from './SectionSignUp.module.css';
+import styles from './SectionSignup.module.css';
 import {ROUTE_HOME, ROUTE_LOGIN} from '../../../utils/consts';
 import {useActions} from '../../../hooks/UseActions';
 import googleIcon from '../../../static/login-page/google-icon.svg';
 import appleIcon from '../../../static/login-page/apple-icon.svg';
 import facebookIcon from '../../../static/login-page/facebook-icon.svg';
 
-const SectionSignUp = () => {
+const SectionSignup = () => {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [emailErrorValue, setEmailErrorValue] = useState('');
@@ -164,4 +164,4 @@ const SectionSignUp = () => {
     );
 };
 
-export default SectionSignUp;
+export default SectionSignup;

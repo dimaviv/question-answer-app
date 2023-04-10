@@ -95,7 +95,9 @@ const AnswerItem = ({answer}) => {
                         />
                     </button>
                     <div className={styles.gradeBox__gradeTextContainer}>
-                        <p className={styles.gradeTextContainer__text}>
+                        <p className={
+                            `${styles.gradeTextContainer__text} ${grade < 0 && styles.gradeTextContainer__text_red} ${grade > 0 && styles.gradeTextContainer__text_green}`
+                        }>
                             {grade}
                         </p>
                     </div>
