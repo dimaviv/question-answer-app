@@ -12,6 +12,36 @@ const generateJwt = (id, email, role) => {
 }
 
 class UserController {
+
+    async oauthGoogle(req, res, next) {
+        try {
+            const info = req.user._json
+            let token;
+            let user;
+            const existingUser = await User.findOne({where: {email: info.email}})
+
+            if (existingUser) {
+                if (existingUser.provider !== 'google') {
+                    return next(ApiError.badRequest('User with such email already exists'))
+                }
+                token = generateJwt(existingUser.id, existingUser.email, existingUser.role)
+                return res.json({token})
+            }
+            const avatar = info.picture.slice(info.picture.indexOf('com') + 3)
+            user = await User.create({
+                email: info.email,
+                role: 'USER',
+                provider: 'google',
+                avatar
+            })
+            token = generateJwt(user.id, user.email, user.role)
+            return res.json({token})
+
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
     async getMostScored(req, res, next) {
         try {
             let {categoryId, limit} = req.query
@@ -35,11 +65,11 @@ class UserController {
             const {email, password, role} = req.body
 
             if (!email || !password) {
-                return next(ApiError.badRequest('Некорректный email или пароль'))
+                return next(ApiError.badRequest('Incorrect email or password'))
             }
             const candidate = await User.findOne({where: {email}})
             if (candidate) {
-                return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+                return next(ApiError.badRequest('User with such email already exists'))
             }
 
             const hashPassword = await bcrypt.hash(password, 5)
@@ -58,11 +88,11 @@ class UserController {
             const {email, password} = req.body
             const user = await User.findOne({where: {email}})
             if (!user) {
-                return next(ApiError.internal('Пользователь с таким email не найден'))
+                return next(ApiError.internal('User with such email was not found'))
             }
             let comparePassword = bcrypt.compareSync(password, user.password)
             if (!comparePassword) {
-                return next(ApiError.internal('Указан неверный пароль'))
+                return next(ApiError.internal('Incorrect password'))
             }
             const token = generateJwt(user.id, user.email, user.role)
             res.json({token})

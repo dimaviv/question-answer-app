@@ -2,25 +2,33 @@ const Router = require('express')
 const router = new Router()
 const userController = require('../controllers/userController')
 const authMiddleware = require('../middleware/AuthMiddleware')
+const {authenticateGoogle, authenticateGoogleCallback} = require('../middleware/OauthMiddleware')
 
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
 router.get('/auth', authMiddleware, userController.check)
 router.get('/most-scored', userController.getMostScored)
+router.get('/login/google', authenticateGoogle)
+router.get('/login/google/callback', authenticateGoogleCallback, userController.oauthGoogle)
 
 /**
  * @swagger
  * tags:
  *   name: User
+ *   description: API for managing users
+ */
+/**
+ * @swagger
+ * tags:
+ *   name: Authorization
  *   description: Authentication operations
  */
-
 /**
  * @swagger
  * /api/user/registration:
  *   post:
  *     summary: Register a new user
- *     tags: [User]
+ *     tags: [Authorization]
  *     requestBody:
  *       required: true
  *       content:
@@ -54,7 +62,7 @@ router.get('/most-scored', userController.getMostScored)
  * /api/user/login:
  *   post:
  *     summary: Login with existing credentials
- *     tags: [User]
+ *     tags: [Authorization]
  *     requestBody:
  *       required: true
  *       content:
@@ -86,9 +94,27 @@ router.get('/most-scored', userController.getMostScored)
  * /api/user/auth:
  *   get:
  *     summary: Check if the user is authenticated
- *     tags: [User]
+ *     tags: [Authorization]
  *     security:
  *       - bearerAuth: []
+ *     responses:
+ *       '200':
+ *         description: Token to authenticate the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /login/google:
+ *   get:
+ *     summary: Log in using google oauth 2.0
+ *     tags: [Authorization]
  *     responses:
  *       '200':
  *         description: Token to authenticate the user
