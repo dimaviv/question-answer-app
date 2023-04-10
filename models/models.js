@@ -10,6 +10,7 @@ const User = sequelize.define('user', {
     balance: {type: DataTypes.DECIMAL, defaultValue: 0},
     avatar: {type: DataTypes.STRING},
     score: {type: DataTypes.INTEGER, defaultValue: 0},
+    provider: {type: DataTypes.STRING, defaultValue: null},
 })
 
 const Question = sequelize.define('question', {
