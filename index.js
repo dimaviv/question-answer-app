@@ -8,14 +8,19 @@ const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const path = require('path')
 const swaggerSpecs = require('./swagger')
 const swaggerUi = require("swagger-ui-express");
+require('./passport.js');
+
 
 const PORT = process.env.PORT || 5000
 
 const app = express()
+
 app.use(cors())
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(express.static(path.resolve(__dirname, 'client/build')))
 app.use(express.json())
+
+
 app.use(fileUpload({}))
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.use('/api', router)

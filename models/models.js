@@ -8,8 +8,9 @@ const User = sequelize.define('user', {
     password: {type: DataTypes.STRING},
     role: {type: DataTypes.STRING, defaultValue: "USER"},
     balance: {type: DataTypes.DECIMAL, defaultValue: 0},
-    avatar: {type: DataTypes.STRING},
+    avatar: {type: DataTypes.TEXT},
     score: {type: DataTypes.INTEGER, defaultValue: 0},
+    provider: {type: DataTypes.STRING, defaultValue: null},
 })
 
 const Question = sequelize.define('question', {
