@@ -136,6 +136,24 @@ router.get('/login/facebook/callback', authenticateFacebookCallback, userControl
 
 /**
  * @swagger
+ * /login/facebook:
+ *   get:
+ *     summary: Log in using facebook oauth 2.0
+ *     tags: [Authorization]
+ *     responses:
+ *       '200':
+ *         description: Token to authenticate the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ */
+
+/**
+ * @swagger
  * /api/user/most-scored:
  *  get:
  *     summary: Get a list of most scored users
