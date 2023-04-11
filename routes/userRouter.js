@@ -2,7 +2,12 @@ const Router = require('express')
 const router = new Router()
 const userController = require('../controllers/userController')
 const authMiddleware = require('../middleware/AuthMiddleware')
-const {authenticateGoogle, authenticateGoogleCallback} = require('../middleware/OauthMiddleware')
+const {
+    authenticateGoogle,
+    authenticateGoogleCallback,
+    authenticateFacebook,
+    authenticateFacebookCallback
+} = require('../middleware/OauthMiddleware')
 
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
@@ -10,6 +15,8 @@ router.get('/auth', authMiddleware, userController.check)
 router.get('/most-scored', userController.getMostScored)
 router.get('/login/google', authenticateGoogle)
 router.get('/login/google/callback', authenticateGoogleCallback, userController.oauthGoogle)
+router.get('/login/facebook', authenticateFacebook)
+router.get('/login/facebook/callback', authenticateFacebookCallback, userController.oauthFacebook)
 
 /**
  * @swagger

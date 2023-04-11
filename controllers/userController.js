@@ -42,6 +42,39 @@ class UserController {
         }
     }
 
+    async oauthFacebook(req, res, next) {
+
+        console.log(req.user._json.picture.data.url)
+
+        try {
+            const email = req.user._json.email
+            let token;
+            let user;
+            const existingUser = await User.findOne({where: {email}})
+
+            if (existingUser) {
+                if (existingUser.provider !== 'facebook') {
+                    return next(ApiError.badRequest('User with such email already exists'))
+                }
+                token = generateJwt(existingUser.id, existingUser.email, existingUser.role)
+                return res.json({token})
+            }
+            const fbAvatar = req.user._json.picture.data.url;
+            const avatar = fbAvatar.slice(fbAvatar.indexOf('net') + 3)
+            user = await User.create({
+                email,
+                role: 'USER',
+                provider: 'facebook',
+                avatar
+            })
+            token = generateJwt(user.id, user.email, user.role)
+            return res.json({token})
+
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
     async getMostScored(req, res, next) {
         try {
             let {categoryId, limit} = req.query
