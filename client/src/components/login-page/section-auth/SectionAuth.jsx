@@ -78,6 +78,7 @@ const SectionAuth = () => {
         }
     };
 
+
     return (
         <div className={styles.sectionAuth}>
             <div className={styles.sectionAuth__redirectContainer}>
@@ -93,7 +94,9 @@ const SectionAuth = () => {
                 </h1>
             </div>
             <div className={styles.sectionAuth__loginAppsContainer}>
-                <button className={`${styles.loginAppsContainer__item} ${styles.loginAppsContainer__itemGoogle}`}>
+                <button className={`${styles.loginAppsContainer__item} ${styles.loginAppsContainer__itemGoogle}`}
+                        onClick={() => navigate('/api/user/login/google')}
+                >
                     <img src={googleIcon}
                          alt={'Login with Google'}
                     />
@@ -109,7 +112,9 @@ const SectionAuth = () => {
                         Login with Apple
                     </p>
                 </button>
-                <button className={`${styles.loginAppsContainer__item} ${styles.loginAppsContainer__itemFacebook}`}>
+                <button className={`${styles.loginAppsContainer__item} ${styles.loginAppsContainer__itemFacebook}`}
+                        onClick={() => navigate('/api/user/login/facebook')}
+                >
                     <img src={facebookIcon}
                          alt={'Login with Facebook'}
                     />

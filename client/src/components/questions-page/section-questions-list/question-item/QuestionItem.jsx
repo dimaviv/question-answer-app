@@ -6,6 +6,7 @@ import {useSelector} from 'react-redux';
 import useCategory from '../../../../hooks/UseCategory';
 import {formatDate} from '../../../../utils/questions-page/format-date';
 import userAvatarImg from '../../../../static/questions-page/userAvatar.svg';
+import {getEmailPrefix} from '../../../../utils/questions-page/get-email-prefix';
 
 const QuestionItem = ({question}) => {
     const selectedCategory = useCategory(); // Hook returns selected category
@@ -36,7 +37,7 @@ const QuestionItem = ({question}) => {
                 <a className={styles.userInfoContainer__userName}
                    href={ROUTE_LOGIN}
                 >
-                    {question.user.login ? question.user.login : question.user.email}
+                    {question.user.login ? question.user.login : getEmailPrefix(question.user.email)}
                 </a>
                 <p className={styles.userInfoContainer__categoryName}>
                     {itemCategory.name}

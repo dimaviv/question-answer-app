@@ -97,3 +97,26 @@
     justify-content: space-between;
     align-items: flex-start;
 }
+
+.container__questionListContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.questionListContainer__btnShowMore {
+    margin-top: 30px;
+    padding: 7px 28px 5px;
+    background: transparent;
+    border: 2px solid #ECE9EC;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #9D5C63;
+}
+
+.questionListContainer__btnShowMore:hover {
+    background: #ECE9EC;
+    border: 2px solid #ECE9EC;
+}

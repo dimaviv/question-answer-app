@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from './SectionCategories.module.css';
 import {useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
-import {fetchCategories} from '../../../http/questionAPI';
+import {fetchCategories} from '../../../http/categoryApi';
 import {useActions} from '../../../hooks/UseActions';
 import decorTriangle from '../../../static/header/decor/decor__triangle.svg';
 

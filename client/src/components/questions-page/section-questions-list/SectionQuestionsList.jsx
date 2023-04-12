@@ -8,17 +8,21 @@ import UserTopList from './user-top-list/UserTopList';
 import QuestionsList from './questions-list/QuestionsList';
 import {useSelector} from 'react-redux';
 import {ROUTE_LOGIN} from '../../../utils/consts';
+import Loader from '../../UI/loaders/loader/Loader';
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate();
     const selectedCategory = useCategory(); // Hook returns selected category
     const {isDarkMode} = useSelector(state => state.darkModeReducer);
     const {isAuth} = useSelector(state => state.authReducer);
+    const {questions} = useSelector(state => state.questionsReducer);
 
     const {setQuestions} = useActions(); // Hook for simple using useDispatch
     const categoryName = useParams().categoryName;
 
     const [isLoading, setIsLoading] = useState(true);
+    const [isQuestionsLoading, setIsQuestionLoading] = useState(false);
+    const [limit, setLimit] = useState(10);
     const pathToAskQuestionPage = selectedCategory && `/categories/${(selectedCategory.name.toLowerCase()).replace(/\s+/g, '')}/ask`;
 
     const handleRedirectToAsk = () => {
@@ -29,26 +33,30 @@ const SectionQuestionsList = () => {
         }
     };
 
+    const handleShowMore = () => {
+        setLimit(limit + 10);
+    };
+
     useEffect(() => {
         if (selectedCategory) {
+            setIsQuestionLoading(true);
             fetchQuestions(
                 categoryName !== 'all' ? selectedCategory.id : null,
                 null,
-                null,
+                limit,
                 null
             )
                 .then(data => {
                     setQuestions(data.rows);
                     setIsLoading(false);
+                    setIsQuestionLoading(false);
                 })
                 .catch(
                     error => console.error('Error while getting data:', error)
                 );
-
-
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedCategory]);
+    }, [selectedCategory, limit]);
 
 
     return (
@@ -75,7 +83,20 @@ const SectionQuestionsList = () => {
                 </button>
             </div>
             <div className={styles.sectionQuestionList__container}>
-                <QuestionsList isLoading={isLoading} />
+                <div className={styles.container__questionListContainer}>
+                    <QuestionsList isLoading={isLoading} />
+                    {isQuestionsLoading
+                        ?
+                        <Loader />
+                        :
+                        questions && questions.length % 10 === 0 &&
+                        <button onClick={handleShowMore}
+                                className={styles.questionListContainer__btnShowMore}
+                        >
+                            Show more
+                        </button>
+                    }
+                </div>
                 <UserTopList />
             </div>
         </div>

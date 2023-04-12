@@ -1,5 +1,5 @@
 import {authSlice} from './AuthSlice';
-import {login, registration} from '../../../../http/userAPI';
+import {login, registration} from '../../../../http/authAPI';
 
 export const AuthActionCreator = {
     setIsAuth: (boolean) => dispatch => {
@@ -10,14 +10,14 @@ export const AuthActionCreator = {
         try {
             registration(email, password)
                 .then(() => {
-                    console.log('Congrats with a registration!')
+                    console.log('Congrats with a registration!');
                 })
                 .catch(error => {
                         console.error(error);
                     }
                 );
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     },
 
@@ -25,11 +25,11 @@ export const AuthActionCreator = {
         try {
             login(email, password)
                 .then(data => {
-                    console.log('Congrats!')
+                    console.log('Congrats!');
                     dispatch(AuthActionCreator.setIsAuth(true));
                     if (isKeepLoggedIn) {
                         localStorage.setItem('auth', 'true');
-                        localStorage.setItem('user', JSON.stringify(data))
+                        localStorage.setItem('user', JSON.stringify(data));
                     } else {
                         sessionStorage.setItem('auth', 'true');
                         sessionStorage.setItem('user', JSON.stringify(data));
@@ -42,18 +42,19 @@ export const AuthActionCreator = {
             console.error(error);
         }
     },
+
     logOut: () => dispatch => {
         try {
             localStorage.removeItem('token');
             if (localStorage.getItem('auth')) {
                 localStorage.removeItem('auth');
-                localStorage.removeItem('user')
+                localStorage.removeItem('user');
             }
             if (sessionStorage.getItem('auth')) {
                 sessionStorage.removeItem('auth');
-                sessionStorage.removeItem('user')
+                sessionStorage.removeItem('user');
             }
-            dispatch(AuthActionCreator.setIsAuth(false))
+            dispatch(AuthActionCreator.setIsAuth(false));
         } catch (error) {
             console.error(error);
         }
