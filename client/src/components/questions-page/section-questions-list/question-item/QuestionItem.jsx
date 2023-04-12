@@ -36,7 +36,7 @@ const QuestionItem = ({question}) => {
                 <a className={styles.userInfoContainer__userName}
                    href={ROUTE_LOGIN}
                 >
-                    userNick
+                    {question.user.login ? question.user.login : question.user.email}
                 </a>
                 <p className={styles.userInfoContainer__categoryName}>
                     {itemCategory.name}
