@@ -1,4 +1,4 @@
-import {ROUTE_ERROR, ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP} from 'utils/consts';
+import {ROUTE_ERROR, ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP, ROUTE_GOOGLE_AUTH} from 'utils/consts';
 import loadable from "@loadable/component";
 import LoaderPage from "components/UI/loaders/loader-page/LoaderPage";
 import React from 'react';
