@@ -1,7 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-require('dotenv').config();
+require('dotenv').config()
 
 // configure passport to use the Google OAuth 2.0 strategy
 passport.use(new GoogleStrategy({
