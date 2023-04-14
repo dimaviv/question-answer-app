@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './SectionExplain.module.css';
-import {ROUTE_HOME} from '../../../utils/consts';
-import askQuestionImg from '../../../static/home-page/explain-frame/askQuestion.svg';
-import giveAnswerImg from '../../../static/home-page/explain-frame/answerQuestion.svg';
-import getMoneyImg from '../../../static/home-page/explain-frame/getMoney.svg';
+import {ROUTE_HOME} from 'utils/consts';
+import askQuestionImg from 'static/home-page/explain-frame/askQuestion.svg';
+import giveAnswerImg from 'static/home-page/explain-frame/answerQuestion.svg';
+import getMoneyImg from 'static/home-page/explain-frame/getMoney.svg';
 import {useSelector} from 'react-redux';
 
 const SectionExplain = () => {

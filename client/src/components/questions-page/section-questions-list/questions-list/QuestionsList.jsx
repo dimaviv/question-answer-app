@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './QuestionsList.module.css';
-import Loader from '../../../UI/loaders/loader/Loader';
-import QuestionItem from '../question-item/QuestionItem';
+import Loader from 'components/UI/loaders/loader/Loader';
+import QuestionItem from './../question-item/QuestionItem';
 import {useSelector} from 'react-redux';
 
 const QuestionsList = ({isLoading}) => {

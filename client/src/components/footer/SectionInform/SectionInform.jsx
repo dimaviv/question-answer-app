@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './SectionInform.module.css';
-import facebookImg from '../../../static/footer/social-networks/facebook.svg';
-import instagramImg from '../../../static/footer/social-networks/instagram.svg';
-import youtubeImg from '../../../static/footer/social-networks/youtube.svg';
-import tiktokImg from '../../../static/footer/social-networks/tiktok.svg';
-import appleAppImg from '../../../static/footer/apps/apple.svg';
-import googleAppImg from '../../../static/footer/apps/google.svg';
-import {ROUTE_HOME} from '../../../utils/consts';
+import facebookImg from 'static/footer/social-networks/facebook.svg';
+import instagramImg from 'static/footer/social-networks/instagram.svg';
+import youtubeImg from 'static/footer/social-networks/youtube.svg';
+import tiktokImg from 'static/footer/social-networks/tiktok.svg';
+import appleAppImg from 'static/footer/apps/apple.svg';
+import googleAppImg from 'static/footer/apps/google.svg';
+import {ROUTE_HOME} from 'utils/consts';
 import {useNavigate} from 'react-router-dom';
-import BtnDarkMode from '../../UI/btns/btnDarkMode/BtnDarkMode';
+import BtnDarkMode from 'components/UI/btns/btnDarkMode/BtnDarkMode';
 
 const SectionInform = () => {
     const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './UserPlaceItem.module.css';
-import {ROUTE_LOGIN} from '../../../../utils/consts';
-import userAvatarImg from './../../../../static/questions-page/userAvatar.svg'
-import {getEmailPrefix} from '../../../../utils/questions-page/get-email-prefix';
+import {ROUTE_LOGIN} from 'utils/consts';
+import userAvatarImg from 'static/questions-page/userAvatar.svg'
+import {getEmailPrefix} from 'utils/questions-page/get-email-prefix';
 
 
 const UserPlaceItem = ({user, img}) => {

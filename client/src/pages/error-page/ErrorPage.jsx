@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './ErrorPage.module.css'
-import {ROUTE_HOME} from '../../utils/consts';
+import {ROUTE_HOME} from 'utils/consts';
 
 const ErrorPage = () => {
     return (

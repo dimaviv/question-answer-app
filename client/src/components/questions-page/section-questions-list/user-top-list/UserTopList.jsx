@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import styles from './UserTopList.module.css';
-import UserPlaceItem from '../user-place-item/UserPlaceItem';
-import {fetchUserRating} from '../../../../http/userApi';
-import {topImages} from '../../../../utils/questions-page/img-places';
-import useCategory from '../../../../hooks/UseCategory';
+import UserPlaceItem from './../user-place-item/UserPlaceItem';
+import {fetchUserRating} from 'http/userApi';
+import {topImages} from 'utils/questions-page/img-places';
+import useCategory from 'hooks/UseCategory';
 
 const UserTopList = () => {
 

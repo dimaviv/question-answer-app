@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import styles from './SectionQuestionsList.module.css';
 import {useNavigate, useParams} from 'react-router-dom';
-import useCategory from '../../../hooks/UseCategory';
-import {fetchQuestions} from '../../../http/questionAPI';
-import {useActions} from '../../../hooks/UseActions';
+import useCategory from 'hooks/UseCategory';
+import {fetchQuestions} from 'http/questionAPI';
+import {useActions} from 'hooks/UseActions';
 import UserTopList from './user-top-list/UserTopList';
 import QuestionsList from './questions-list/QuestionsList';
 import {useSelector} from 'react-redux';
-import {ROUTE_LOGIN} from '../../../utils/consts';
-import Loader from '../../UI/loaders/loader/Loader';
+import {ROUTE_LOGIN} from 'utils/consts';
+import Loader from 'components/UI/loaders/loader/Loader';
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate();
@@ -38,6 +38,7 @@ const SectionQuestionsList = () => {
     };
 
     useEffect(() => {
+        setQuestions([]);
         if (selectedCategory) {
             setIsQuestionLoading(true);
             fetchQuestions(
@@ -89,7 +90,11 @@ const SectionQuestionsList = () => {
                         ?
                         <Loader />
                         :
-                        questions && questions.length % 10 === 0 &&
+                        (
+                            questions &&
+                            questions.length > 0 &&
+                            questions.length % 10 === 0
+                        ) &&
                         <button onClick={handleShowMore}
                                 className={styles.questionListContainer__btnShowMore}
                         >

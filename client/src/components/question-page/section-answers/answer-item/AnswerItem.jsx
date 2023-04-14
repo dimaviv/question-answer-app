@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import styles from './AnswerItem.module.css';
-import {ROUTE_LOGIN} from '../../../../utils/consts';
+import {ROUTE_LOGIN} from 'utils/consts';
 import CommentsList from './comments-list/CommentsList';
-import {formatDate} from '../../../../utils/questions-page/format-date';
-import userAvatarImg from '../../../../static/questions-page/userAvatar.svg';
-import reportBtnHoverImg from '../../../../static/question-page/reportBtnHover.svg';
-import reportBtnImg from '../../../../static/question-page/reportBtn.svg';
-import commentOnBtnImg from '../../../../static/question-page/commentOnBtn.svg';
-import commentOffBtnImg from '../../../../static/question-page/commentOffBtn.svg';
-import gradeUpBtnImg from '../../../../static/question-page/gradeUpBtn.svg';
-import gradeDownBtnImg from '../../../../static/question-page/gradeDownBtn.svg';
+import {formatDate} from 'utils/questions-page/format-date';
+import userAvatarImg from 'static/questions-page/userAvatar.svg';
+import reportBtnHoverImg from 'static/question-page/reportBtnHover.svg';
+import reportBtnImg from 'static/question-page/reportBtn.svg';
+import commentOnBtnImg from 'static/question-page/commentOnBtn.svg';
+import commentOffBtnImg from 'static/question-page/commentOffBtn.svg';
+import gradeUpBtnImg from 'static/question-page/gradeUpBtn.svg';
+import gradeDownBtnImg from 'static/question-page/gradeDownBtn.svg';
 
 const AnswerItem = ({answer}) => {
     const [hoveredReport, setHoveredReport] = useState(false);

@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import styles from './SectionSignup.module.css';
-import {ROUTE_HOME, ROUTE_LOGIN} from '../../../utils/consts';
-import {useActions} from '../../../hooks/UseActions';
-import googleIcon from '../../../static/login-page/google-icon.svg';
-import appleIcon from '../../../static/login-page/apple-icon.svg';
-import facebookIcon from '../../../static/login-page/facebook-icon.svg';
+import {ROUTE_HOME, ROUTE_LOGIN} from 'utils/consts';
+import {useActions} from 'hooks/UseActions';
+import googleIcon from 'static/login-page/google-icon.svg';
+import appleIcon from 'static/login-page/apple-icon.svg';
+import facebookIcon from 'static/login-page/facebook-icon.svg';
 
 const SectionSignup = () => {
     const [emailValue, setEmailValue] = useState('');

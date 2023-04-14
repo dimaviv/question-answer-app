@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './NavBar.module.css';
-import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP} from '../../../utils/consts';
+import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP} from 'utils/consts';
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {useActions} from '../../../hooks/UseActions';
+import {useActions} from 'hooks/UseActions';
 
 const NavBar = () => {
     const navigate = useNavigate();

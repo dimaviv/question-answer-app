@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import classes from './SectionAskQuestion.module.css'
-import {createQuestion} from "../../../http/questionAPI";
+import {createQuestion} from "http/questionAPI";
 import {useNavigate} from "react-router-dom";
-import useCategory from '../../../hooks/UseCategory';
+import useCategory from 'hooks/UseCategory';
 
 const SectionAskQuestion = () => {
     const navigate = useNavigate()

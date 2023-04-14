@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styles from './SectionAsk.module.css';
-import searchImg from '../../../static/icons/search.svg';
+import searchImg from 'static/icons/search.svg';
 
 const SectionAsk = () => {
     const [searchAnswer, setSearchAnswer] = useState('');

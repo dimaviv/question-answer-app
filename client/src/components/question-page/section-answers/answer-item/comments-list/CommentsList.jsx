@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from './CommentsList.module.css';
-import {formatDate} from '../../../../../utils/questions-page/format-date';
-import userAvatarImg from '../../../../../static/questions-page/userAvatar.svg';
+import {formatDate} from 'utils/questions-page/format-date';
+import userAvatarImg from 'static/questions-page/userAvatar.svg';
 
 const CommentsList = ({answer}) => {
     const [commentText, setCommentText] = useState('');

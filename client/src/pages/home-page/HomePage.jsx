@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./HomePage.module.css";
-import SectionAsk from "../../components/home-page/section-ask/SectionAsk";
-import SectionExplain from "../../components/home-page/section-explain/SectionExplain";
+import SectionAsk from "components/home-page/section-ask/SectionAsk";
+import SectionExplain from "components/home-page/section-explain/SectionExplain";
 
 const HomePage = () => {
 

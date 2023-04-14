@@ -1,5 +1,5 @@
 import {authSlice} from './AuthSlice';
-import {login, registration} from '../../../../http/authAPI';
+import {login, registration} from 'http/authAPI';
 
 export const AuthActionCreator = {
     setIsAuth: (boolean) => dispatch => {

@@ -1,10 +1,10 @@
 import React, {useEffect, useRef} from 'react';
-import {useLocaleStorage} from '../../../../hooks/UseLocalStorage';
+import {useLocaleStorage} from 'hooks/UseLocalStorage';
 import styles from './BtnDarkMode.module.css';
-import lightModeImg from '../../../../static/header/light-mode.svg';
-import darkModeImg from '../../../../static/header/dark-mode.svg';
-import {detectDarkMode} from '../../../../utils/detectDarkMode';
-import {useActions} from '../../../../hooks/UseActions';
+import lightModeImg from 'static/header/light-mode.svg';
+import darkModeImg from 'static/header/dark-mode.svg';
+import {detectDarkMode} from 'utils/detect-dark-mode';
+import {useActions} from 'hooks/UseActions';
 
 const BtnDarkMode = () => {
     const [darkMode, setDarkMode] = useLocaleStorage('darkMode', detectDarkMode());
