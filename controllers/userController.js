@@ -25,7 +25,9 @@ class UserController {
                     return next(ApiError.badRequest('User with such email already exists'))
                 }
                 token = generateJwt(existingUser.id, existingUser.email, existingUser.role)
-                return res.json({token})
+
+                res.redirect('/oauth?token=' + token)
+
             }
             const avatar = info.picture.slice(info.picture.indexOf('com') + 3)
             user = await User.create({
@@ -35,7 +37,7 @@ class UserController {
                 avatar
             })
             token = generateJwt(user.id, user.email, user.role)
-            return res.json({token})
+            res.redirect('/oauth?token=' + token)
 
         } catch (e) {
             next(ApiError.badRequest(e.message))
@@ -43,8 +45,6 @@ class UserController {
     }
 
     async oauthFacebook(req, res, next) {
-
-        console.log(req.user._json.picture.data.url)
 
         try {
             const email = req.user._json.email
@@ -57,7 +57,7 @@ class UserController {
                     return next(ApiError.badRequest('User with such email already exists'))
                 }
                 token = generateJwt(existingUser.id, existingUser.email, existingUser.role)
-                return res.json({token})
+                res.redirect('/oauth?token=' + token)
             }
             const fbAvatar = req.user._json.picture.data.url;
             const avatar = fbAvatar.slice(fbAvatar.indexOf('net') + 3)
@@ -68,7 +68,7 @@ class UserController {
                 avatar
             })
             token = generateJwt(user.id, user.email, user.role)
-            return res.json({token})
+            res.redirect('/oauth?token=' + token)
 
         } catch (e) {
             next(ApiError.badRequest(e.message))
