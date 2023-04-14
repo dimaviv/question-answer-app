@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GoogleAuthPage = () => {
+const OAuthPage = () => {
     return (
         <div>
             Authorization was successful
@@ -8,4 +8,4 @@ const GoogleAuthPage = () => {
     );
 };
 
-export default GoogleAuthPage;
+export default OAuthPage;
