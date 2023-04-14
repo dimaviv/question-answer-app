@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styles from './CommentsList.module.css';
-import {formatDate} from 'utils/questions-page/format-date';
+import {formatDate} from 'utils/pages/questions-page/format-date';
 import userAvatarImg from 'static/questions-page/userAvatar.svg';
 
 const CommentsList = ({answer}) => {

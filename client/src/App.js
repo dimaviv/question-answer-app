@@ -4,12 +4,11 @@ import AppRouter from 'components/AppRouter';
 import Footer from 'components/footer/Footer';
 import {useLocation} from 'react-router-dom';
 import {useActions} from 'hooks/UseActions';
+import {shouldDisplayHeader, shouldDisplayFooter} from './utils/path-display';
 
 const App = () => {
-    const location = useLocation();
-    const {pathname} = location;
-
-    const {setIsAuth, setCurrentUser} = useActions();
+    const {pathname} = useLocation();
+    const {setIsAuth} = useActions();
 
     useEffect(() => {
         if (localStorage.getItem('auth') || sessionStorage.getItem('auth')) {
@@ -22,17 +21,13 @@ const App = () => {
 
     return (
         <>
-            {
-                pathname !== '/login' &&
-                pathname !== '/signup' &&
+            {shouldDisplayHeader(pathname) &&
                 <Header />
             }
             <main className="main">
                 <AppRouter />
             </main>
-            {
-                pathname !== '/login' &&
-                pathname !== '/signup' &&
+            {shouldDisplayFooter(pathname) &&
                 <Footer />
             }
         </>

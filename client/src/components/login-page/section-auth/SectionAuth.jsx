@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './SectionAuth.module.css';
 import {ROUTE_HOME, ROUTE_SIGNUP} from 'utils/consts';
 import {useActions} from 'hooks/UseActions';
@@ -10,7 +10,7 @@ import facebookIcon from 'static/login-page/facebook-icon.svg';
 
 const SectionAuth = () => {
         const navigate = useNavigate();
-        const {logIn} = useActions();
+        const {logIn, setIsAuth} = useActions();
 
         const [emailValue, setEmailValue] = useState('');
         const [passwordValue, setPasswordValue] = useState('');
@@ -111,6 +111,22 @@ const SectionAuth = () => {
                 }
             }
         };
+
+        useEffect(() => {
+            const handleStorageChange = (event) => {
+                if (event.key === 'token') {
+                    setIsAuth(true)
+                    navigate(ROUTE_HOME)
+                }
+            };
+
+            window.addEventListener('storage', handleStorageChange);
+
+            return () => {
+                window.removeEventListener('storage', handleStorageChange);
+            };
+            // eslint-disable-next-line
+        }, []);
 
         return (
             <div className={styles.sectionAuth}>

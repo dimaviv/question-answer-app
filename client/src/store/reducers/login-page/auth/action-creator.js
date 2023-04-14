@@ -1,12 +1,10 @@
 import {authSlice} from './AuthSlice';
+import jwt_decode from "jwt-decode"
 import {login, registration} from 'http/authAPI';
 
 export const AuthActionCreator = {
     setIsAuth: (boolean) => dispatch => {
         dispatch(authSlice.actions.setIsAuth(boolean));
-    },
-    setCurrentUser: (user) => dispatch => {
-        dispatch(authSlice.actions.setCurrentUser(user))
     },
 
     signUp: (email, password) => dispatch => {
@@ -29,15 +27,17 @@ export const AuthActionCreator = {
             login(email, password)
                 .then(data => {
                     console.log('Congrats!');
-                    dispatch(AuthActionCreator.setIsAuth(true));
-                    dispatch(AuthActionCreator.setCurrentUser(data))
+                    const user = jwt_decode(data.token)
                     if (isKeepLoggedIn) {
+                        localStorage.setItem('token', data.token)
                         localStorage.setItem('auth', 'true');
-                        localStorage.setItem('currentUser', JSON.stringify(data));
+                        localStorage.setItem('currentUser', JSON.stringify(user));
                     } else {
+                        sessionStorage.setItem('token', data.token)
                         sessionStorage.setItem('auth', 'true');
-                        sessionStorage.setItem('currentUser', JSON.stringify(data));
+                        sessionStorage.setItem('currentUser', JSON.stringify(user));
                     }
+                    dispatch(AuthActionCreator.setIsAuth(true));
                 })
                 .catch(error => {
                     console.error(error);
@@ -47,19 +47,31 @@ export const AuthActionCreator = {
         }
     },
 
+    logInWithOAuth: (token) => dispatch => {
+        try {
+            console.log('Congrats!');
+            const user = jwt_decode(token)
+            localStorage.setItem('token', JSON.stringify(token));
+            localStorage.setItem('auth', 'true');
+            localStorage.setItem('currentUser', JSON.stringify(user));
+        } catch (error) {
+            console.error(error)
+        }
+    },
+
     logOut: () => dispatch => {
         try {
-            localStorage.removeItem('token');
             if (localStorage.getItem('auth')) {
+                localStorage.removeItem('token');
                 localStorage.removeItem('auth');
                 localStorage.removeItem('currentUser');
             }
             if (sessionStorage.getItem('auth')) {
+                sessionStorage.removeItem('token');
                 sessionStorage.removeItem('auth');
                 sessionStorage.removeItem('currentUser');
             }
             dispatch(AuthActionCreator.setIsAuth(false));
-            dispatch(AuthActionCreator.setCurrentUser({}));
         } catch (error) {
             console.error(error);
         }

@@ -30,7 +30,6 @@ const ErrorPage = loadable(() => import('pages/error-page/ErrorPage'), {
 
 
 export const publicRoutes = [
-    {path: '/', component: HomePage},
     {path: ROUTE_HOME, component: HomePage},
     {path: '/subject/:categoryName', component: QuestionsPage},
     {path: ROUTE_LOGIN, component: LoginPage},
@@ -41,7 +40,6 @@ export const publicRoutes = [
 ];
 
 export const privateRoutes = [
-    {path: '/', component: HomePage},
     {path: ROUTE_HOME, component: HomePage},
     {path: '/subject/:categoryName', component: QuestionsPage},
     {path: '/subject/:categoryName-ask', component: AskQuestionPage},
