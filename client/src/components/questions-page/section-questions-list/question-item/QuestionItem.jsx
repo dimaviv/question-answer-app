@@ -20,7 +20,7 @@ const QuestionItem = ({question}) => {
     const handleRedirectQuestion = (questionId) => {
         if (isAuth) {
             sessionStorage.setItem('questionId', questionId);
-            navigate(`/categories/${pathToCategory}/${questionId}`);
+            navigate(`/subject/${pathToCategory}/${questionId}`);
         } else {
             navigate(ROUTE_LOGIN)
         }

@@ -10,7 +10,6 @@ passport.use(new GoogleStrategy({
         callbackURL: process.env.GOOGLE_CALLBACK_URL
     },
     function (request, accessToken, refreshToken, profile, done) {
-        console.log(profile, accessToken);
         return done(null, profile);
     }
 ));

@@ -5,6 +5,9 @@ export const AuthActionCreator = {
     setIsAuth: (boolean) => dispatch => {
         dispatch(authSlice.actions.setIsAuth(boolean));
     },
+    setCurrentUser: (user) => dispatch => {
+        dispatch(authSlice.actions.setCurrentUser(user))
+    },
 
     signUp: (email, password) => dispatch => {
         try {
@@ -27,12 +30,13 @@ export const AuthActionCreator = {
                 .then(data => {
                     console.log('Congrats!');
                     dispatch(AuthActionCreator.setIsAuth(true));
+                    dispatch(AuthActionCreator.setCurrentUser(data))
                     if (isKeepLoggedIn) {
                         localStorage.setItem('auth', 'true');
-                        localStorage.setItem('user', JSON.stringify(data));
+                        localStorage.setItem('currentUser', JSON.stringify(data));
                     } else {
                         sessionStorage.setItem('auth', 'true');
-                        sessionStorage.setItem('user', JSON.stringify(data));
+                        sessionStorage.setItem('currentUser', JSON.stringify(data));
                     }
                 })
                 .catch(error => {
@@ -48,13 +52,14 @@ export const AuthActionCreator = {
             localStorage.removeItem('token');
             if (localStorage.getItem('auth')) {
                 localStorage.removeItem('auth');
-                localStorage.removeItem('user');
+                localStorage.removeItem('currentUser');
             }
             if (sessionStorage.getItem('auth')) {
                 sessionStorage.removeItem('auth');
-                sessionStorage.removeItem('user');
+                sessionStorage.removeItem('currentUser');
             }
             dispatch(AuthActionCreator.setIsAuth(false));
+            dispatch(AuthActionCreator.setCurrentUser({}));
         } catch (error) {
             console.error(error);
         }

@@ -13,6 +13,7 @@ import Loader from 'components/UI/loaders/loader/Loader';
 const SectionQuestionsList = () => {
     const navigate = useNavigate();
     const selectedCategory = useCategory(); // Hook returns selected category
+
     const {isDarkMode} = useSelector(state => state.darkModeReducer);
     const {isAuth} = useSelector(state => state.authReducer);
     const {questions} = useSelector(state => state.questionsReducer);
@@ -22,8 +23,10 @@ const SectionQuestionsList = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [isQuestionsLoading, setIsQuestionLoading] = useState(false);
+
     const [limit, setLimit] = useState(10);
-    const pathToAskQuestionPage = selectedCategory && `/categories/${(selectedCategory.name.toLowerCase()).replace(/\s+/g, '')}/ask`;
+
+    const pathToAskQuestionPage = selectedCategory && `/subject/${(selectedCategory.name.toLowerCase()).replace(/\s+/g, '')}-ask`;
 
     const handleRedirectToAsk = () => {
         if (isAuth) {

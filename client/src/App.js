@@ -9,16 +9,16 @@ const App = () => {
     const location = useLocation();
     const {pathname} = location;
 
-    const {setIsAuth} = useActions()
+    const {setIsAuth, setCurrentUser} = useActions();
 
     useEffect(() => {
-        if(localStorage.getItem('auth') || sessionStorage.getItem('auth')) {
-            setIsAuth(true)
+        if (localStorage.getItem('auth') || sessionStorage.getItem('auth')) {
+            setIsAuth(true);
         } else {
-            setIsAuth(false)
+            setIsAuth(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     return (
         <>
