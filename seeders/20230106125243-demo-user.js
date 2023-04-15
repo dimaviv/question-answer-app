@@ -1,13 +1,14 @@
 module.exports = {
     up: (queryInterface) => {
-        return queryInterface.bulkInsert('users', [{
-            login: 'churpasov',
-            email: 'chuprasov1959@ukr.net',
-            password: '123',
-            avatar: 'aasdasd1',
-            createdAt: new Date(),
-            updatedAt: new Date()
-        },
+        return queryInterface.bulkInsert('users', [
+            {
+                login: 'churpasov',
+                email: 'chuprasov1959@ukr.net',
+                password: '123',
+                avatar: 'aasdasd1',
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
             {
                 login: 'hornedtoad',
                 email: 'hornedtoad@ukr.net',
@@ -43,7 +44,7 @@ module.exports = {
         ]);
     },
 
-        down: (queryInterface) => {
-            return queryInterface.bulkDelete('users', null, {});
-        }
-    };
+    down: (queryInterface) => {
+        return queryInterface.bulkDelete('users', null, {});
+    }
+};

@@ -1,23 +1,29 @@
 import React from 'react';
 import styles from './QuestionItem.module.css';
-import {ROUTE_LOGIN} from '../../../../utils/consts';
-import userAvatarImg from '../../../../static/questions-page/userAvatar.svg';
+import {ROUTE_LOGIN} from 'utils/consts';
 import {useNavigate} from 'react-router-dom';
-import {formatDate} from '../../../../utils/questions-page/format-date';
 import {useSelector} from 'react-redux';
-import useCategory from '../../../../hooks/UseCategory';
+import useCategory from 'hooks/UseCategory';
+import {formatDate} from 'utils/pages/questions-page/format-date';
+import userAvatarImg from 'static/questions-page/userAvatar.svg';
+import {getEmailPrefix} from 'utils/pages/questions-page/get-email-prefix';
 
 const QuestionItem = ({question}) => {
     const selectedCategory = useCategory(); // Hook returns selected category
     const navigate = useNavigate();
 
+    const {isAuth} = useSelector(state => state.authReducer)
     const {categories} = useSelector(state => state.categoriesReducer);
-    const pathToCategory = (selectedCategory.name.toLowerCase()).replace(/\s+/g, '');
+    const pathToCategory = selectedCategory && selectedCategory.name.toLowerCase().replace(/\s+/g, '');
     const itemCategory = categories.find(category => category.id === question.categoryId);
 
     const handleRedirectQuestion = (questionId) => {
-        sessionStorage.setItem('questionId', questionId);
-        navigate(`/${pathToCategory}/${questionId}`);
+        if (isAuth) {
+            sessionStorage.setItem('questionId', questionId);
+            navigate(`/subject/${pathToCategory}/${questionId}`);
+        } else {
+            navigate(ROUTE_LOGIN)
+        }
     };
 
     return (
@@ -31,7 +37,7 @@ const QuestionItem = ({question}) => {
                 <a className={styles.userInfoContainer__userName}
                    href={ROUTE_LOGIN}
                 >
-                    userNick
+                    {question.user.login ? question.user.login : getEmailPrefix(question.user.email)}
                 </a>
                 <p className={styles.userInfoContainer__categoryName}>
                     {itemCategory.name}

@@ -90,6 +90,7 @@
 
 .textContainer__text {
     font-weight: bold;
+    color: #584B53;
     font-size: 20px;
 }
 
@@ -116,7 +117,16 @@
 }
 
 .gradeTextContainer__text {
+    color: #584B53;
     font-size: 25px;
+}
+
+.gradeTextContainer__text_red {
+    color: #cf1d00;
+}
+
+.gradeTextContainer__text_green {
+    color: forestgreen;
 }
 
 .answerItem__commentContainer {

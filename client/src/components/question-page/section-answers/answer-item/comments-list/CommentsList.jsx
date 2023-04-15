@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from './CommentsList.module.css';
-import userAvatarImg from '../../../../../static/questions-page/userAvatar.svg';
-import {formatDate} from '../../../../../utils/questions-page/format-date';
+import {formatDate} from 'utils/pages/questions-page/format-date';
+import userAvatarImg from 'static/questions-page/userAvatar.svg';
 
 const CommentsList = ({answer}) => {
     const [commentText, setCommentText] = useState('');
@@ -22,13 +22,13 @@ const CommentsList = ({answer}) => {
                         <div className={styles.content__commentItem}
                              key={comment.id}
                         >
-                            <div className={styles.commentItem__avatarBox}>
-                                <img src={userAvatarImg}
-                                     alt="user-avatar"
-                                />
-                            </div>
                             <div className={styles.commentItem__commentInfoContainer}>
-                                <p className={styles.commentItem__commentText}>
+                                <div className={styles.commentInfoContainer__avatarBox}>
+                                    <img src={userAvatarImg}
+                                         alt="user-avatar"
+                                    />
+                                </div>
+                                <p className={styles.commentInfoContainer__commentText}>
                                     {comment.text}
                                 </p>
                                 <p className={styles.commentInfoContainer__dateAdd}>
@@ -42,11 +42,11 @@ const CommentsList = ({answer}) => {
             <form className={styles.commentsList__sendForm}
                   onSubmit={handleSubmitForm}
             >
-                <div className={styles.sendForm__userAvatarBox}>
-                    <img src={userAvatarImg}
-                         alt="user-avatar"
-                    />
-                </div>
+                {/*<div className={styles.sendForm__userAvatarBox}>*/}
+                {/*    <img src={userAvatarImg}*/}
+                {/*         alt="user-avatar"*/}
+                {/*    />*/}
+                {/*</div>*/}
                 <input className={styles.sendForm__inputComment}
                     type="text"
                     placeholder="Comment"

@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './UserPlaceItem.module.css';
-import {ROUTE_LOGIN} from '../../../../utils/consts';
+import {ROUTE_LOGIN} from 'utils/consts';
+import userAvatarImg from 'static/questions-page/userAvatar.svg'
+import {getEmailPrefix} from 'utils/pages/questions-page/get-email-prefix';
 
 
 const UserPlaceItem = ({user, img}) => {
@@ -15,14 +17,14 @@ const UserPlaceItem = ({user, img}) => {
                 </div>
                 <div className={styles.userInformContainer__userInfoContainer}>
                     <div className={styles.userInfoContainer__avatarBox}>
-                        <img src={user.avatar}
+                        <img src={user.avatar ? user.avatar : userAvatarImg}
                              alt={`${user.name} avatar`}
                         />
                     </div>
                     <a className={styles.userInfoContainer__text}
                         href={ROUTE_LOGIN}
                     >
-                        {user.name}
+                        {user.login ? user.login : getEmailPrefix(user.email)}
                     </a>
                 </div>
             </div>

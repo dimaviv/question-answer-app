@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from './AnswersList.module.css';
-import AnswerItem from '../answer-item/AnswerItem';
+import AnswerItem from './../answer-item/AnswerItem';
 import _ from 'lodash';
 import {useSelector} from 'react-redux';
 

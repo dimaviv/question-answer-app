@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import classes from './QuestionPage.module.css';
-import SectionAnswers from '../../components/question-page/section-answers/SectionAnswers';
-import {useActions} from '../../hooks/UseActions';
-import {fetchOneQuestion} from '../../http/questionAPI';
+import SectionAnswers from 'components/question-page/section-answers/SectionAnswers';
+import {useActions} from 'hooks/UseActions';
+import {fetchOneQuestion} from 'http/questionAPI';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import LoaderPage from '../../components/UI/loaders/loader-page/LoaderPage';
-import useCategory from '../../hooks/UseCategory';
-import {ROUTE_ERROR} from '../../utils/consts';
+import LoaderPage from 'components/UI/loaders/loader-page/LoaderPage';
+import useCategory from 'hooks/UseCategory';
+import {ROUTE_ERROR} from 'utils/consts';
 
 const QuestionPage = () => {
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ const QuestionPage = () => {
                             setQuestionCategory(categories.find((category) => category.id === data.categoryId));
                             setIsLoading(false);
                         } else {
-                            throw new Error('PAGE NOT FOUND (404)')
+                            throw new Error('PAGE NOT FOUND (404)');
                         }
                     }
                 )

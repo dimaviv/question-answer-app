@@ -1,31 +1,33 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import UserPlaceItem from '../user-place-item/UserPlaceItem';
-import {topImages} from '../../../../utils/questions-page/img-places';
-import _ from 'lodash';
-import {useSelector} from 'react-redux';
+import React, {useEffect, useState} from 'react';
 import styles from './UserTopList.module.css';
+import UserPlaceItem from './../user-place-item/UserPlaceItem';
+import {fetchUserRating} from 'http/userApi';
+import {topImages} from 'utils/pages/questions-page/img-places';
+import useCategory from 'hooks/UseCategory';
 
 const UserTopList = () => {
 
-    const {users} = useSelector(state => state.usersReducer);
-    const [top10List, setTop10List] = useState([]);
-
-    const fetchTop10ListCallback = useCallback(() => {
-        setTop10List(_.sortBy(users, 'score').reverse().slice(0, 10));
-    }, [users]);
+    const [userRating, setUserRating] = useState([]);
+    const selectedCategory = useCategory();
 
     useEffect(() => {
-        fetchTop10ListCallback();
-    }, [fetchTop10ListCallback]);
+            fetchUserRating()
+                .then(data => {
+                    setUserRating(data);
+                })
+                .catch(error => console.error(error));
+    }, [selectedCategory]);
 
     return (
         <div className={styles.userTopList}>
             <div className={styles.userTopList__titleContainer}>
                 <p className={styles.titleContainer__text}>Top 10</p>
             </div>
-            {(top10List && top10List.length > 0) &&
+            {
+                userRating &&
+                userRating.length > 0 &&
                 <div className={styles.userTopList__container}>
-                    {top10List.map((user, index) => (
+                    {userRating.map((user, index) => (
                         <UserPlaceItem
                             key={user.id}
                             user={user}

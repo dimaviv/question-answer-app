@@ -8,6 +8,9 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        setIsAuth(state, action) {
+            state.isAuth = action.payload
+        },
     }
 })
 

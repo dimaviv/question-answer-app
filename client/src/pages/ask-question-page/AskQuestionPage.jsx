@@ -1,13 +1,13 @@
 import React from 'react';
-import classes from './AskQuestionPage.module.css'
-import SectionAskQuestion from "../../components/ask-question-page/section-ask-question/SectionAskQuestion";
-import useCategory from "../../hooks/UseCategory";
+import styles from './AskQuestionPage.module.css'
+import SectionAskQuestion from "components/ask-question-page/section-ask-question/SectionAskQuestion";
+import useCategory from "hooks/UseCategory";
 
 const AskQuestionPage = () => {
     useCategory();
 
     return (
-        <div className={classes.askQuestionPage}>
+        <div className={styles.askQuestionPage}>
            <SectionAskQuestion/>
         </div>
     );

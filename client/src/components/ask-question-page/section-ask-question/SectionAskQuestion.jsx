@@ -1,77 +1,80 @@
 import React, {useState} from 'react';
-import classes from './SectionAskQuestion.module.css'
-import {createQuestion} from "../../../http/questionAPI";
-import {useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import styles from './SectionAskQuestion.module.css';
+import {createQuestion} from 'http/questionAPI';
+import {useNavigate} from 'react-router-dom';
+import useCategory from 'hooks/UseCategory';
 
 const SectionAskQuestion = () => {
-    const navigate = useNavigate()
-    const [questionText, setQuestionText] = useState('')
+    const navigate = useNavigate();
+    const selectedCategory = useCategory();
+
+    const [questionText, setQuestionText] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
-    const {selectedCategory} = useSelector(state => state.categoriesReducer)
+    const categoryId = selectedCategory ? selectedCategory.id : null;
+    const currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : null;
 
     const clearValues = () => {
-        setQuestionText('')
-        setSelectedFile(null)
-    }
+        setQuestionText('');
+        setSelectedFile(null);
+    };
 
     const handleFileInput = e => {
         setSelectedFile(e.target.files[0]);
     };
 
     const handleSubmitForm = (e) => {
-        e.preventDefault()
-        if(questionText !== '') {
+        e.preventDefault();
+        if (questionText !== '' && categoryId && currentUser) {
             const newQuestion = {
                 text: questionText,
-                userId: 1,
-                categoryId: selectedCategory.id,
+                userId: currentUser.id,
+                categoryId: categoryId,
                 file: selectedFile
-            }
+            };
             createQuestion(newQuestion)
                 .then(
                     () => {
-                        console.log('Question created')
-                        clearValues()
-                        navigate(`/${selectedCategory.name.toLowerCase().replace(/\s+/g, "")}`)
+                        console.log('Question created');
+                        clearValues();
+                        navigate(`/subject/${selectedCategory.name.toLowerCase().replace(/\s+/g, '')}`);
                     }
                 )
                 .catch(
                     error => console.error('Error while getting data:', error)
-                )
+                );
         }
-    }
+    };
 
     return (
-        <div className={classes.sectionAskQuestion}>
-            <div className={classes.sectionAskQuestion__content}>
-                <div className={classes.askQuestionContainer}>
+        <div className={styles.sectionAskQuestion}>
+            <div className={styles.sectionAskQuestion__content}>
+                <div className={styles.askQuestionContainer}>
                     <form
-                        className={classes.askQuestionForm}
+                        className={styles.askQuestionForm}
                         onSubmit={handleSubmitForm}
                     >
-                        <div className={classes.questionTextBox}
+                        <div className={styles.questionTextBox}
                         >
                       <textarea
-                          className={classes.questionText}
-                          placeholder='I want to ask...'
+                          className={styles.questionText}
+                          placeholder="I want to ask..."
                           value={questionText}
                           onChange={e => setQuestionText(e.target.value)}
                       />
                         </div>
-                        <div className={classes.btnBox}>
-                            <div className={classes.leftSideBtnBox}>
+                        <div className={styles.btnBox}>
+                            <div className={styles.leftSideBtnBox}>
                                 <input
-                                    type='file'
+                                    type="file"
                                     id="fileInput"
                                     value={selectedFile ? selectedFile.name : ''}
                                     onChange={handleFileInput}
                                 />
                             </div>
-                            <div className={classes.rightSideBtnBox}>
+                            <div className={styles.rightSideBtnBox}>
                                 <button
-                                    type='submit'
-                                    className={classes.btnSend}
+                                    type="submit"
+                                    className={styles.btnSend}
                                 >
                                     Send
                                 </button>
