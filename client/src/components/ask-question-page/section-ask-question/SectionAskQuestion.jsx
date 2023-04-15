@@ -11,7 +11,6 @@ const SectionAskQuestion = () => {
     const [questionText, setQuestionText] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
     const categoryId = selectedCategory ? selectedCategory.id : null;
-    const currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : null;
 
     const clearValues = () => {
         setQuestionText('');
@@ -24,10 +23,9 @@ const SectionAskQuestion = () => {
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
-        if (questionText !== '' && categoryId && currentUser) {
+        if (questionText !== '' && categoryId) {
             const newQuestion = {
                 text: questionText,
-                userId: currentUser.id,
                 categoryId: categoryId,
                 file: selectedFile
             };

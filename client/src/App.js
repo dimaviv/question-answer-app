@@ -8,7 +8,17 @@ import {shouldDisplayHeader, shouldDisplayFooter} from './utils/path-display';
 
 const App = () => {
     const {pathname} = useLocation();
-    const {setIsAuth} = useActions();
+    const {setIsAuth, checkAuth} = useActions();
+
+    useEffect(() => {
+        if(localStorage.getItem('auth') || sessionStorage.getItem('auth')) {
+            checkAuth();
+            console.log('Success auth!')
+        } else {
+            console.log('You should auth!')
+        }
+        // eslint-disable-next-line
+    }, []);
 
     useEffect(() => {
         if (localStorage.getItem('auth') || sessionStorage.getItem('auth')) {

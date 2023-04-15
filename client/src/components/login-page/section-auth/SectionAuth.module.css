@@ -33,7 +33,7 @@
 .sectionAuth__loginAppsContainer {
     display: flex;
     flex-direction: column;
-    gap: 20px 0;
+    gap: 12px 0;
 }
 
 .loginAppsContainer__item {
@@ -102,78 +102,6 @@
 
 .sectionAuth__loginUserContainer {
     display: flex;
-}
-
-.loginUserContainer__form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px 0;
-
-}
-
-.form__inputItem {
-    padding: 0 20px;
-    height: 40px;
-    border: none;
-    border-radius: 100px;
-    background: #EBEBEB;
-    font-size: 16px;
-    color: #584B53;
-}
-
-.form__inputItem::-webkit-input-placeholder {
-    color: #B8B8B8;
-}
-
-.form__inputItem_error {
-    outline: #cf1d00;
-    border: 2px solid #cf1d00;
-}
-
-.form_btnLogin {
-    margin-top: 12px;
-    height: 40px;
-    border: none;
-    border-radius: 100px;
-    background: #9D5C63;
-    font-size: 16px;
-    font-weight: bold;
-    color: #FFFFFF;
-    text-transform: uppercase;
-}
-
-.form__loginOptions {
-    display: flex;
-    justify-content: space-between;
-}
-
-.form__errorTextBox {
-    padding-left: 20px;
-    display: flex;
-}
-
-.errorTextBox__text {
-    color: #cf1d00;
-}
-
-.loginOptions__keepLogBox {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.loginOptions__keepLogBox input[type='checkbox'] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-.loginOptions__forgotPassText {
-    color: #9D5C63;
-    font-size: 16px;
-    font-weight: bold;
 }
 
 .sectionAuth__askSignUpContainer {

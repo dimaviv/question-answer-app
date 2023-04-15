@@ -8,11 +8,11 @@ import {useActions} from 'hooks/UseActions';
 const NavBar = () => {
     const navigate = useNavigate();
 
-    const {logOut} = useActions()
+    const {signOut} = useActions()
     const {isAuth} = useSelector(state => state.authReducer)
 
-    const handleLogOut = () => {
-        logOut()
+    const handleSignOut = () => {
+        signOut()
         navigate(ROUTE_HOME)
     }
 
@@ -33,7 +33,7 @@ const NavBar = () => {
                         {isAuth
                             ?
                             <ul className={styles.menu__list}>
-                                <li onClick={handleLogOut}
+                                <li onClick={handleSignOut}
                                     className={styles.list__item}
                                 >
                                     <p className={styles.item__text}>Log out</p>

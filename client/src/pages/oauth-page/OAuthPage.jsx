@@ -5,12 +5,12 @@ import {useActions} from '../../hooks/UseActions';
 const OAuthPage = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
-    const {logInWithOAuth} = useActions();
+    const {signInWithOAuth} = useActions();
 
     useEffect(() => {
         if (token) {
             const handleGetToken = async (newToken) => {
-                logInWithOAuth(newToken);
+                signInWithOAuth(newToken);
             };
             handleGetToken(token)
                 .then(
