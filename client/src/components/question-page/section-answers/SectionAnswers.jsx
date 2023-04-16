@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 import AnswersList from './answers-list/AnswersList';
 import {ROUTE_LOGIN} from 'utils/consts';
 import {formatDate} from 'utils/pages/questions-page/format-date';
+import {getEmailPrefix} from 'utils/pages/questions-page/get-email-prefix';
 import userAvatarImg from 'static/questions-page/userAvatar.svg';
 import reportBtnImg from 'static/question-page/reportBtn.svg';
 import reportBtnHoverImg from 'static/question-page/reportBtnHover.svg';
@@ -11,6 +12,7 @@ import reportBtnHoverImg from 'static/question-page/reportBtnHover.svg';
 const SectionAnswers = () => {
     const {question} = useSelector(state => state.questionsReducer);
     const {questionCategory} = useSelector(state => state.categoriesReducer);
+
     const [hoveredReport, setHoveredReport] = useState(false);
     const [isReport, setIsReport] = useState(false);
 
@@ -39,7 +41,7 @@ const SectionAnswers = () => {
                         <a className={styles.titleContainer__userName}
                            href={ROUTE_LOGIN}
                         >
-                            userNick
+                            {question.user.login ? question.user.login : getEmailPrefix(question.user.email)}
                         </a>
                         <p className={styles.titleContainer__categoryName}>
                             {questionCategory && questionCategory.name}

@@ -1,23 +1,21 @@
 import React, {useEffect} from 'react';
 import Header from 'components/header/Header';
-import AppRouter from 'components/AppRouter';
+import Main from './components/main/Main';
 import Footer from 'components/footer/Footer';
-import {useLocation} from 'react-router-dom';
 import {useActions} from 'hooks/UseActions';
-import {shouldDisplayHeader, shouldDisplayFooter} from './utils/path-display';
 
 const App = () => {
-    const {pathname} = useLocation();
     const {setIsAuth, checkAuth} = useActions();
 
     useEffect(() => {
-        if(localStorage.getItem('auth') || sessionStorage.getItem('auth')) {
+        if (localStorage.getItem('auth') || sessionStorage.getItem('auth')) {
             checkAuth();
-            console.log('Success auth!')
+            console.log('Success auth!');
         } else {
-            console.log('You should auth!')
+            console.log('You should auth!');
         }
-        // eslint-disable-next-line
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -26,20 +24,15 @@ const App = () => {
         } else {
             setIsAuth(false);
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <>
-            {shouldDisplayHeader(pathname) &&
-                <Header />
-            }
-            <main className="main">
-                <AppRouter />
-            </main>
-            {shouldDisplayFooter(pathname) &&
-                <Footer />
-            }
+            <Header />
+            <Main />
+            <Footer />
         </>
     );
 };

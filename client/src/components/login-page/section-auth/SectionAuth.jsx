@@ -78,7 +78,7 @@ const SectionAuth = () => {
                     </h1>
                 </div>
                 <div className={styles.sectionAuth__loginAppsContainer}>
-                    <button className={`${styles.loginAppsContainer__item} ${styles.loginAppsContainer__itemGoogle}`}
+                    <button className={`${styles.loginAppsContainer__btn} ${styles.loginAppsContainer__googleAuthBtn}`}
                             onClick={redirectToGoogleSSO}
                     >
                         <img src={googleIcon}
@@ -88,7 +88,7 @@ const SectionAuth = () => {
                             Sign in with Google
                         </p>
                     </button>
-                    {/*<button className={`${styles.loginAppsContainer__item} ${styles.loginAppsContainer__itemApple}`}>*/}
+                    {/*<button className={`${styles.loginAppsContainer__btn} ${styles.loginAppsContainer__appleAuthBtn}`}>*/}
                     {/*    <img src={appleIcon}*/}
                     {/*         alt={'Login with Apple'}*/}
                     {/*    />*/}
@@ -96,7 +96,7 @@ const SectionAuth = () => {
                     {/*        Sign in with Apple*/}
                     {/*    </p>*/}
                     {/*</button>*/}
-                    <button className={`${styles.loginAppsContainer__item} ${styles.loginAppsContainer__itemFacebook}`}
+                    <button className={`${styles.loginAppsContainer__btn} ${styles.loginAppsContainer__facebookAuthBtn}`}
                             onClick={redirectToFacebookSSO}
                     >
                         <img src={facebookIcon}

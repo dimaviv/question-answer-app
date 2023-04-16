@@ -80,7 +80,7 @@ const SectionQuestionsList = () => {
                         Ask your own
                     </h2>
                 </div>
-                <button className={styles.askQuestionContainer__btnRedirect}
+                <button className={styles.askQuestionContainer__redirectBtn}
                         onClick={handleRedirectToAsk}
                 >
                     I want to ask...
@@ -99,7 +99,7 @@ const SectionQuestionsList = () => {
                             questions.length % 10 === 0
                         ) &&
                         <button onClick={handleShowMore}
-                                className={styles.questionListContainer__btnShowMore}
+                                className={styles.questionListContainer__showMoreBtn}
                         >
                             Show more
                         </button>

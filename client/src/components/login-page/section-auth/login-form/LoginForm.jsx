@@ -77,7 +77,7 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={handleSubmit}
-              className={styles.signInUserContainer__form}
+              className={styles.signinUserContainer__form}
         >
             <input type="text"
                    placeholder="Nick or email"
@@ -109,11 +109,11 @@ const LoginForm = () => {
                     </p>
                 </div>
             }
-            <button className={styles.form_btnSignIn}>
+            <button className={styles.form_signinBtn}>
                Sign in
             </button>
-            <div className={styles.form__signInOptions}>
-                <label className={styles.signInOptions__keepLogBox}>
+            <div className={styles.form__signinOptions}>
+                <label className={styles.signinOptions__keepLogBox}>
                     <input type="checkbox"
                            name="keepLoggedIn"
                            value="true"
@@ -123,7 +123,7 @@ const LoginForm = () => {
                     Keep me logged in
                 </label>
                 <a href={ROUTE_HOME}
-                   className={styles.signInOptions__forgotPassText}
+                   className={styles.signinOptions__forgotPassText}
                 >
                     Forgot password?
                 </a>

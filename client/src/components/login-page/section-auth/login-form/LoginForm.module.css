@@ -1,4 +1,4 @@
-.signInUserContainer__form {
+.signinUserContainer__form {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@
     border: 2px solid #cf1d00;
 }
 
-.form_btnSignIn {
+.form_signinBtn {
     margin-top: 12px;
     height: 40px;
     border: none;
@@ -37,7 +37,11 @@
     text-transform: uppercase;
 }
 
-.form__signInOptions {
+.form_signinBtn:hover {
+    background: #8D5359;
+}
+
+.form__signinOptions {
     display: flex;
     justify-content: space-between;
 }
@@ -51,20 +55,20 @@
     color: #cf1d00;
 }
 
-.signInOptions__keepLogBox {
+.signinOptions__keepLogBox {
     display: flex;
     align-items: center;
     font-size: 16px;
     font-weight: bold;
 }
 
-.signInOptions__keepLogBox input[type='checkbox'] {
+.signinOptions__keepLogBox input[type='checkbox'] {
     width: 16px;
     height: 16px;
     cursor: pointer;
 }
 
-.signInOptions__forgotPassText {
+.signinOptions__forgotPassText {
     color: #9D5C63;
     font-size: 16px;
     font-weight: bold;

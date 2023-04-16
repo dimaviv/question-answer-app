@@ -66,7 +66,7 @@ const SignupForm = () => {
 
     return (
         <form onSubmit={handleSubmit}
-              className={styles.loginUserContainer__form}
+              className={styles.signupUserContainer__form}
         >
             <input type="text"
                    placeholder="Nick or email"
@@ -98,7 +98,7 @@ const SignupForm = () => {
                     </p>
                 </div>
             }
-            <button className={styles.form_btnLogin}>
+            <button className={styles.form_signupBtn}>
                 Sign Up
             </button>
         </form>
