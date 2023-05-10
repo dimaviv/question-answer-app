@@ -1,11 +1,11 @@
-.sectionSignUp {
+.sectionSignup {
     width: 400px;
     display: flex;
     flex-direction: column;
     gap: 24px 0  
 }
 
-.sectionSignUp__redirectContainer {
+.sectionSignup__redirectContainer {
     display: flex;
     justify-content: flex-end;
 }
@@ -20,7 +20,7 @@
     text-decoration: underline;
 }
 
-.sectionSignUp__titleContainer {
+.sectionSignup__titleContainer {
     display: flex;
     justify-content: center;
 }
@@ -30,19 +30,19 @@
     font-weight: 900;
 }
 
-.sectionSignUp__loginAppsContainer {
+.sectionSignup__signupAppsContainer {
     display: flex;
     flex-direction: column;
-    gap: 20px 0;
+    gap: 12px 0;
 }
 
-.loginAppsContainer__item {
+.signupAppsContainer__btn {
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0 10px;
-    border: 2px solid #584B53;
+    border: 2px solid transparent;
     border-radius: 100px;
 }
 
@@ -53,24 +53,40 @@
     text-transform: uppercase;
 }
 
-.loginAppsContainer__itemGoogle {
+.signupAppsContainer__googleAuthBtn {
+    border-color: #42383F;
+    color: #42383F;
+}
+
+.signupAppsContainer__googleAuthBtn:hover {
     background: #FFFFFF;
+    border-color: #584B53;
     color: #584B53;
 }
 
-.loginAppsContainer__itemApple {
+.signupAppsContainer__appleAuthBtn {
     background: #000000;
     border: 2px solid #000000;
     color: #FFFFFF;
 }
 
-.loginAppsContainer__itemFacebook {
+.signupAppsContainer__appleAuthBtn:hover {
+    background: #283037;
+    border-color: #283037;
+}
+
+.signupAppsContainer__facebookAuthBtn {
     background: #1877F2;
     border: 2px solid #1877F2;
     color: #FFFFFF;
 }
 
-.sectionSignUp__decorTextContainer {
+.signupAppsContainer__facebookAuthBtn:hover {
+    background: #1964d5;
+    border-color: #1964d5;
+}
+
+.sectionSignup__decorTextContainer {
     display: flex;
     justify-content: center;
     position: relative;
@@ -100,92 +116,20 @@
     z-index: -1;
 }
 
-.sectionSignUp__loginUserContainer {
+.sectionSignup__loginUserContainer {
     display: flex;
 }
 
-.loginUserContainer__form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px 0;
-
-}
-
-.form__inputItem {
-    padding: 0 20px;
-    height: 40px;
-    border: none;
-    border-radius: 100px;
-    background: #EBEBEB;
-    font-size: 16px;
-    color: #584B53;
-}
-
-.form__inputItem_error {
-    outline: #cf1d00;
-    border: 2px solid #cf1d00;
-}
-
-.form__inputItem::-webkit-input-placeholder {
-    color: #B8B8B8;
-}
-
-.form_btnLogin {
-    margin-top: 12px;
-    height: 40px;
-    border: none;
-    border-radius: 100px;
-    background: #9D5C63;
-    font-size: 16px;
-    font-weight: bold;
-    color: #FFFFFF;
-    text-transform: uppercase;
-}
-
-.form__loginOptions {
-    display: flex;
-    justify-content: space-between;
-}
-
-.form__errorTextBox {
-    padding-left: 20px;
-    display: flex;
-}
-
-.errorTextBox__text {
-    color: #cf1d00;
-}
-
-.loginOptions__keepLogBox {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.loginOptions__keepLogBox input[type='checkbox'] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-.loginOptions__forgotPassText {
-    color: #9D5C63;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.sectionSignUp__askSignUpContainer {
+.sectionSignup__askSignupContainer {
     display: flex;
     justify-content: center;
 }
 
-.askSignUpContainer__text {
+.askSignupContainer__text {
     font-size: 16px;
 }
 
-.askSignUpContainer__text span {
+.askSignupContainer__text span {
     font-weight: bold;
     text-decoration: underline;
     cursor: pointer;

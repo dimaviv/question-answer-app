@@ -1,15 +1,22 @@
 import React from 'react';
+import styles from './Header.module.css';
+import {useLocation} from 'react-router-dom';
 import SectionCategories from './section-categories/SectionCategories';
 import NavBar from './nav-bar/NavBar';
-import styles from './Header.module.css';
+import {shouldDisplayHeader} from 'utils/path-display';
 
 const Header = () => {
+    const {pathname} = useLocation();
 
     return (
-        <header className={styles.header}>
-            <NavBar />
-            <SectionCategories />
-        </header>
+        <>
+            {shouldDisplayHeader(pathname) && (
+                <header className={styles.header}>
+                    <NavBar />
+                    <SectionCategories />
+                </header>
+            )}
+        </>
     );
 };
 

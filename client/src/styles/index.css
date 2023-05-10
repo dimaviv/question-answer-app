@@ -6,11 +6,6 @@
     justify-content: space-between;
 }
 
-.main {
-    min-height: calc(100vh - 173px);
-    display: flex;
-}
-
 /* Light mode */
 
 body {
