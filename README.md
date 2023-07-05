@@ -1,12 +1,15 @@
 # question-answer-app
 [znanija.com](https://znanija.com/) clone
 
-Backend using express, postgesql(sequelize).
+## Description
+ This web app primarily focuses on offering a question-and-answer format, allowing users to ask and answer questions on various topics. The website aims to foster a community of knowledge-sharing, where users can seek information and engage in discussions on subjects such as science, mathematics, history, language, and more. Users are rewarded with money for their activity on the website, with the amount depending on the popularity of their questions or answers in terms of views of an ad.  
 
-Client using react, redux, redux etc. 
+## Technologies
+Backend: Expres, Sequelize, Passport.js.
+Client: React, Redux, Axios. 
 
-# Implemented:
-  * OAuth2 (Facebook and Google auth)
+## Implemented:
+  * OAuth2 (Facebook and Google auth) using Passport.js
   * CRUD APIs
   * static files
   * saving files (any extension)
