@@ -3,7 +3,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import {useActions} from 'hooks/UseActions';
-import {fetchOneQuestion} from 'http/questionAPI';
+import {fetchOneQuestion} from 'api/questionAPI';
 import LoaderPage from 'components/ui/loaders/loader-page/LoaderPage';
 import useCategory from 'hooks/UseCategory';
 import {ROUTE_ERROR} from 'utils/consts';

@@ -1,5 +1,7 @@
 .sectionInform {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     color: #FFFFFF;
 }
@@ -12,7 +14,7 @@
 
 .container__leftBarInform {
     display: flex;
-    gap: 47px;
+    gap: 0 47px;
 }
 
 .container__rightBarApps {
@@ -31,8 +33,8 @@
 
 .item__titleText {
     margin-bottom: 24px;
+    font-size: 17px;
     font-weight: bold;
-    font-size: 20px;
 }
 
 .item__imgBoxLogo {
@@ -60,9 +62,9 @@
 }
 
 .item__cookieWarningText {
-    margin-top: auto;
+    margin-top: 72px;
     width: 230px;
-    font-size: 12.80px;
+    font-size: 11px;
     font-weight: 300;
 }
 
@@ -77,7 +79,7 @@
 }
 
 .item__informMenu a {
-    font-size: 16px;
+
 }
 
 .item__informMenu a:hover {
@@ -90,4 +92,8 @@
     flex-direction: column;
     gap: 15px;
     cursor: pointer;
+}
+
+.copyright {
+    margin-top: 72px;
 }

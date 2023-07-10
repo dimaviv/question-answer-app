@@ -1,5 +1,5 @@
 import {authSlice} from './AuthSlice';
-import {checkAuth, login, registration} from 'http/authAPI';
+import {checkAuth, registration} from 'api/authAPI';
 
 // reusable error handling function
 const handleError = error => {
@@ -29,26 +29,6 @@ export const AuthActionCreator = {
                 .then(
                     () => {
                         console.log('Congrats with a registration!');
-                    }
-                )
-                .catch(
-                    error => handleError(error)
-                );
-        } catch (error) {
-            handleError(error);
-        }
-    },
-
-    signIn: (email, password, isKeepLoggedIn) => dispatch => {
-        try {
-            login(email, password)
-                .then(
-                    data => {
-                        console.log('Congrats!');
-                        const storage = isKeepLoggedIn ? localStorage : sessionStorage;
-                        setStorageItem('token', data.token, storage);
-                        setStorageItem('auth', 'true', storage);
-                        dispatch(AuthActionCreator.setIsAuth(true));
                     }
                 )
                 .catch(

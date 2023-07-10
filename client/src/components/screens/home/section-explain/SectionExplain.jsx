@@ -41,7 +41,7 @@ const SectionExplain = () => {
                     <a className={styles.showExplainFrame__text}
                         href={ROUTE_HOME}
                     >
-                        See our reward system >>
+                        See our reward system
                     </a>
                 </div>
             </div>

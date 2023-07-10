@@ -8,7 +8,7 @@ import appleAppImg from 'static/layout/footer/apps/apple.svg';
 import googleAppImg from 'static/layout/footer/apps/google.svg';
 import {ROUTE_HOME} from 'utils/consts';
 import {useNavigate} from 'react-router-dom';
-import DarkModeBtn from 'components/ui/btns/dark-mode-btn/DarkModeBtn';
+import DarkModeBtn from 'components/ui/buttons/dark-mode/DarkModeBtn';
 
 const SectionInform = () => {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ const SectionInform = () => {
                 <div className={styles.container__leftBarInform}>
                     <div className={styles.leftBarInform__item}>
                         <p className={styles.item__titleText}>
-                            FOLLOW US
+                            Follow us
                         </p>
                         <div className={styles.item__imgBoxLogo}>
                             <button className={styles.imgBoxLogo__btnLogo}>
@@ -90,6 +90,11 @@ const SectionInform = () => {
                         <DarkModeBtn />
                     </div>
                 </div>
+            </div>
+            <div className={styles.copyright}>
+                <p>
+                    Copyright © 2023 «ExpertMint». All rights reserved.
+                </p>
             </div>
         </div>
     );

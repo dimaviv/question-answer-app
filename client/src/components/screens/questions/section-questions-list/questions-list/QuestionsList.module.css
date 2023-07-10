@@ -4,3 +4,14 @@
     flex-direction: column;
     gap: 20px 0;
 }
+
+.emptyList {
+    padding: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.emptyList__text {
+    font-size: 17px;
+    font-weight: 300;
+}

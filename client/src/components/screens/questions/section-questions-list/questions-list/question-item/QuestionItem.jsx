@@ -1,8 +1,8 @@
-import React from 'react';
-import styles from './QuestionItem.module.css';
-import {ROUTE_LOGIN} from 'utils/consts';
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+
+import styles from './QuestionItem.module.css';
+import {ROUTE_LOGIN} from 'utils/consts';
 import useCategory from 'hooks/UseCategory';
 import {formatDate} from 'utils/pages/questions/format-date';
 import userAvatarImg from 'static/pages/questions/userAvatar.svg';

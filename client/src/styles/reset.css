@@ -36,9 +36,9 @@ select {
     font: inherit;
     text-decoration: none;
     cursor: pointer;
-//appearance: none;
-//-webkit-appearance: none;
-//-moz-appearance: none;
+    /*appearance: none;*/
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
 }
 
 
@@ -52,25 +52,25 @@ button {
 }
 
 h1 {
-    font-size: 31.25px;
+    font-size: 27px;
 }
 
 h2 {
-    font-size: 25px;
+    font-size: 22px;
 }
 
 h3 {
-    font-size: 20px;
+    font-size: 17px;
 }
 
 h4 {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 h5 {
-    font-size: 12.80px;
+    font-size: 11px;
 }
 
 h6 {
-    font-size: 10.24px;
+    font-size: 9px;
 }

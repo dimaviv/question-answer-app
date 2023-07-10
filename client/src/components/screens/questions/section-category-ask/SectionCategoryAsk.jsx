@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
+
 import styles from './SectionCategoryAsk.module.css';
 import searchImg from 'static/icons/search.svg';
 import useCategory from 'hooks/UseCategory';

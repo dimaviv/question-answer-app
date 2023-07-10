@@ -1,20 +1,20 @@
-import React from 'react';
-import styles from './NavBar.module.css';
-import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP} from 'utils/consts';
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+
+import styles from './NavBar.module.css';
+import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP} from 'utils/consts';
 import {useActions} from 'hooks/UseActions';
 
 const NavBar = () => {
     const navigate = useNavigate();
 
-    const {signOut} = useActions()
-    const {isAuth} = useSelector(state => state.authReducer)
+    const {signOut} = useActions();
+    const {isAuth} = useSelector(state => state.authReducer);
 
     const handleSignOut = () => {
-        signOut()
-        navigate(ROUTE_HOME)
-    }
+        signOut();
+        navigate(ROUTE_HOME);
+    };
 
     return (
         <div className={styles.nav}>
@@ -24,14 +24,13 @@ const NavBar = () => {
                         <a href={ROUTE_HOME}
                            className={styles.logoBox__text}
                         >
-                            Logo
+                            ExpertMint
                         </a>
                     </div>
                 </div>
                 <div className={styles.container__rightBarContainer}>
                     <nav className={styles.rightBarContainer__menu}>
-                        {isAuth
-                            ?
+                        {isAuth ? (
                             <ul className={styles.menu__list}>
                                 <li onClick={handleSignOut}
                                     className={styles.list__item}
@@ -44,7 +43,7 @@ const NavBar = () => {
                                     <p className={styles.item__text}>Ask your question</p>
                                 </li>
                             </ul>
-                            :
+                        ) : (
                             <ul className={styles.menu__list}>
                                 <li onClick={() => navigate(ROUTE_LOGIN)}
                                     className={styles.list__item}
@@ -62,7 +61,7 @@ const NavBar = () => {
                                     <p className={styles.item__text}>Ask your question</p>
                                 </li>
                             </ul>
-                        }
+                        )}
                     </nav>
                 </div>
             </div>

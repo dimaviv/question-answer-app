@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './UserPlaceItem.module.css';
 import {ROUTE_LOGIN} from 'utils/consts';
 import userAvatarImg from 'static/pages/questions/userAvatar.svg'

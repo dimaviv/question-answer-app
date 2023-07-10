@@ -22,11 +22,9 @@ const LiftUpBtn = ({footerRef}) => {
         const windowHeight = window.innerHeight || document.documentElement.clientHeight;
         const scrollHeight = document.documentElement.scrollHeight;
 
-        if (scrollTop + windowHeight >= scrollHeight / 2) {
-            setIsVisible(true);
-        } else {
-            setIsVisible(false);
-        }
+        const isPageLongEnough = scrollHeight > windowHeight;
+
+        setIsVisible(isPageLongEnough && scrollTop > 0);
     };
 
     const scrollToTop = () => {

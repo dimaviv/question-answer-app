@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
+
 import styles from './SectionAskQuestion.module.css';
-import {createQuestion} from 'http/questionAPI';
+import {createQuestion} from 'api/questionAPI';
 import {useNavigate} from 'react-router-dom';
 import useCategory from 'hooks/UseCategory';
 

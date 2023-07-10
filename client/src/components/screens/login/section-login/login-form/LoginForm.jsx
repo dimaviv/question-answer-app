@@ -1,13 +1,19 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+
 import styles from './LoginForm.module.css';
 import {ROUTE_HOME} from 'utils/consts';
 import {emailPattern, passwordPattern} from 'utils/patterns/auth';
 import {useActions} from 'hooks/UseActions';
-import {useNavigate} from 'react-router-dom';
+import {login} from 'api/authAPI';
 
 const LoginForm = () => {
-    const navigate = useNavigate()
-    const {signIn} = useActions();
+    const navigate = useNavigate();
+    const {signIn, setIsAuth} = useActions();
+
+    const setStorageItem = (key, value, storage) => {
+        storage.setItem(key, value);
+    };
 
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
@@ -49,8 +55,10 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         let emailError = '';
         let passwordError = '';
+
         if (emailValue === '') {
             emailError = 'Email is empty';
         } else if (!emailPattern.test(emailValue)) {
@@ -66,12 +74,17 @@ const LoginForm = () => {
         setPasswordErrorValue(passwordError);
 
         if (emailError === '' && passwordError === '') {
-            try {
-                signIn(emailValue, JSON.stringify(passwordValue), isKeepLoggedIn);
-                navigate(ROUTE_HOME);
-            } catch (error) {
-                console.error(error);
-            }
+            login(emailValue, JSON.stringify(passwordValue))
+                .then(data => {
+                    const storage = isKeepLoggedIn ? localStorage : sessionStorage;
+                    setStorageItem('token', data.token, storage);
+                    setStorageItem('auth', 'true', storage);
+                    setIsAuth(true);
+                    navigate(ROUTE_HOME);
+                })
+                .catch(e => {
+                    console.error(e);
+                });
         }
     };
 
@@ -79,8 +92,8 @@ const LoginForm = () => {
         <form onSubmit={handleSubmit}
               className={styles.signinUserContainer__form}
         >
-            <input type="text"
-                   placeholder="Nick or email"
+            <input type='text'
+                   placeholder='E-mail'
                    value={emailValue}
                    onChange={handleEmailChange}
                    className={
@@ -94,8 +107,8 @@ const LoginForm = () => {
                     </p>
                 </div>
             }
-            <input type="password"
-                   placeholder="Password"
+            <input type='password'
+                   placeholder='Password'
                    value={passwordValue}
                    onChange={handlePasswordChange}
                    className={
@@ -110,13 +123,13 @@ const LoginForm = () => {
                 </div>
             }
             <button className={styles.form_signinBtn}>
-               Sign in
+                Sign in
             </button>
             <div className={styles.form__signinOptions}>
                 <label className={styles.signinOptions__keepLogBox}>
-                    <input type="checkbox"
-                           name="keepLoggedIn"
-                           value="true"
+                    <input type='checkbox'
+                           name='keepLoggedIn'
+                           value='true'
                            defaultChecked={isKeepLoggedIn}
                            onChange={e => setIsKeepLoggedIn(e.target.checked)}
                     />

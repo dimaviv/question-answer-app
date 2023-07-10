@@ -69,7 +69,7 @@ const SignupForm = () => {
               className={styles.signupUserContainer__form}
         >
             <input type="text"
-                   placeholder="Nick or email"
+                   placeholder="E-mail"
                    value={emailValue}
                    onChange={handleEmailChange}
                    className={

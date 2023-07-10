@@ -32,9 +32,8 @@
 }
 
 .logoBox__text {
-    text-transform: uppercase;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 22px;
 }
 
 .menu__list {
@@ -57,7 +56,6 @@
 .item__text {
     text-transform: uppercase;
     font-weight: 600;
-    font-size: 16px;
 }
 
 .list__itemDecor {

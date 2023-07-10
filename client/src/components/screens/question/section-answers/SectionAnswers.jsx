@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import styles from './SectionAnswers.module.css';
+import {useState} from 'react';
 import {useSelector} from 'react-redux';
+
+import styles from './SectionAnswers.module.css';
 import AnswersList from './answers-list/AnswersList';
 import {ROUTE_LOGIN} from 'utils/consts';
 import {formatDate} from 'utils/pages/questions/format-date';

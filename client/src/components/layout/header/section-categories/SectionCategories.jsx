@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 
 import styles from './SectionCategories.module.css';
 import {useNavigate, useParams} from 'react-router-dom';
-import {fetchCategories} from 'http/categoryAPI';
+import {fetchCategories} from 'api/categoryAPI';
 import {useActions} from 'hooks/UseActions';
 import decorTriangle from 'static/layout/header/decor/decor__triangle.svg';
 

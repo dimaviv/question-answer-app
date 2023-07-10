@@ -1,4 +1,4 @@
-import authReducer from "./login-page/auth/AuthSlice"
+import authReducer from "./auth/AuthSlice"
 import categoriesReducer from "./header/categories/CategoriesSlice"
 import darkModeReducer from "./header/dark-mode/DarkModeSlice"
 import questionsReducer from "./questions-page/questions/QuestionsSlice"

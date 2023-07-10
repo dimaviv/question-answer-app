@@ -38,7 +38,7 @@
 }
 
 .container__explainFrame {
-    width: 750px;
+    width: 650px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,7 +46,7 @@
 
 .explainFrame__text {
     text-transform: uppercase;
-    font-size: 39.06px;
+    font-size: 34px;
     font-weight: 900;
 }
 
@@ -59,10 +59,12 @@
 }
 
 .showExplainFrame__text {
-    font-size: 20px;
-    color: #9D5C63;
+    font-size: 17px;
+    font-weight: 300;
+    color: #999999;
+    text-decoration: underline;
 }
 
 .showExplainFrame__text:hover {
-    text-decoration: underline;
+    color: #9D5C63;
 }

@@ -1,4 +1,4 @@
-import SectionAuth from './section-auth/SectionAuth';
+import SectionAuth from './section-login/SectionAuth';
 import styles from './Login.module.css';
 
 const Login = () => {
