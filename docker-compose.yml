@@ -1,36 +1,47 @@
 version: '3.0'
 
 services:
-  main:
-    container_name: main
-    build:
-      context: .
-    env_file:
-      - .env
-    volumes:
-      - .:/app
-      - /app/node_modules
-    ports:
-    - 5000:5000
-    - 9229:9229
-    command: npm run start
-    depends_on:
-      - postgres
-    restart: always
   postgres:
-    container_name: postgres
-    image: postgres:14
-    env_file:
-      - .env
+    image: "postgres:latest"
     environment:
-      PG_DATA: /var/lib/postgresql/data
-      POSTGRES_PASSWORD: root
-
-    ports:
-      - 5432:5433
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=application_db
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5655:5432"
+    expose:
+      - "5655"
+  nginx:
+    depends_on:
+      - api
+      - client
     restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "9000:80"
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./server"
+    environment:
+      - POSTGRES_HOST=postgres
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    env_file:
+      - ./server/.env
 
-volumes:
-  pgdata:
+  client:
+    stdin_open: true
+    env_file:
+      - ./client/.env
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
