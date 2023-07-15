@@ -4,6 +4,7 @@ const authenticateGoogle = (req, res, next) => {
     passport.authenticate('google', {scope: ['email', 'profile']})(req, res, next);
 };
 
+
 const authenticateGoogleCallback = (req, res, next) => {
     passport.authenticate('google', (err, user) => {
         if (err) {
@@ -15,6 +16,7 @@ const authenticateGoogleCallback = (req, res, next) => {
 
         req.user = user;
         next();
+
     })(req, res, next);
 };
 
