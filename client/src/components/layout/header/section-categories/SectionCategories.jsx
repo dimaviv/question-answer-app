@@ -17,8 +17,10 @@ const SectionCategories = () => {
     const [hiddenCategories, setHiddenCategories] = useState(true);
     const categoryName = useParams().categoryName;
 
-    const handleRedirectCategory = (category) => {
-        navigate(`/subject/${(category.name.toLowerCase()).replace(/\s+/g, '')}`);
+    const handleRedirectCategory = (categoryName) => {
+        const encodedName = encodeURIComponent(categoryName)
+        const categoryPath = encodedName.replace('%20', '-').toLowerCase();
+        navigate(categoryPath);
     };
 
     useEffect(() => {
@@ -53,7 +55,7 @@ const SectionCategories = () => {
                                         categoryName === category.name.toLowerCase().replace(/\s+/g, '')} && 
                                         styles.item__text_active
                                         }`}
-                                    onClick={() => handleRedirectCategory(category)}
+                                    onClick={() => handleRedirectCategory(category.name)}
                                 >
                                     {category.name}
                                 </button>

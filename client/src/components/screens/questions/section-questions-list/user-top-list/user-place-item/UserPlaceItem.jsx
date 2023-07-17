@@ -17,14 +17,16 @@ const UserPlaceItem = ({user, img}) => {
                 <div className={styles.userInformContainer__userInfoContainer}>
                     <div className={styles.userInfoContainer__avatarBox}>
                         <img src={user.avatar ? user.avatar : userAvatarImg}
-                             alt={`${user.name} avatar`}
+                             alt={`${user.login ? user.login : getEmailPrefix(user.email)} avatar`}
                         />
                     </div>
-                    <a className={styles.userInfoContainer__text}
-                        href={ROUTE_LOGIN}
-                    >
-                        {user.login ? user.login : getEmailPrefix(user.email)}
-                    </a>
+                    <div className={styles.userInfoContainer__nameBox}>
+                        <a className={styles.nameBox__text}
+                           href={ROUTE_LOGIN}
+                        >
+                            {user.login ? user.login : getEmailPrefix(user.email)}
+                        </a>
+                    </div>
                 </div>
             </div>
             <div className={styles.userPlaceItem__userScoreContainer}>

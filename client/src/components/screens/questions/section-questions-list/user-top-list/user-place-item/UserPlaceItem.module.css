@@ -34,12 +34,23 @@
     gap: 0 15px;
 }
 
-.userInfoContainer__text {
+.userInfoContainer__avatarBox {
+    width: 50px;
+    display: flex;
+ }
+
+.userInfoContainer__nameBox {
+    width: 200px;
+    display: flex;
+    overflow-x: hidden;
+}
+
+.nameBox__text {
     font-size: 20px;
     font-weight: bold;
 }
 
-.userInfoContainer__text:hover {
+.nameBox__text:hover {
     text-decoration: underline;
 }
 

@@ -31,7 +31,7 @@ const ErrorPage = loadable(() => import('pages/NotFound'), {
 
 export const publicRoutes = [
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/subject/:categoryName', component: QuestionsPage},
+    {path: '/:categoryName', component: QuestionsPage},
     {path: ROUTE_LOGIN, component: LoginPage},
     {path: ROUTE_SIGNUP, component: SignUpPage},
     {path: ROUTE_OAUTH, component: OAuthPage},
@@ -41,9 +41,9 @@ export const publicRoutes = [
 
 export const privateRoutes = [
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/subject/:categoryName', component: QuestionsPage},
-    {path: '/subject/:categoryName-ask', component: AskQuestionPage},
-    {path: '/subject/:categoryName/:questionId', component: QuestionPage},
+    {path: '/:categoryName', component: QuestionsPage},
+    {path: '/:categoryName-ask', component: AskQuestionPage},
+    {path: '/:categoryName/:questionId', component: QuestionPage},
     {path: ROUTE_ERROR, component: ErrorPage},
     {path: '*', component: ErrorPage},
 ];
