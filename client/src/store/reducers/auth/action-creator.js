@@ -1,5 +1,5 @@
 import {authSlice} from './AuthSlice';
-import {checkAuth, registration} from 'api/authAPI';
+import {checkAuth} from 'api/authAPI';
 
 // reusable error handling function
 const handleError = error => {
@@ -21,22 +21,6 @@ const removeStorageItem = (key, storage) => {
 export const AuthActionCreator = {
     setIsAuth: boolean => dispatch => {
         dispatch(authSlice.actions.setIsAuth(boolean));
-    },
-
-    signUp: (email, password) => dispatch => {
-        try {
-            registration(email, password)
-                .then(
-                    () => {
-                        console.log('Congrats with a registration!');
-                    }
-                )
-                .catch(
-                    error => handleError(error)
-                );
-        } catch (error) {
-            handleError(error);
-        }
     },
 
     signInWithOAuth: token => dispatch => {

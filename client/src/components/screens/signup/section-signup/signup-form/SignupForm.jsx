@@ -1,15 +1,22 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
+
 import styles from './SignupForm.module.css';
-import {useActions} from 'hooks/UseActions';
 import {passwordPattern, emailPattern} from 'utils/patterns/auth';
+import {registration} from 'api/authAPI';
+import {useNavigate} from 'react-router-dom';
+import {ROUTE_LOGIN} from 'utils/consts';
 
 const SignupForm = () => {
-    const {signUp} = useActions();
-
+    const navigate = useNavigate()
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [emailErrorValue, setEmailErrorValue] = useState('');
     const [passwordErrorValue, setPasswordErrorValue] = useState('');
+
+    const cleanRegInputs = () => {
+        setEmailValue('')
+        setPasswordValue('')
+    }
 
     const handleEmailChange = (e) => {
         const emailInput = e.target.value;
@@ -17,13 +24,13 @@ const SignupForm = () => {
         if (emailInput === '') {
             emailError = 'Email is empty';
         } else if (!emailPattern.test(emailInput)) {
-            emailError ='Incorrect email';
+            emailError = 'Incorrect email';
         }
 
         setEmailValue(emailInput);
         setTimeout(() => {
             setEmailErrorValue(emailError);
-        }, 1000)
+        }, 1000);
     };
 
     const handlePasswordChange = (e) => {
@@ -38,7 +45,7 @@ const SignupForm = () => {
         setPasswordValue(passwordInput);
         setTimeout(() => {
             setPasswordErrorValue(passwordError);
-        }, 1000)
+        }, 1000);
     };
 
     const handleSubmit = (e) => {
@@ -48,7 +55,7 @@ const SignupForm = () => {
         if (emailValue === '') {
             emailError = 'Email is empty';
         } else if (!emailPattern.test(emailValue)) {
-            emailError ='Incorrect email';
+            emailError = 'Incorrect email';
         }
         if (passwordValue === '') {
             passwordError = 'Password is empty';
@@ -60,7 +67,15 @@ const SignupForm = () => {
         setPasswordErrorValue(passwordError);
 
         if (emailError === '' && passwordError === '') {
-            signUp(emailValue, JSON.stringify(passwordValue));
+            registration(emailValue, passwordValue)
+                .then(
+                    () => {
+                        console.log('Congrats with a registration!');
+                        navigate(ROUTE_LOGIN)
+                        cleanRegInputs()
+                    }
+                )
+                .catch(e => console.error(e));
         }
     };
 
@@ -68,8 +83,8 @@ const SignupForm = () => {
         <form onSubmit={handleSubmit}
               className={styles.signupUserContainer__form}
         >
-            <input type="text"
-                   placeholder="E-mail"
+            <input type='text'
+                   placeholder='E-mail'
                    value={emailValue}
                    onChange={handleEmailChange}
                    className={
@@ -83,8 +98,8 @@ const SignupForm = () => {
                     </p>
                 </div>
             }
-            <input type="password"
-                   placeholder="Password"
+            <input type='password'
+                   placeholder='Password'
                    value={passwordValue}
                    onChange={handlePasswordChange}
                    className={

@@ -74,7 +74,7 @@ const LoginForm = () => {
         setPasswordErrorValue(passwordError);
 
         if (emailError === '' && passwordError === '') {
-            login(emailValue, JSON.stringify(passwordValue))
+            login(emailValue, passwordValue)
                 .then(data => {
                     const storage = isKeepLoggedIn ? localStorage : sessionStorage;
                     setStorageItem('token', data.token, storage);
