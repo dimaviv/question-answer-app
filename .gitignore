@@ -3,6 +3,7 @@
 /.idea
 /client/src/.idea/
 /client/build/
+/client/.env
 npm-debug.log
 .DS_Store
 .env
