@@ -1,15 +1,14 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
-import {privateRoutes, publicRoutes} from "routes";
+import {Route, Routes} from 'react-router-dom';
+import {privateRoutes, publicRoutes} from 'routes';
 import {useSelector} from 'react-redux';
 
 
 const AppRouter = () => {
-    const {isAuth} = useSelector(state => state.authReducer)
+    const {isAuth} = useSelector(state => state.authReducer);
 
     return (
-        isAuth
-            ?
+        isAuth ? (
             <Routes>
                 {privateRoutes.map(route =>
                     <Route
@@ -19,16 +18,17 @@ const AppRouter = () => {
                     />
                 )}
             </Routes>
-            :
+        ) : (
             <Routes>
                 {publicRoutes.map(route =>
                     <Route
                         key={route.path}
                         path={route.path}
-                        element={<route.component/>}
+                        element={<route.component />}
                     />
                 )}
             </Routes>
+        )
     );
 };
 
