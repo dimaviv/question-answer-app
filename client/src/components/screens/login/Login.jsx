@@ -1,11 +1,14 @@
-import SectionAuth from './section-login/SectionAuth';
+import SectionLogin from './section-login/SectionLogin';
 import styles from './Login.module.css';
+import Layout from 'components/layout/Layout';
 
 const Login = () => {
     return (
-        <div className={styles.loginPage}>
-            <SectionAuth />
-        </div>
+        <Layout title={'Log in'} description={'Page for log in your account'}>
+            <div className={styles.loginPage}>
+                <SectionLogin />
+            </div>
+        </Layout>
     );
 };
 

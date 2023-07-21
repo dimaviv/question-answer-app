@@ -1,9 +1,9 @@
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
-import styles from './NavBar.module.css';
 import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP} from 'utils/consts';
 import {useActions} from 'hooks/UseActions';
+import {StyledNavBar} from './StyledNavBar';
 
 const NavBar = () => {
     const navigate = useNavigate();
@@ -17,55 +17,55 @@ const NavBar = () => {
     };
 
     return (
-        <div className={styles.nav}>
-            <div className={styles.nav__container}>
-                <div className={styles.container__leftBarContainer}>
-                    <div className={styles.leftBarContainer__logoBox}>
+        <StyledNavBar>
+            <div className={'nav__container'}>
+                <div className={'container__leftBarContainer'}>
+                    <div className={'leftBarContainer__logoBox'}>
                         <a href={ROUTE_HOME}
-                           className={styles.logoBox__text}
+                           className={'logoBox__text'}
                         >
                             ExpertMint
                         </a>
                     </div>
                 </div>
-                <div className={styles.container__rightBarContainer}>
-                    <nav className={styles.rightBarContainer__menu}>
+                <div className={'container__rightBarContainer'}>
+                    <nav className={'rightBarContainer__menu'}>
                         {isAuth ? (
-                            <ul className={styles.menu__list}>
+                            <ul className={'menu__list'}>
                                 <li onClick={handleSignOut}
-                                    className={styles.list__item}
+                                    className={'list__item'}
                                 >
-                                    <p className={styles.item__text}>Log out</p>
+                                    <p className={'item__text'}>Log out</p>
                                 </li>
-                                <li className={`${styles.list__item} ${styles.list__itemDecor}`}
+                                <li className={'list__item list__itemDecor'}
                                     onClick={() => navigate(ROUTE_HOME)}
                                 >
-                                    <p className={styles.item__text}>Ask your question</p>
+                                    <p className={'item__text'}>Ask your question</p>
                                 </li>
                             </ul>
                         ) : (
-                            <ul className={styles.menu__list}>
+                            <ul className={'menu__list'}>
                                 <li onClick={() => navigate(ROUTE_LOGIN)}
-                                    className={styles.list__item}
+                                    className={'list__item'}
                                 >
-                                    <p className={styles.item__text}>Log in</p>
+                                    <p className={'item__text'}>Log in</p>
                                 </li>
                                 <li onClick={() => navigate(ROUTE_SIGNUP)}
-                                    className={styles.list__item}
+                                    className={'list__item'}
                                 >
-                                    <p className={styles.item__text}>Sign up</p>
+                                    <p className={'item__text'}>Sign up</p>
                                 </li>
-                                <li className={`${styles.list__item} ${styles.list__itemDecor}`}
+                                <li className={'list__item list__itemDecor'}
                                     onClick={() => navigate(ROUTE_HOME)}
                                 >
-                                    <p className={styles.item__text}>Ask your question</p>
+                                    <p className={'item__text'}>Ask your question</p>
                                 </li>
                             </ul>
                         )}
                     </nav>
                 </div>
             </div>
-        </div>
+        </StyledNavBar>
     );
 };
 

@@ -1,11 +1,11 @@
 import {AuthActionCreator} from "./auth/action-creator";
-import {CategoriesActionCreator} from "./header/categories/action-creator";
-import {DarkModeActionCreator} from "./header/dark-mode/action-creator";
-import {QuestionsActionCreator} from "./questions-page/questions/action-creator";
+import {CategoriesActionCreator} from "./categories/action-creator";
+import {LayoutActionCreator} from "./layout/action-creator";
+import {QuestionsActionCreator} from "./questions/action-creator";
 
 export const AllActionCreators  = {
     ...AuthActionCreator,
     ...CategoriesActionCreator,
     ...QuestionsActionCreator,
-    ...DarkModeActionCreator,
+    ...LayoutActionCreator,
 }

@@ -1,11 +1,13 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import styles from './LoginForm.module.css';
 import {ROUTE_HOME} from 'utils/consts';
 import {emailPattern, passwordPattern} from 'utils/patterns/auth';
 import {useActions} from 'hooks/UseActions';
 import {login} from 'api/authAPI';
+import {StyledLoginForm} from './StyledLoginForm';
+import shownPasswordImg from 'static/icons/eye-open.svg';
+import hiddenPasswordImg from 'static/icons/eye-closed.svg';
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -22,6 +24,7 @@ const LoginForm = () => {
     const [passwordErrorValue, setPasswordErrorValue] = useState('');
 
     const [isKeepLoggedIn, setIsKeepLoggedIn] = useState(true);
+    const [isHiddenPassword, setIsHiddenPassword] = useState(true);
 
     const handleEmailChange = (e) => {
         const emailInput = e.target.value;
@@ -89,44 +92,50 @@ const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}
-              className={styles.signinUserContainer__form}
-        >
+        <StyledLoginForm onSubmit={handleSubmit}>
             <input type='text'
                    placeholder='E-mail'
                    value={emailValue}
                    onChange={handleEmailChange}
-                   className={
-                       `${styles.form__inputItem} ${emailErrorValue !== '' && styles.form__inputItem_error}`
-                   }
+                   className={`form__inputItem ${emailErrorValue !== '' && 'form__inputItem_error'}`}
             />
             {emailErrorValue !== '' &&
-                <div className={styles.form__errorTextBox}>
-                    <p className={styles.errorTextBox__text}>
+                <div className={'form__errorTextBox'}>
+                    <p className={'errorTextBox__text'}>
                         {emailErrorValue}
                     </p>
                 </div>
             }
-            <input type='password'
-                   placeholder='Password'
-                   value={passwordValue}
-                   onChange={handlePasswordChange}
-                   className={
-                       `${styles.form__inputItem} ${passwordErrorValue !== '' && styles.form__inputItem_error}`
-                   }
-            />
+            <div className='inputPasswordBox'>
+                <input type={isHiddenPassword ? 'password' : 'text'}
+                       placeholder='Password'
+                       value={passwordValue}
+                       onChange={handlePasswordChange}
+                       className={`form__inputItem ${passwordErrorValue !== '' && 'form__inputItem_error'}`}
+                />
+                <button className='passwordSecurityBtn'
+                        type='button'
+                        onClick={() => setIsHiddenPassword(!isHiddenPassword)}
+                >
+                    <img src={isHiddenPassword ? hiddenPasswordImg : shownPasswordImg}
+                         alt={'Shown password'}
+                         height={23}
+                         width={23}
+                    />
+                </button>
+            </div>
             {passwordErrorValue !== '' &&
-                <div className={styles.form__errorTextBox}>
-                    <p className={styles.errorTextBox__text}>
+                <div className={'form__errorTextBox'}>
+                    <p className={'errorTextBox__text'}>
                         {passwordErrorValue}
                     </p>
                 </div>
             }
-            <button className={styles.form_signinBtn}>
-                Sign in
+            <button className={'form_signinBtn'}>
+                Log in
             </button>
-            <div className={styles.form__signinOptions}>
-                <label className={styles.signinOptions__keepLogBox}>
+            <div className={'form__signinOptions'}>
+                <label className={'signinOptions__keepLogBox'}>
                     <input type='checkbox'
                            name='keepLoggedIn'
                            value='true'
@@ -136,12 +145,12 @@ const LoginForm = () => {
                     Keep me logged in
                 </label>
                 <a href={ROUTE_HOME}
-                   className={styles.signinOptions__forgotPassText}
+                   className={'signinOptions__forgotPassText'}
                 >
                     Forgot password?
                 </a>
             </div>
-        </form>
+        </StyledLoginForm>
     );
 };
 

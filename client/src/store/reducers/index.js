@@ -1,12 +1,12 @@
 import authReducer from "./auth/AuthSlice"
-import categoriesReducer from "./header/categories/CategoriesSlice"
-import darkModeReducer from "./header/dark-mode/DarkModeSlice"
-import questionsReducer from "./questions-page/questions/QuestionsSlice"
+import categoriesReducer from "./categories/CategoriesSlice"
+import layoutReducer from "./layout/LayoutSlice"
+import questionsReducer from "./questions/QuestionsSlice"
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     authReducer,
     categoriesReducer,
     questionsReducer,
-    darkModeReducer,
+    layoutReducer
 }

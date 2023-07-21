@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import styles from './SectionAuth.module.css';
+import {useEffect} from 'react';
 import {ROUTE_HOME, ROUTE_SIGNUP} from 'utils/consts';
 import {useActions} from 'hooks/UseActions';
 import {useNavigate} from 'react-router-dom';
@@ -7,9 +6,10 @@ import googleIcon from 'static/pages/login/google-icon.svg';
 // import appleIcon from 'static/login-page/apple-icon.svg';
 import facebookIcon from 'static/pages/login/facebook-icon.svg';
 import LoginForm from './login-form/LoginForm';
-import {API_USER} from '../../../../utils/api-consts';
+import {API_USER} from 'utils/api-consts';
+import {StyledSectionLogin} from './StyledSectionLogin';
 
-const SectionAuth = () => {
+const SectionLogin = () => {
         const navigate = useNavigate();
         const {setIsAuth} = useActions();
 
@@ -64,67 +64,67 @@ const SectionAuth = () => {
         }, []);
 
         return (
-            <div className={styles.sectionAuth}>
-                <div className={styles.sectionAuth__redirectContainer}>
+            <StyledSectionLogin>
+                <div className={'sectionAuth__redirectContainer'}>
                     <a href={ROUTE_HOME}
-                       className={styles.redirectContainer__text}
+                       className={'redirectContainer__text'}
                     >
                         No, thanks
                     </a>
                 </div>
-                <div className={styles.sectionAuth__titleContainer}>
-                    <h1 className={styles.titleContainer__text}>
-                        Welcome again
+                <div className={'sectionAuth__titleContainer'}>
+                    <h1>
+                        Welcome again!
                     </h1>
                 </div>
-                <div className={styles.sectionAuth__loginAppsContainer}>
-                    <button className={`${styles.loginAppsContainer__btn} ${styles.loginAppsContainer__googleAuthBtn}`}
+                <div className={'sectionAuth__loginAppsContainer'}>
+                    <button className={'loginAppsContainer__btn loginAppsContainer__googleAuthBtn'}
                             onClick={redirectToGoogleSSO}
                     >
                         <img src={googleIcon}
                              alt={'Login with Google'}
                         />
-                        <p className={styles.item__text}>
-                            Sign in with Google
+                        <p className={'item__text'}>
+                            Log in with Google
                         </p>
                     </button>
-                    {/*<button className={`${styles.loginAppsContainer__btn} ${styles.loginAppsContainer__appleAuthBtn}`}>*/}
+                    {/*<button className={'`${loginAppsContainer__btn'} ${loginAppsContainer__appleAuthBtn}`}>*/}
                     {/*    <img src={appleIcon}*/}
                     {/*         alt={'Login with Apple'}*/}
                     {/*    />*/}
-                    {/*    <p className={styles.item__text}>*/}
+                    {/*    <p className={'item__text'}>*/}
                     {/*        Sign in with Apple*/}
                     {/*    </p>*/}
                     {/*</button>*/}
-                    <button className={`${styles.loginAppsContainer__btn} ${styles.loginAppsContainer__facebookAuthBtn}`}
+                    <button className={'loginAppsContainer__btn loginAppsContainer__facebookAuthBtn'}
                             onClick={redirectToFacebookSSO}
                     >
                         <img src={facebookIcon}
                              alt={'Login with Facebook'}
                         />
-                        <p className={styles.item__text}>
-                            Sign in with Facebook
+                        <p className={'item__text'}>
+                            Log in with Facebook
                         </p>
                     </button>
                 </div>
-                <div className={styles.sectionAuth__decorTextContainer}>
-                    <div className={styles.decorTextContainer__decorTextBox}>
-                        <h2 className={styles.decorTextBox__text}>
+                <div className={'sectionAuth__decorTextContainer'}>
+                    <div className={'decorTextContainer__decorTextBox'}>
+                        <h2 className={'decorTextBox__text'}>
                             Or
                         </h2>
                     </div>
                 </div>
-                <div className={styles.sectionAuth__loginUserContainer}>
+                <div className={'sectionAuth__loginUserContainer'}>
                     <LoginForm />
                 </div>
-                <div className={styles.sectionAuth__askSignUpContainer}>
-                    <p className={styles.askSignUpContainer__text}>
+                <div className={'sectionAuth__askSignUpContainer'}>
+                    <p className={'askSignUpContainer__text'}>
                         Don't have an account? <span><a href={ROUTE_SIGNUP}>Sign up</a></span>
                     </p>
                 </div>
-            </div>
+            </StyledSectionLogin>
         );
     }
 ;
 
-export default SectionAuth;
+export default SectionLogin;

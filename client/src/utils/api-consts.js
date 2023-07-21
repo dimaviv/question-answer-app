@@ -1,3 +1,3 @@
-export const API_USER = 'api/user';
-export const API_QUESTION = 'api/question';
-export const API_CATEGORY = 'api/category';
+export const API_USER = 'user';
+export const API_QUESTION = 'question';
+export const API_CATEGORY = 'category';

@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import styles from './SectionAsk.module.css';
+import {useState} from 'react';
 import searchImg from 'static/icons/search.svg';
+import {StyledSectionAsk} from './StyledSectionAsk';
 
 const SectionAsk = () => {
     const [searchAnswer, setSearchAnswer] = useState('');
@@ -14,34 +14,34 @@ const SectionAsk = () => {
     };
 
     return (
-        <div className={styles.sectionAsk}>
-            <div className={styles.sectionAsk__container}>
-                <div className={styles.container__askQuestion}>
-                    <div className={styles.askQuestion__titleContainer}>
-                        <h1 className={styles.titleContainer__text}>
+        <StyledSectionAsk>
+            <div className={'sectionAsk__container'}>
+                <div className={'container__askQuestion'}>
+                    <div className={'askQuestion__titleContainer'}>
+                        <h1 className={'titleContainer__text'}>
                             What is your question?
                         </h1>
                     </div>
-                    <div className={styles.askQuestion__searchContainer}>
-                        <form className={styles.searchContainer__searchForm}
+                    <div className={'askQuestion__searchContainer'}>
+                        <form className={'searchContainer__searchForm'}
                               onSubmit={handleSubmit}
                         >
-                            <div className={styles.searchForm__container}>
+                            <div className={'searchForm__container'}>
                                 <input
-                                    className={styles.container__inputQuestion}
+                                    className={'container__inputQuestion'}
                                     id="search-input"
                                     type="text"
                                     placeholder="Type your question..."
                                     value={searchAnswer}
                                     onChange={handleChange}
                                 />
-                                <button className={styles.container__btnSearch}>
+                                <button className={'container__btnSearch'}>
                                     <img src={searchImg}
                                          alt=""
                                     />
                                 </button>
                             </div>
-                            <label className={styles.searchForm__bottomText}
+                            <label className={'searchForm__bottomText'}
                                    htmlFor="search-input"
                             >
                                 Get an answer to your question and get a cash reward for it
@@ -49,15 +49,15 @@ const SectionAsk = () => {
                         </form>
                     </div>
                 </div>
-                <div className={styles.container__explainTitle}>
-                    <div className={styles.explainTitle__decorTextBox}>
-                        <h1 className={styles.decorTextBox__text}>
+                <div className={'container__explainTitle'}>
+                    <div className={'explainTitle__decorTextBox'}>
+                        <h1 className={'decorTextBox__text'}>
                             How does it work?
                         </h1>
                     </div>
                 </div>
             </div>
-        </div>
+        </StyledSectionAsk>
 
     );
 };
