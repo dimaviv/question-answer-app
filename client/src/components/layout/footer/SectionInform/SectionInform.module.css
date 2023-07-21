@@ -1,0 +1,99 @@
+.sectionInform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+}
+
+.sectionInform__container {
+    width: 1280px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container__leftBarInform {
+    display: flex;
+    gap: 0 47px;
+}
+
+.container__rightBarApps {
+    display: flex;
+}
+
+.leftBarInform__item {
+    display: flex;
+    flex-direction: column;
+}
+
+.rightBarApps__item {
+    display: flex;
+    flex-direction: column;
+}
+
+.item__titleText {
+    margin-bottom: 24px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.item__imgBoxLogo {
+    display: flex;
+    gap: 20px;
+}
+
+.imgBoxLogo__btnLogo {
+    padding: 0;
+    height: 28px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.imgBoxLogo__btnLogo:hover {
+    position: relative;
+    top: -3px;
+}
+
+.imgBoxLogo__btnLogo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item__cookieWarningText {
+    margin-top: 72px;
+    width: 230px;
+    font-size: 11px;
+    font-weight: 300;
+}
+
+.item__informMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item__informMenu li {
+    display: flex;
+}
+
+.item__informMenu a {
+
+}
+
+.item__informMenu a:hover {
+    text-decoration: underline;
+}
+
+.item__imgBoxApps {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.copyright {
+    margin-top: 72px;
+}

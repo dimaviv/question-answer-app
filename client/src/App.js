@@ -1,11 +1,9 @@
-import React, {useEffect} from 'react';
-import Header from 'components/header/Header';
-import Main from './components/main/Main';
-import Footer from 'components/footer/Footer';
+import {useEffect} from 'react';
 import {useActions} from 'hooks/UseActions';
+import AppRouter from './components/AppRouter';
 
 const App = () => {
-    const {setIsAuth, checkAuth} = useActions();
+    const {setIsAuth, checkAuth, setSelectedCategory} = useActions();
 
     useEffect(() => {
         if (localStorage.getItem('auth') || sessionStorage.getItem('auth')) {
@@ -30,9 +28,7 @@ const App = () => {
 
     return (
         <>
-            <Header />
-            <Main />
-            <Footer />
+            <AppRouter />
         </>
     );
 };
