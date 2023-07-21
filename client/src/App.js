@@ -1,9 +1,19 @@
 import {useEffect} from 'react';
+
 import {useActions} from 'hooks/UseActions';
 import AppRouter from './components/AppRouter';
+import {fetchCategories} from './api/categoryAPI';
 
 const App = () => {
-    const {setIsAuth, checkAuth, setSelectedCategory} = useActions();
+    const {setIsAuth, checkAuth, setCategories} = useActions();
+
+    useEffect(() => {
+        fetchCategories()
+            .then(data => {
+                setCategories(data)
+            })
+            .catch(e => console.error(e))
+    }, [])
 
     useEffect(() => {
         if (localStorage.getItem('auth') || sessionStorage.getItem('auth')) {

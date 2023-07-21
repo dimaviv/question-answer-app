@@ -1,18 +1,25 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import {useNavigate, useParams} from 'react-router-dom';
-import {fetchCategories} from 'api/categoryAPI';
-import {useActions} from 'hooks/UseActions';
 import {StyledSectionCategories} from './StyledSectionCategories';
+import decorTriangle from 'static/layout/header/decor/decor__triangle.svg';
+import decorTriangleHover from 'static/layout/header/decor/decor__triangle_hover.svg';
+import {checkArr} from 'utils/check-arr';
 
 const SectionCategories = () => {
     const navigate = useNavigate();
     const {categories} = useSelector(state => state.categoriesReducer);
-    const {setCategories} = useActions();
 
-    const [isLoading, setIsLoading] = useState(true);
     const [hiddenCategories, setHiddenCategories] = useState(true);
+
+    const [hoveredShowMore, setHoveredShowMore] = useState(false);
+    const handleMouseEnter = () => {
+        setHoveredShowMore(true);
+    };
+    const handleMouseLeave = () => {
+        setHoveredShowMore(false);
+    };
 
     const categoryPath = useParams().categoryName;
     const categoryPathFromName = (categoryName) => {
@@ -25,26 +32,11 @@ const SectionCategories = () => {
         navigate(`/${path}`);
     };
 
-    useEffect(() => {
-        fetchCategories()
-            .then(data => {
-                setCategories(data);
-                setIsLoading(false);
-            })
-            .catch(error =>
-                console.error('Error while getting data:', error)
-            );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
         <StyledSectionCategories>
             <div className={'sectionCategories__container'}>
                 <div className={`container__categories ${!hiddenCategories && 'container__categories_show'}`}>
-                    {isLoading ? (
-                        <div>Loading...</div>
-                    ) : (
-                        categories &&
+                    {checkArr(categories) ? (
                         categories.map((category) => (
                             <div className={'categories__item'}
                                  key={category.id}
@@ -59,11 +51,18 @@ const SectionCategories = () => {
                                 </button>
                             </div>
                         ))
+                    ) : (
+                        <div>Loading...</div>
                     )}
                 </div>
                 <div className={'btnDropMenu'}
                      onClick={() => setHiddenCategories(!hiddenCategories)}
+                     onMouseEnter={handleMouseEnter}
+                     onMouseLeave={handleMouseLeave}
                 >
+                    <img src={(hoveredShowMore ? decorTriangleHover : decorTriangle)}
+                         alt='Show more'
+                    />
                 </div>
             </div>
         </StyledSectionCategories>

@@ -41,7 +41,7 @@ export const publicRoutes = [
 export const privateRoutes = [
     {path: ROUTE_HOME, component: HomePage},
     {path: '/:categoryName', component: QuestionsPage},
-    {path: '/:categoryName-ask', component: AskQuestionPage},
+    {path: '/ask-question/:categoryName', component: AskQuestionPage},
     {path: '/:categoryName/:questionId', component: QuestionPage},
     {path: ROUTE_ERROR, component: ErrorPage},
     {path: '*', component: ErrorPage},

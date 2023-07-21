@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './SectionInform.module.css';
 import facebookImg from 'static/layout/footer/social-networks/facebook.svg';
 import instagramImg from 'static/layout/footer/social-networks/instagram.svg';

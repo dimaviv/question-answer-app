@@ -2,18 +2,17 @@ import {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
-import useCategory from 'hooks/UseCategory';
 import {fetchQuestions} from 'api/questionAPI';
 import {useActions} from 'hooks/UseActions';
 import UserTopList from './user-top-list/UserTopList';
 import QuestionsList from './questions-list/QuestionsList';
-import {ROUTE_LOGIN} from 'utils/consts';
+import {ROUTE_ASK_QUESTION, ROUTE_LOGIN} from 'utils/consts';
 import Loader from 'components/ui/loaders/loader/Loader';
 import {StyledSectionQuestionsList} from './StyledSectionQuestionsList';
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate();
-    const selectedCategory = useCategory(); // Hook returns selected category
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
 
     const {isAuth} = useSelector(state => state.authReducer);
     const {questions} = useSelector(state => state.questionsReducer);
@@ -26,7 +25,7 @@ const SectionQuestionsList = () => {
 
     const [limit, setLimit] = useState(10);
 
-    const pathToAskQuestionPage = selectedCategory && `/subject/${(selectedCategory.name.toLowerCase()).replace(/\s+/g, '')}-ask`;
+    const pathToAskQuestionPage = selectedCategory && `${ROUTE_ASK_QUESTION}/${categoryName}`;
 
     const handleRedirectToAsk = () => {
         if (isAuth) {

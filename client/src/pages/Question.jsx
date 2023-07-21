@@ -5,13 +5,13 @@ import {useSelector} from 'react-redux';
 import {useActions} from 'hooks/UseActions';
 import {fetchOneQuestion} from 'api/questionAPI';
 import LoaderPage from 'components/ui/loaders/loader-page/LoaderPage';
-import useCategory from 'hooks/UseCategory';
 import {ROUTE_ERROR} from 'utils/consts';
 import Question from 'components/screens/question/Question';
 
 const QuestionPage = () => {
     const navigate = useNavigate();
-    const selectedCategory = useCategory();
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
+
     const [isLoading, setIsLoading] = useState(true);
     const {setQuestion, setQuestionCategory} = useActions();
     const questionId = useParams().questionId;

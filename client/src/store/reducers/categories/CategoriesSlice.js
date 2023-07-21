@@ -13,7 +13,7 @@ export const categoriesSlice = createSlice({
            state.categories = action.payload
         },
         setSelectedCategory(state,action) {
-            state.seleCategory = action.payload
+            state.selectedCategory = action.payload
         }
     }
 })

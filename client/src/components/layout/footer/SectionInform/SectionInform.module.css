@@ -43,22 +43,17 @@
 }
 
 .imgBoxLogo__btnLogo {
-    padding: 0;
+    width: 28px;
     height: 28px;
     border: none;
-    background: none;
     cursor: pointer;
+    border-radius: 6px;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease-in-out;
 }
 
 .imgBoxLogo__btnLogo:hover {
-    position: relative;
-    top: -3px;
-}
-
-.imgBoxLogo__btnLogo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    background-color: #5FC1A4;
 }
 
 .item__cookieWarningText {

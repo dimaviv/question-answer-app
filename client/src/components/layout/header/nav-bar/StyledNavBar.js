@@ -22,6 +22,10 @@ export const StyledNavBar = styled.div`
 
   }
 
+  .leftBarContainer__logoBox:hover a {
+    color: #5FC1A4;
+  }
+
   .container__rightBarContainer {
     display: flex;
     align-items: center;

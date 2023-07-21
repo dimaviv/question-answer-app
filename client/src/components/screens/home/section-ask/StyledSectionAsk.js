@@ -58,6 +58,10 @@ export const StyledSectionAsk = styled.div`
     background-color: #FFFFFF;
     border: none;
     border-radius: 100px;
+
+    &:hover, &:focus {
+      background-color: #F5F5F5;
+    }
   }
 
   .container__btnSearch {

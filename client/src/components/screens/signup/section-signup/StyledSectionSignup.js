@@ -48,7 +48,6 @@ export const StyledSectionSignup = styled.div`
 
   .signupAppsContainer__googleAuthBtn {
     background-color: #FFFFFF;
-    border-color: #333333;
     color: #333333;
   }
 

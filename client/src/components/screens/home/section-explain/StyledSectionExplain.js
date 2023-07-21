@@ -17,7 +17,8 @@ export const StyledSectionExplain = styled.div`
     border-top: 37px solid ${props => props.theme.accentColor};
     position: absolute;
     top: -1px;
-    left: calc(50% - 37px);
+    left: 50%;
+    transform: translate(-50%);
   }
 
   .sectionExplain__decorTriangle img {

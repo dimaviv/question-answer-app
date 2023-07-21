@@ -1,13 +1,13 @@
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 import styles from './SectionAskQuestion.module.css';
 import {createQuestion} from 'api/questionAPI';
-import {useNavigate} from 'react-router-dom';
-import useCategory from 'hooks/UseCategory';
 
 const SectionAskQuestion = () => {
     const navigate = useNavigate();
-    const selectedCategory = useCategory();
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
 
     const [questionText, setQuestionText] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);

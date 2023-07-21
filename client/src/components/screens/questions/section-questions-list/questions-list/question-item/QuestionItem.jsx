@@ -3,14 +3,13 @@ import {useSelector} from 'react-redux';
 
 import styles from './QuestionItem.module.css';
 import {ROUTE_LOGIN} from 'utils/consts';
-import useCategory from 'hooks/UseCategory';
 import {formatDate} from 'utils/pages/questions/format-date';
 import userAvatarImg from 'static/pages/questions/userAvatar.svg';
 import {getEmailPrefix} from 'utils/pages/questions/get-email-prefix';
 
 const QuestionItem = ({question}) => {
-    const selectedCategory = useCategory(); // Hook returns selected category
     const navigate = useNavigate();
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
 
     const {isAuth} = useSelector(state => state.authReducer)
     const {categories} = useSelector(state => state.categoriesReducer);

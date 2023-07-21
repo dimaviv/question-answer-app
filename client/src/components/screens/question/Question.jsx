@@ -1,11 +1,11 @@
-import classes from './Question.module.css';
+import styles from './Question.module.css';
 import SectionAnswers from './section-answers/SectionAnswers';
 
 const Question = () => {
     return (
-        <div className={classes.questionPage}>
-            <SectionAnswers />
-        </div>
+            <div className={styles.questionPage}>
+                <SectionAnswers />
+            </div>
     );
 };
 
