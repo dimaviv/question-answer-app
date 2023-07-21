@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
-import styles from './SectionQuestionsList.module.css';
 import useCategory from 'hooks/UseCategory';
 import {fetchQuestions} from 'api/questionAPI';
 import {useActions} from 'hooks/UseActions';
@@ -10,12 +9,12 @@ import UserTopList from './user-top-list/UserTopList';
 import QuestionsList from './questions-list/QuestionsList';
 import {ROUTE_LOGIN} from 'utils/consts';
 import Loader from 'components/ui/loaders/loader/Loader';
+import {StyledSectionQuestionsList} from './StyledSectionQuestionsList';
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate();
     const selectedCategory = useCategory(); // Hook returns selected category
 
-    const {isDarkMode} = useSelector(state => state.darkModeReducer);
     const {isAuth} = useSelector(state => state.authReducer);
     const {questions} = useSelector(state => state.questionsReducer);
 
@@ -65,30 +64,30 @@ const SectionQuestionsList = () => {
 
 
     return (
-        <div className={styles.sectionQuestionList}>
-            <div className={`${styles.sectionQuestionList__decorTriangle} ${isDarkMode && styles.sectionQuestionList__decorTriangle_dark}`}></div>
-            <div className={styles.sectionQuestionList__askQuestionContainer}>
-                <div className={styles.askQuestionContainer__titleContainer}>
-                    <h1 className={styles.titleContainer__text}>
+        <StyledSectionQuestionsList>
+            <div className={'sectionQuestionList__decorTriangle'}></div>
+            <div className={'sectionQuestionList__askQuestionContainer'}>
+                <div className={'askQuestionContainer__titleContainer'}>
+                    <h1 className={'titleContainer__text'}>
                         Answer questions
                     </h1>
-                    <div className={styles.titleContainer__decorTextBox}>
-                        <h2 className={styles.decorTextBox__text}>
+                    <div className={'titleContainer__decorTextBox'}>
+                        <h2 className={'decorTextBox__text'}>
                             Or
                         </h2>
                     </div>
-                    <h1 className={styles.titleContainer__text}>
+                    <h1 className={'titleContainer__text'}>
                         Ask your own
                     </h1>
                 </div>
-                <button className={styles.askQuestionContainer__redirectBtn}
+                <button className={'askQuestionContainer__redirectBtn'}
                         onClick={handleRedirectToAsk}
                 >
                     I want to ask...
                 </button>
             </div>
-            <div className={styles.sectionQuestionList__container}>
-                <div className={styles.container__questionListContainer}>
+            <div className={'sectionQuestionList__container'}>
+                <div className={'container__questionListContainer'}>
                     <QuestionsList isLoading={isLoading} />
                     {isQuestionsLoading ? (
                         <Loader />
@@ -97,7 +96,7 @@ const SectionQuestionsList = () => {
                         questions.length > 0 &&
                         questions.length % 10 === 0 && (
                             <button onClick={handleShowMore}
-                                    className={styles.questionListContainer__showMoreBtn}
+                                    className={'questionListContainer__showMoreBtn'}
                             >
                                 Show more
                             </button>
@@ -106,7 +105,7 @@ const SectionQuestionsList = () => {
                 </div>
                 <UserTopList />
             </div>
-        </div>
+        </StyledSectionQuestionsList>
     );
 };
 

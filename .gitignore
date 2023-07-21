@@ -6,6 +6,7 @@ client/build
 /client/build/
 npm-debug.log
 .DS_Store
-.env
+server/.env
+client/.env
 /pgdata/
 

@@ -10,7 +10,7 @@ function useCategory() {
         category => category.name.toLowerCase() === categoryName
     );
 
-    return selectedCategory || false;
+    return selectedCategory || null;
 }
 
 export default useCategory;

@@ -1,4 +1,7 @@
 export const detectDarkMode = () => {
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-}
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+    } else {
+        return 'light';
+    }
+};

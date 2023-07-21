@@ -1,26 +1,28 @@
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
-import styles from './SectionCategories.module.css';
 import {useNavigate, useParams} from 'react-router-dom';
 import {fetchCategories} from 'api/categoryAPI';
 import {useActions} from 'hooks/UseActions';
-import decorTriangle from 'static/layout/header/decor/decor__triangle.svg';
+import {StyledSectionCategories} from './StyledSectionCategories';
 
 const SectionCategories = () => {
     const navigate = useNavigate();
-    const {isDarkMode} = useSelector(state => state.darkModeReducer);
     const {categories} = useSelector(state => state.categoriesReducer);
     const {setCategories} = useActions();
 
     const [isLoading, setIsLoading] = useState(true);
     const [hiddenCategories, setHiddenCategories] = useState(true);
-    const categoryName = useParams().categoryName;
+
+    const categoryPath = useParams().categoryName;
+    const categoryPathFromName = (categoryName) => {
+        const encodedName = encodeURIComponent(categoryName);
+        return encodedName.replace('%20', '-').toLowerCase();
+    };
 
     const handleRedirectCategory = (categoryName) => {
-        const encodedName = encodeURIComponent(categoryName)
-        const categoryPath = encodedName.replace('%20', '-').toLowerCase();
-        navigate(categoryPath);
+        const path = categoryPathFromName(categoryName);
+        navigate(`/${path}`);
     };
 
     useEffect(() => {
@@ -36,26 +38,22 @@ const SectionCategories = () => {
     }, []);
 
     return (
-        <div className={styles.sectionCategories}>
-            <div className={styles.sectionCategories__container}>
-                <div className={`${styles.container__categories} ${!hiddenCategories && styles.container__categories_show}`}>
+        <StyledSectionCategories>
+            <div className={'sectionCategories__container'}>
+                <div className={`container__categories ${!hiddenCategories && 'container__categories_show'}`}>
                     {isLoading ? (
                         <div>Loading...</div>
                     ) : (
                         categories &&
                         categories.map((category) => (
-                            <div className={styles.categories__item}
+                            <div className={'categories__item'}
                                  key={category.id}
                             >
-                                <img src={process.env.REACT_APP_API_URL + category.image + '.png'}
+                                <img src={process.env.REACT_APP_IMG_API_URL + category.image + '.png'}
                                      alt={category.name}
                                 />
-                                <button
-                                    className={`${styles.item__text} ${
-                                        categoryName === category.name.toLowerCase().replace(/\s+/g, '')} && 
-                                        styles.item__text_active
-                                        }`}
-                                    onClick={() => handleRedirectCategory(category.name)}
+                                <button className={`item__text ${categoryPath === categoryPathFromName(category.name) && 'item__text_active'}`}
+                                        onClick={() => handleRedirectCategory(category.name)}
                                 >
                                     {category.name}
                                 </button>
@@ -63,15 +61,12 @@ const SectionCategories = () => {
                         ))
                     )}
                 </div>
-                <div className={`${styles.btnDropMenu} ${isDarkMode && styles.btnDropMenu_dark}`}
+                <div className={'btnDropMenu'}
                      onClick={() => setHiddenCategories(!hiddenCategories)}
                 >
-                    <img src={decorTriangle}
-                         alt={''}
-                    />
                 </div>
             </div>
-        </div>
+        </StyledSectionCategories>
     );
 };
 

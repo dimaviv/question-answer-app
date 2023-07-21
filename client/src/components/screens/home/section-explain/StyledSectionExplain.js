@@ -1,70 +1,68 @@
-.sectionExplain {
-    padding-top: 37px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
+import styled from 'styled-components';
 
-.sectionExplain__decorTriangle {
+export const StyledSectionExplain = styled.div`
+  padding-top: 37px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  .sectionExplain__decorTriangle {
     width: 0;
     height: 0;
     display: flex;
     justify-content: center;
     border-left: 37px solid transparent;
     border-right: 37px solid transparent;
-    border-top: 37px solid #FEF5EF;
+    border-top: 37px solid ${props => props.theme.accentColor};
     position: absolute;
     top: -1px;
     left: calc(50% - 37px);
-}
+  }
 
-.sectionExplain__decorTriangle_dark {
-    border-top: 37px solid #FEF5EF;
-}
-
-.sectionExplain__decorTriangle img {
+  .sectionExplain__decorTriangle img {
     margin-top: -30px;
     width: 18px;
     height: 16px;
-}
+  }
 
-.sectionExplain__container {
+  .sectionExplain__container {
     padding: 37px 0 74px 0;
     width: 1280px;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+  }
 
-.container__explainFrame {
+  .container__explainFrame {
     width: 650px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+  }
 
-.explainFrame__text {
+  .explainFrame__text {
     text-transform: uppercase;
     font-size: 34px;
     font-weight: 900;
-}
+  }
 
-.container__explainFrame span {
+  .container__explainFrame span {
     font-weight: 300;
-}
+  }
 
-.container__showExplainFrame {
+  .container__showExplainFrame {
     margin-top: 74px;
-}
+  }
 
-.showExplainFrame__text {
+  .showExplainFrame__text {
     font-size: 17px;
     font-weight: 300;
-    color: #999999;
+    color: ${props => props.theme.infoTextColor};
     text-decoration: underline;
-}
+  }
 
-.showExplainFrame__text:hover {
-    color: #9D5C63;
-}
+  .showExplainFrame__text:hover {
+    color: ${props => props.theme.infoTextHoverColor};
+  }
+`;

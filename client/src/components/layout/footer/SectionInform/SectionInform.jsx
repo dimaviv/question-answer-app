@@ -8,7 +8,7 @@ import appleAppImg from 'static/layout/footer/apps/apple.svg';
 import googleAppImg from 'static/layout/footer/apps/google.svg';
 import {ROUTE_HOME} from 'utils/consts';
 import {useNavigate} from 'react-router-dom';
-import DarkModeBtn from 'components/ui/buttons/dark-mode/DarkModeBtn';
+import ChangeModeBtn from 'components/ui/buttons/dark-mode/ChangeModeBtn';
 
 const SectionInform = () => {
     const navigate = useNavigate();
@@ -87,7 +87,7 @@ const SectionInform = () => {
                                  onClick={() => navigate(ROUTE_HOME)}
                             />
                         </div>
-                        <DarkModeBtn />
+                        <ChangeModeBtn />
                     </div>
                 </div>
             </div>

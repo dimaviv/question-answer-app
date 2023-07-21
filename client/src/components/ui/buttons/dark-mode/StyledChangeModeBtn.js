@@ -1,4 +1,6 @@
-.btnDarkMode {
+import styled from 'styled-components';
+
+export const StyledChangeModeBtn = styled.button`
     margin-left: auto;
     padding: 5px;
     position: relative;
@@ -10,9 +12,8 @@
     background-color: #272727;
     border: none;
     order: 9;
-}
-
-.btnDarkMode::before {
+  
+  &::before {
     content: '';
     position: absolute;
     top: 3px;
@@ -23,15 +24,15 @@
     border-radius: 50%;
     background-color: #FFFFFF;
     transition: left 0.2s ease-in;
-}
+  }
 
-.btnDarkMode_active::before {
+  &.active::before {
     left: 26px;
-}
+  }
 
-.btnDarkMode__icon {
+  .mode-icon {
     max-width: 100%;
     max-height: 100%;
     position: relative;
     z-index: 9;
-}
+  }`

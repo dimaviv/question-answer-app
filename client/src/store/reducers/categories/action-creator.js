@@ -5,7 +5,7 @@ export const CategoriesActionCreator = {
         dispatch(categoriesSlice.actions.setCategories(categories))
     },
 
-    setQuestionCategory: (category) => dispatch => {
-        dispatch(categoriesSlice.actions.setQuestionCategory(category))
+    setSelectedCategory: (category) => dispatch => {
+        dispatch(categoriesSlice.actions.setSelectedCategory(category))
     }
 }
