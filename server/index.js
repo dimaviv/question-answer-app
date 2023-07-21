@@ -17,7 +17,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.static(path.resolve(__dirname, 'static')))
-app.use(express.static(path.resolve(__dirname, 'client/build')))
+app.use(express.static(path.resolve(__dirname, '../client/build')))
 app.use(express.json())
 
 
@@ -27,8 +27,15 @@ app.use('/api', router)
 
 
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-})
+    try {
+        res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
+    } catch (error) {
+        console.error('Error sending file:', error);
+        // Handle the error as needed
+        res.status(500).send('Build not found');
+    }
+});
+
 // Обработка ошибок, последний Middleware
 app.use(errorHandler)
 

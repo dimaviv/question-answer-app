@@ -45,7 +45,6 @@ class UserController {
     }
 
     async oauthFacebook(req, res, next) {
-
         try {
             const email = req.user._json.email
             let token;
