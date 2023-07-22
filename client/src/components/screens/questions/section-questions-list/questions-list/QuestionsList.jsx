@@ -1,6 +1,6 @@
 import {useSelector} from 'react-redux';
 
-import Loader from 'components/ui/loaders/loader/Loader';
+import Loader from 'components/ui/loading/loader/Loader';
 import QuestionItem from './question-item/QuestionItem';
 import {checkArr} from 'utils/check-arr';
 import {StyledQuestionsList} from './StyledQuestionsList';

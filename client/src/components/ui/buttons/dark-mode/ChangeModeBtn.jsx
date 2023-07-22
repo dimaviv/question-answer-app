@@ -1,8 +1,8 @@
 import {useEffect, useRef} from 'react';
 import lightModeImg from 'static/layout/header/light-mode.svg';
 import darkModeImg from 'static/layout/header/dark-mode.svg';
-import {useActions} from 'hooks/UseActions';
-import {useLocaleStorage} from 'hooks/UseLocalStorage';
+import {useActions} from 'hooks/useActions';
+import {useLocaleStorage} from 'hooks/useLocalStorage';
 import {detectDarkMode} from 'utils/detect-dark-mode';
 import {StyledChangeModeBtn} from './StyledChangeModeBtn';
 

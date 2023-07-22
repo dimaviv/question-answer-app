@@ -74,6 +74,10 @@ export const StyledSectionCategoryAsk = styled.div`
     background: #FFFFFF;
     border: none;
     border-radius: 100px;
+
+    &:hover, &:focus {
+      background-color: #F5F5F5;
+    }
   }
 
   .container_btnSearch {

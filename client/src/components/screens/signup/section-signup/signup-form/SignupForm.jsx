@@ -5,8 +5,8 @@ import {registration} from 'api/authAPI';
 import {useNavigate} from 'react-router-dom';
 import {ROUTE_LOGIN} from 'utils/consts';
 import {StyledSignupForm} from './StyledSignupForm';
-import hiddenPasswordImg from '../../../../../static/icons/eye-closed.svg';
-import shownPasswordImg from '../../../../../static/icons/eye-open.svg';
+import hiddenPasswordImg from 'static/icons/eye-closed.svg';
+import shownPasswordImg from 'static/icons/eye-open.svg';
 
 const SignupForm = () => {
     const navigate = useNavigate();

@@ -2,7 +2,7 @@ import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP} from 'utils/consts';
-import {useActions} from 'hooks/UseActions';
+import {useActions} from 'hooks/useActions';
 import {StyledNavBar} from './StyledNavBar';
 
 const NavBar = () => {

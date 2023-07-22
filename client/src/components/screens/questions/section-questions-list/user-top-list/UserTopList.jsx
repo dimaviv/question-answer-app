@@ -3,14 +3,13 @@ import {useEffect, useState} from 'react';
 import UserPlaceItem from './user-place-item/UserPlaceItem';
 import {fetchUserRating} from 'api/userAPI';
 import {topImages} from 'utils/pages/questions/img-places';
-import useCategory from 'hooks/UseCategory';
 import {checkArr} from 'utils/check-arr';
 import {StyledUserTopList} from './StyledUserTopList';
+import {useSelector} from 'react-redux';
 
 const UserTopList = () => {
-
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
     const [userRating, setUserRating] = useState([]);
-    const selectedCategory = useCategory();
 
     useEffect(() => {
         fetchUserRating()

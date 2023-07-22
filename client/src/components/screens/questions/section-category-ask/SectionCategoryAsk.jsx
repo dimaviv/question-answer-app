@@ -1,11 +1,11 @@
 import {useState} from 'react';
+import {useSelector} from 'react-redux';
 
 import searchImg from 'static/icons/search.svg';
-import useCategory from 'hooks/UseCategory';
 import {StyledSectionCategoryAsk} from './StyledSectionCategoryAsk';
 
 const SectionCategoryAsk = () => {
-    const selectedCategory = useCategory();
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
     const [searchAnswer, setSearchAnswer] = useState('');
 
     const handleSubmitForm = (e) => {
@@ -23,7 +23,7 @@ const SectionCategoryAsk = () => {
                     <div className={'askQuestionContainer__titleContainer'}>
                         <div className={'titleContainer__decorTextBox'}>
                             <h1 className={'decorTextBox__text'}>
-                                {selectedCategory && selectedCategory.name}
+                                {Object.keys(selectedCategory).length !== 0 && selectedCategory.name}
                             </h1>
                         </div>
                     </div>

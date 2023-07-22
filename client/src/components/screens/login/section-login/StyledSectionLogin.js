@@ -49,7 +49,6 @@ export const StyledSectionLogin = styled.div`
 
   .loginAppsContainer__googleAuthBtn {
     background-color: #FFFFFF;
-    border-color: #333333;
     color: #333333;
   }
 

@@ -18,7 +18,8 @@ export const StyledSectionQuestionsList = styled.div`
     border-top: 37px solid ${props => props.theme.accentColor};
     position: absolute;
     top: -1px;
-    left: calc(50% - 37px);
+    left: 50%;
+    transform: translate(-50%);
   }
 
   .sectionQuestionList__askQuestionContainer {
@@ -99,14 +100,13 @@ export const StyledSectionQuestionsList = styled.div`
     background: transparent;
     border: 2px solid #ECE9EC;
     border-radius: 100px;
-    font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
-    color: #9D5C63;
+    color: ${props => props.theme.primaryColor};
   }
 
   .questionListContainer__showMoreBtn:hover {
-    background: #ECE9EC;
+    background-color: #ECE9EC;
     border: 2px solid #ECE9EC;
   }
 

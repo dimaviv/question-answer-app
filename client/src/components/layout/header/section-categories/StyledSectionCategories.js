@@ -72,7 +72,14 @@ export const StyledSectionCategories = styled.div`
     border-top: 37px solid ${props => props.theme.header.triangleColor};
     position: absolute;
     bottom: -36px;
-    left: calc(50% - 37px);
+    left: 50%;
+    transform: translate(-50%);
     cursor: pointer;
+  }
+
+  .btnDropMenu img {
+    margin-top: -30px;
+    max-width: 18px;
+    max-height: 16px;
   }
 `;

@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {ROUTE_HOME} from 'utils/consts';
 import {emailPattern, passwordPattern} from 'utils/patterns/auth';
-import {useActions} from 'hooks/UseActions';
+import {useActions} from 'hooks/useActions';
 import {login} from 'api/authAPI';
 import {StyledLoginForm} from './StyledLoginForm';
 import shownPasswordImg from 'static/icons/eye-open.svg';

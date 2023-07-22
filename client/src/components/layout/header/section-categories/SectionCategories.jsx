@@ -1,23 +1,37 @@
 import {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-
 import {useNavigate, useParams} from 'react-router-dom';
-import {fetchCategories} from 'api/categoryAPI';
-import {useActions} from 'hooks/UseActions';
+import {useQuery} from 'react-query';
+
 import {StyledSectionCategories} from './StyledSectionCategories';
+import decorTriangle from 'static/layout/header/decor/decor__triangle.svg';
+import decorTriangleHover from 'static/layout/header/decor/decor__triangle_hover.svg';
+import {fetchCategories} from 'api/categoryAPI';
+import CategoriesLoading from 'components/ui/loading/categories/Categories';
+import {useActions} from 'hooks/useActions';
+import {translitWord} from '../../../../utils/translit';
 
 const SectionCategories = () => {
     const navigate = useNavigate();
-    const {categories} = useSelector(state => state.categoriesReducer);
-    const {setCategories} = useActions();
+    const categoryPath = useParams().categoryName;
 
-    const [isLoading, setIsLoading] = useState(true);
+    const {data: categories, isLoading, isError} = useQuery('categories', fetchCategories);
+    const {setSelectedCategory} = useActions();
+
     const [hiddenCategories, setHiddenCategories] = useState(true);
 
-    const categoryPath = useParams().categoryName;
+    const [hoveredShowMore, setHoveredShowMore] = useState(false);
+
+    const handleMouseEnter = () => {
+        setHoveredShowMore(true);
+    };
+    const handleMouseLeave = () => {
+        setHoveredShowMore(false);
+    };
+
     const categoryPathFromName = (categoryName) => {
-        const encodedName = encodeURIComponent(categoryName);
-        return encodedName.replace('%20', '-').toLowerCase();
+        const translitName = translitWord(categoryName)
+        const encodedName = encodeURIComponent(translitName);
+        return encodedName.replace('%20', '-')
     };
 
     const handleRedirectCategory = (categoryName) => {
@@ -26,44 +40,53 @@ const SectionCategories = () => {
     };
 
     useEffect(() => {
-        fetchCategories()
-            .then(data => {
-                setCategories(data);
-                setIsLoading(false);
-            })
-            .catch(error =>
-                console.error('Error while getting data:', error)
-            );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        if (categoryPath) {
+            const categoryName = decodeURIComponent(categoryPath.replace('-', '%20'));
+            if (categories) {
+                const category = categories.find(
+                    category => translitWord(category.name) === categoryName
+                );
+
+                setSelectedCategory(category);
+            }
+        }
+    }, [categoryPath, categories]);
 
     return (
         <StyledSectionCategories>
             <div className={'sectionCategories__container'}>
-                <div className={`container__categories ${!hiddenCategories && 'container__categories_show'}`}>
-                    {isLoading ? (
-                        <div>Loading...</div>
-                    ) : (
-                        categories &&
-                        categories.map((category) => (
-                            <div className={'categories__item'}
-                                 key={category.id}
-                            >
-                                <img src={process.env.REACT_APP_IMG_API_URL + category.image + '.png'}
-                                     alt={category.name}
-                                />
-                                <button className={`item__text ${categoryPath === categoryPathFromName(category.name) && 'item__text_active'}`}
-                                        onClick={() => handleRedirectCategory(category.name)}
+                {isLoading || isError ? (
+                    <CategoriesLoading />
+                ) : (
+                    <div className={`container__categories ${!hiddenCategories ? 'container__categories_show' : ''}`}>
+                        {categories ? (
+                            categories.map((category) => (
+                                <div className={'categories__item'}
+                                     key={category.id}
                                 >
-                                    {category.name}
-                                </button>
-                            </div>
-                        ))
-                    )}
-                </div>
+                                    <img src={process.env.REACT_APP_IMG_API_URL + category.image + '.png'}
+                                         alt={category.name}
+                                    />
+                                    <button className={`item__text ${categoryPath === categoryPathFromName(category.name) && 'item__text_active'}`}
+                                            onClick={() => handleRedirectCategory(category.name)}
+                                    >
+                                        {category.name}
+                                    </button>
+                                </div>
+                            ))
+                        ) : (
+                            <div>No categories</div>
+                        )}
+                    </div>
+                )}
                 <div className={'btnDropMenu'}
                      onClick={() => setHiddenCategories(!hiddenCategories)}
+                     onMouseEnter={handleMouseEnter}
+                     onMouseLeave={handleMouseLeave}
                 >
+                    <img src={(hoveredShowMore ? decorTriangleHover : decorTriangle)}
+                         alt='Show more'
+                    />
                 </div>
             </div>
         </StyledSectionCategories>

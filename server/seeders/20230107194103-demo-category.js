@@ -56,7 +56,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        name:"Astrology",
+        name:"Astronomy",
         image:"7c623344968182178bfd75d89f0bad29",
         createdAt: new Date(),
         updatedAt: new Date()

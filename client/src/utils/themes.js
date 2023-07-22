@@ -10,7 +10,7 @@ export const themes = {
         secondaryColor: '#DCEFE2',
         accentColor: '#C9E8D8',
         strongAccentColor: '#FFFFFF',
-        thirdColor: '#5FC1A4',
+        successColor: '#5FC1A4',
 
         header: {
             triangleColor: '#DCEFE2'
@@ -28,7 +28,7 @@ export const themes = {
         secondaryColor: '#3D3D3D',
         accentColor: '#333333',
         strongAccentColor: '#000000',
-        thirdColor: '#5FC1A4',
+        successColor: '#5FC1A4',
 
         header: {
             triangleColor: '#3D3D3D'
