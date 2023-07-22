@@ -2,9 +2,9 @@ import {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
-import {useActions} from 'hooks/UseActions';
+import {useActions} from 'hooks/useActions';
 import {fetchOneQuestion} from 'api/questionAPI';
-import LoaderPage from 'components/ui/loaders/loader-page/LoaderPage';
+import HomePage from 'components/ui/loading/home-page/HomePage';
 import {ROUTE_ERROR} from 'utils/consts';
 import Question from 'components/screens/question/Question';
 
@@ -41,7 +41,7 @@ const QuestionPage = () => {
 
     return (
         isLoading ? (
-            <LoaderPage />
+            <HomePage />
         ) : (
             <Question />
         )

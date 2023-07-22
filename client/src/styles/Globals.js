@@ -19,7 +19,6 @@ export const Globals = createGlobalStyle`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    transition: color 0.4s ease-in-out;
   }
 
   html,
@@ -57,7 +56,6 @@ export const Globals = createGlobalStyle`
     color: inherit;
     font: inherit;
     text-decoration: none;
-    transition: background-color 0.1s ease-in-out;
   }
 
   select {

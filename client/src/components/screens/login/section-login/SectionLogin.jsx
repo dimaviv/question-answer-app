@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import {ROUTE_HOME, ROUTE_SIGNUP} from 'utils/consts';
-import {useActions} from 'hooks/UseActions';
+import {useActions} from 'hooks/useActions';
 import {useNavigate} from 'react-router-dom';
 import googleIcon from 'static/pages/login/google-icon.svg';
 // import appleIcon from 'static/login-page/apple-icon.svg';

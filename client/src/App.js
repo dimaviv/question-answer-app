@@ -1,19 +1,15 @@
 import {useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {ThemeProvider} from 'styled-components';
 
-import {useActions} from 'hooks/UseActions';
+import {useActions} from 'hooks/useActions';
 import AppRouter from './components/AppRouter';
-import {fetchCategories} from './api/categoryAPI';
+import {Globals} from './styles/Globals';
+import {themes} from './utils/themes';
 
 const App = () => {
-    const {setIsAuth, checkAuth, setCategories} = useActions();
-
-    useEffect(() => {
-        fetchCategories()
-            .then(data => {
-                setCategories(data)
-            })
-            .catch(e => console.error(e))
-    }, [])
+    const {theme} = useSelector(state => state.layoutReducer);
+    const {setIsAuth, checkAuth} = useActions();
 
     useEffect(() => {
         if (localStorage.getItem('auth') || sessionStorage.getItem('auth')) {
@@ -38,7 +34,10 @@ const App = () => {
 
     return (
         <>
-            <AppRouter />
+            <ThemeProvider theme={theme === 'dark' ? themes.dark : themes.light}>
+                <Globals/>
+                <AppRouter />
+            </ThemeProvider>
         </>
     );
 };

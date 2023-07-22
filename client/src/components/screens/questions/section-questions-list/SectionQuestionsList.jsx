@@ -3,11 +3,11 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import {fetchQuestions} from 'api/questionAPI';
-import {useActions} from 'hooks/UseActions';
+import {useActions} from 'hooks/useActions';
 import UserTopList from './user-top-list/UserTopList';
 import QuestionsList from './questions-list/QuestionsList';
 import {ROUTE_ASK_QUESTION, ROUTE_LOGIN} from 'utils/consts';
-import Loader from 'components/ui/loaders/loader/Loader';
+import Loader from 'components/ui/loading/loader/Loader';
 import {StyledSectionQuestionsList} from './StyledSectionQuestionsList';
 
 const SectionQuestionsList = () => {

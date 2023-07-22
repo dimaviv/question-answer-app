@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 
-import {useActions} from 'hooks/UseActions';
+import {useActions} from 'hooks/useActions';
 import OAuth from 'components/screens/oauth/OAuth';
 
 const OAuthPage = () => {
