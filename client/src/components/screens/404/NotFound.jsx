@@ -12,7 +12,7 @@ const NotFound = () => {
                     Page not found
                 </h2>
                 <p className={styles.errorTextBox__navText}>
-                    Go back to <span><a href={ROUTE_HOME}>main page</a></span>
+                    Go back to <span><a href={ROUTE_HOME}>home page</a></span>
                 </p>
             </div>
         </div>

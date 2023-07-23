@@ -1,51 +1,42 @@
-import {useNavigate} from 'react-router-dom';
+import {useState} from 'react';
 import {useSelector} from 'react-redux';
-import {useQuery} from 'react-query';
 
-import {ROUTE_LOGIN, ROUTE_QUESTION} from 'utils/consts';
-import {formatDate} from 'utils/pages/questions/format-date';
-import {getEmailPrefix} from 'utils/pages/questions/get-email-prefix';
-import {fetchCategories} from 'api/categoryAPI';
-import {checkArr} from 'utils/check-arr';
-import {translitWord} from 'utils/translit';
 import {StyledQuestionItem} from './StyledQuestionItem';
+import {getEmailPrefix} from 'utils/pages/questions/get-email-prefix';
+import {ROUTE_LOGIN} from 'utils/consts';
+import {formatDate} from 'utils/pages/questions/format-date';
+import reportBtnHoverImg from 'static/pages/question/reportBtnHover.svg';
+import reportBtnImg from 'static/pages/question/reportBtn.svg';
 import {stringToColor} from 'utils/pages/questions/string-to-color';
 import {wc_hex_is_light} from 'utils/pages/questions/get-text-color';
 
 const QuestionItem = ({question}) => {
-    const navigate = useNavigate();
     const {selectedCategory} = useSelector(state => state.categoriesReducer);
-    const {data: categories, isLoading, isError} = useQuery('categories', fetchCategories);
 
-    const {isAuth} = useSelector(state => state.authReducer);
-    const categoryPathFromName = (categoryName) => {
-        const translitName = translitWord(categoryName);
-        const encodedName = encodeURIComponent(translitName);
-        return encodedName.replace('%20', '-');
-    };
-
-    const itemCategory = checkArr(categories) ? categories.find(category => category.id === question.categoryId) : {};
-
-    const handleRedirectQuestion = (questionId) => {
-        if (isAuth) {
-            const pathToCategory = categoryPathFromName(selectedCategory.name);
-            sessionStorage.setItem('questionId', questionId);
-            navigate(`${ROUTE_QUESTION}/${pathToCategory}/${questionId}`);
-        } else {
-            navigate(ROUTE_LOGIN);
-        }
-    };
-
-    const avatarColor = stringToColor(question.user.login ? question.user.login : getEmailPrefix(question.user.email))
+    const avatarColor = stringToColor(question.user.login ? question.user.login : getEmailPrefix(question.user.email));
 
     const avatarStyle = {
         backgroundColor: avatarColor,
         color: wc_hex_is_light(avatarColor) ? '#000000' : '#FFFFFF'
     };
 
+    const [hoveredReport, setHoveredReport] = useState(false);
+    const [isReport, setIsReport] = useState(false);
+
+    const handleMouseEnter = () => {
+        setHoveredReport(true);
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredReport(false);
+    };
+
+    const handleReport = () => {
+        setIsReport(!isReport);
+    };
     return (
         <StyledQuestionItem>
-            <div className={'questionItem__userInfoContainer'}>
+            <div className={'questionContainer__titleContainer'}>
                 <div className={'userInfoContainer__avatarBox'}>
                     {question.user.provider ? (
                         question.user.provider === 'google' ? (
@@ -71,30 +62,34 @@ const QuestionItem = ({question}) => {
                         )
                     )}
                 </div>
-                <a className={'userInfoContainer__userName'}
+                <a className={'titleContainer__userName'}
                    href={ROUTE_LOGIN}
                 >
-                    {question.user.login ? (
-                        question.user.login
-                    ) : (
-                        getEmailPrefix(question.user.email)
-                    )}
+                    {question.user.login ? question.user.login : getEmailPrefix(question.user.email)}
                 </a>
-                <p className={'userInfoContainer__categoryName'}>
-                   {itemCategory.name}
+                <p className={'titleContainer__categoryName'}>
+                    {selectedCategory.name}
                 </p>
-                <p className={'userInfoContainer__dateAdd'}>
+                <p className={'titleContainer__dateAdd'}>
                     {formatDate(question.createdAt)}
                 </p>
+                <button className={'titleContainer__btnReport'}
+                        onClick={handleReport}
+                >
+                    <img
+                        src={(isReport && reportBtnHoverImg) || (hoveredReport ? reportBtnHoverImg : reportBtnImg)}
+                        alt='report'
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                    />
+                </button>
             </div>
-            <div className={'questionItem__textContainer'}>
+            <div className={'questionContainer__textContainer'}>
                 <p className={'textContainer__text'}>
                     {question.text}
                 </p>
             </div>
-            <button className={'questionItem__btnRedirect'}
-                    onClick={() => handleRedirectQuestion(question.id)}
-            >
+            <button className={'questionContainer__btnAnswer'}>
                 Answer
             </button>
         </StyledQuestionItem>

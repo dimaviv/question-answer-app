@@ -10,7 +10,7 @@ export const Globals = createGlobalStyle`
 
   body {
     font-size: 14px;
-    font-family: 'Titillium Web', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: ${props => props.theme.backgroundColor};
     color: ${props => props.theme.textColor};
   }

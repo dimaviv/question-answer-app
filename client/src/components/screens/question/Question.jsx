@@ -1,11 +1,14 @@
-import styles from './Question.module.css';
 import SectionAnswers from './section-answers/SectionAnswers';
+import {StyledQuestion} from './StyledQuestion';
+import Layout from 'components/layout/Layout';
 
 const Question = () => {
     return (
-            <div className={styles.questionPage}>
+        <Layout title={'Question'} description={'Page with question'}>
+            <StyledQuestion>
                 <SectionAnswers />
-            </div>
+            </StyledQuestion>
+        </Layout>
     );
 };
 

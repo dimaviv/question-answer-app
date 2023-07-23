@@ -22,7 +22,7 @@ const UserTopList = () => {
     return (
         <StyledUserTopList>
             <div className={'userTopList__titleContainer'}>
-                <p className={'titleContainer__text'}>Top 10</p>
+                <p className={'titleContainer__text'}>The best users</p>
             </div>
             <div className={'userTopList__container'}>
                 {checkArr(userRating) ? (

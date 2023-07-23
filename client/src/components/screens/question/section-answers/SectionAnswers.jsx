@@ -1,92 +1,49 @@
-import {useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {useQuery} from 'react-query';
+
+import AnswersList from './answers-list/AnswersList';
+import {fetchOneQuestion} from 'api/questionAPI';
+import {checkArr} from 'utils/check-arr';
+import {StyledSectionAnswers} from './StyledSectionAnswers';
+import QuestionLoading from 'components/ui/loading/question/Question';
+import QuestionItem from './question-item/QuestionItem';
+import NotFoundPage from 'pages/NotFound';
 import {useSelector} from 'react-redux';
 
-import styles from './SectionAnswers.module.css';
-import AnswersList from './answers-list/AnswersList';
-import {ROUTE_LOGIN} from 'utils/consts';
-import {formatDate} from 'utils/pages/questions/format-date';
-import {getEmailPrefix} from 'utils/pages/questions/get-email-prefix';
-import userAvatarImg from 'static/pages/questions/userAvatar.svg';
-import reportBtnImg from 'static/pages/question/reportBtn.svg';
-import reportBtnHoverImg from 'static/pages/question/reportBtnHover.svg';
-
 const SectionAnswers = () => {
-    const {question} = useSelector(state => state.questionsReducer);
-    const {questionCategory} = useSelector(state => state.categoriesReducer);
+    const {selectedCategory} = useSelector(state => state.categoriesReducer)
+    const questionId = useParams().questionId;
+    const {data: question, isLoading, isError} = useQuery(['question', questionId], () => fetchOneQuestion(questionId));
 
-    const [hoveredReport, setHoveredReport] = useState(false);
-    const [isReport, setIsReport] = useState(false);
-
-    const handleMouseEnter = () => {
-        setHoveredReport(true);
-    };
-
-    const handleMouseLeave = () => {
-        setHoveredReport(false);
-    };
-
-    const handleReport = () => {
-        setIsReport(!isReport);
-    };
-
+    if(!question || (question.categoryId !== selectedCategory.id)) {
+        return (
+            <NotFoundPage/>
+        )
+    }
     return (
-        <div className={styles.sectionAnswers}>
-            <div className={styles.sectionAnswers__container}>
-                <div className={styles.container__questionContainer}>
-                    <div className={styles.questionContainer__titleContainer}>
-                        <div className={styles.titleContainer__avatarBox}>
-                            <img src={userAvatarImg}
-                                 alt=""
-                            />
+        <StyledSectionAnswers>
+            {(isLoading || isError || !question) ? (
+                <QuestionLoading />
+            ) : (
+                <div className={'sectionAnswers__container'}>
+                    <QuestionItem question={question} />
+                    <div className={'container__answersTitleContainer'}>
+                        <div className={'answersTitleContainer__decorTextBox'}>
+                            <h1 className={'decorTextBox__text'}>
+                                {checkArr(question.answers) ? (
+                                    'Answers'
+                                ) : (
+                                    'Write your answer first'
+                                )}
+                            </h1>
                         </div>
-                        <a className={styles.titleContainer__userName}
-                           href={ROUTE_LOGIN}
-                        >
-                            {question.user.login ? question.user.login : getEmailPrefix(question.user.email)}
-                        </a>
-                        <p className={styles.titleContainer__categoryName}>
-                            {questionCategory && questionCategory.name}
-                        </p>
-                        <p className={styles.titleContainer__dateAdd}>
-                            {formatDate(question.createdAt)}
-                        </p>
-                        <button className={styles.titleContainer__btnReport}
-                                onClick={handleReport}
-                        >
-                            <img
-                                src={(isReport && reportBtnHoverImg) || (hoveredReport ? reportBtnHoverImg : reportBtnImg)}
-                                alt="report"
-                                onMouseEnter={handleMouseEnter}
-                                onMouseLeave={handleMouseLeave}
-                            />
-                        </button>
                     </div>
-                    <div className={styles.questionContainer__textContainer}>
-                        <p className={styles.textContainer__text}>
-                            {question.text}
-                        </p>
-                    </div>
-                    <button className={styles.questionContainer__btnAnswer}>
-                        Answer
-                    </button>
+                    {checkArr(question.answers) > 0 &&
+                        <AnswersList question={question} />
+                    }
                 </div>
-                <div className={styles.container__answersTitleContainer}>
-                    <div className={styles.answersTitleContainer__decorTextBox}>
-                        <h1 className={styles.decorTextBox__text}>
-                            {(question.answers && question.answers.length > 0)
-                                ?
-                                'Answers'
-                                :
-                                'Write your answer first'
-                            }
-                        </h1>
-                    </div>
-                </div>
-                {question.answers && question.answers.length > 0 &&
-                    <AnswersList />
-                }
-            </div>
-        </div>
+            )}
+        </StyledSectionAnswers>
     );
 };
 

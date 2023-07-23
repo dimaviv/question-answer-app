@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledQuestionsList = styled.div`
-  width: 840px;
+  width: 700px;
   display: flex;
   flex-direction: column;
   gap: 20px 0;

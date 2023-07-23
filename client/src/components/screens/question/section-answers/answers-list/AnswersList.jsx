@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import styles from './AnswersList.module.css';
-import AnswerItem from '../answer-item/AnswerItem';
+import AnswerItem from './answer-item/AnswerItem';
 import _ from 'lodash';
-import {useSelector} from 'react-redux';
 
-const AnswersList = () => {
-    const {question} = useSelector(state => state.questionsReducer);
+const AnswersList = ({question}) => {
     const [sortedAnswers, setSortedAnswers] = useState([]);
 
     useEffect(() => {

@@ -1,8 +1,8 @@
-import styles from './UserPlaceItem.module.css';
 import {ROUTE_LOGIN} from 'utils/consts';
 import {getEmailPrefix} from 'utils/pages/questions/get-email-prefix';
 import {stringToColor} from 'utils/pages/questions/string-to-color';
 import {wc_hex_is_light} from 'utils/pages/questions/get-text-color';
+import {StyledUserPlaceItem} from './StyledUserPlaceItem';
 
 
 const UserPlaceItem = ({user, img}) => {
@@ -14,15 +14,15 @@ const UserPlaceItem = ({user, img}) => {
     };
 
     return (
-        <div className={styles.userPlaceItem}>
-            <div className={styles.userPlaceItem__userInformContainer}>
-                <div className={styles.userInformContainer__placeContainer}>
+        <StyledUserPlaceItem>
+            <div className={'userPlaceItem__userInformContainer'}>
+                <div className={'userInformContainer__placeContainer'}>
                     <img src={img}
                          alt=''
                     />
                 </div>
-                <div className={styles.userInformContainer__userInfoContainer}>
-                    <div className={styles.userInfoContainer__avatarBox}>
+                <div className={'userInformContainer__userInfoContainer'}>
+                    <div className={'userInfoContainer__avatarBox'}>
                         {user.provider ? (
                             user.provider === 'google' ? (
                                 <img src={` https://lh3.googleusercontent.com${user.avatar}`}
@@ -39,7 +39,7 @@ const UserPlaceItem = ({user, img}) => {
                                      alt={`${user.login ? user.login : getEmailPrefix(user.email)} avatar`}
                                 />
                             ) : (
-                                <div className={styles.defaultAvatar}
+                                <div className={'defaultAvatar'}
                                      style={avatarStyle}
                                 >
                                     {user.login ? user.login : getEmailPrefix(user.email).charAt(0)}
@@ -47,8 +47,8 @@ const UserPlaceItem = ({user, img}) => {
                             )
                         )}
                     </div>
-                    <div className={styles.userInfoContainer__nameBox}>
-                        <a className={styles.nameBox__text}
+                    <div className={'userInfoContainer__nameBox'}>
+                        <a className={'nameBox__text'}
                            href={ROUTE_LOGIN}
                         >
                             {user.login ? user.login : getEmailPrefix(user.email)}
@@ -56,12 +56,12 @@ const UserPlaceItem = ({user, img}) => {
                     </div>
                 </div>
             </div>
-            <div className={styles.userPlaceItem__userScoreContainer}>
-                <p className={styles.userScoreContainer__text}>
+            <div className={'userPlaceItem__userScoreContainer'}>
+                <p className={'userScoreContainer__text'}>
                     {user.score}
                 </p>
             </div>
-        </div>
+        </StyledUserPlaceItem>
     );
 };
 
