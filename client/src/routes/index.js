@@ -1,4 +1,4 @@
-import {ROUTE_ERROR, ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP, ROUTE_OAUTH} from 'utils/consts';
+import {ROUTE_ERROR, ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP, ROUTE_OAUTH, ROUTE_ASK_QUESTION, ROUTE_QUESTIONS, ROUTE_QUESTION} from 'utils/consts';
 import loadable from '@loadable/component';
 import HomePageLoading from 'components/ui/loading/home-page/HomePage';
 
@@ -30,7 +30,7 @@ const ErrorPage = loadable(() => import('pages/NotFound'), {
 
 export const publicRoutes = [
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/:categoryName', component: QuestionsPage},
+    {path: `${ROUTE_QUESTIONS}/:categoryName`, component: QuestionsPage},
     {path: ROUTE_LOGIN, component: LoginPage},
     {path: ROUTE_SIGNUP, component: SignUpPage},
     {path: ROUTE_OAUTH, component: OAuthPage},
@@ -40,9 +40,9 @@ export const publicRoutes = [
 
 export const privateRoutes = [
     {path: ROUTE_HOME, component: HomePage},
-    {path: '/:categoryName', component: QuestionsPage},
-    {path: '/ask-question/:categoryName', component: AskQuestionPage},
-    {path: '/:categoryName/:questionId', component: QuestionPage},
+    {path: `${ROUTE_QUESTIONS}/:categoryName`, component: QuestionsPage},
+    {path: `${ROUTE_ASK_QUESTION}/:categoryName`, component: AskQuestionPage},
+    {path: `${ROUTE_QUESTION}/:categoryName/:questionId`, component: QuestionPage},
     {path: ROUTE_ERROR, component: ErrorPage},
     {path: '*', component: ErrorPage},
 ];

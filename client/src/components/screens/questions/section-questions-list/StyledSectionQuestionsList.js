@@ -65,8 +65,8 @@ export const StyledSectionQuestionsList = styled.div`
   }
 
   .askQuestionContainer__redirectBtn {
-    margin-top: 10px;
-    padding: 7px 28px 5px 28px;
+    margin-top: 15px;
+    padding: 9px 28px 7px;
     background-color: ${props => props.theme.primaryColor};
     border: none;
     border-radius: 100px;
@@ -96,18 +96,17 @@ export const StyledSectionQuestionsList = styled.div`
 
   .questionListContainer__showMoreBtn {
     margin-top: 30px;
-    padding: 7px 28px 5px;
-    background: transparent;
-    border: 2px solid #ECE9EC;
+    padding: 9px 20px 7px;
     border-radius: 100px;
+    border: none;
     font-weight: bold;
     text-transform: uppercase;
-    color: ${props => props.theme.primaryColor};
+    background-color: ${props => props.theme.primaryColor};;
+    color: #FFFFFF;
   }
 
   .questionListContainer__showMoreBtn:hover {
-    background-color: #ECE9EC;
-    border: 2px solid #ECE9EC;
+    background-color: ${props => props.theme.strongPrimaryColor};;
   }
 
 `;

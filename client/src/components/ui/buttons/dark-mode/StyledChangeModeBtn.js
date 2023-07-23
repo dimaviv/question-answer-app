@@ -9,7 +9,7 @@ export const StyledChangeModeBtn = styled.button`
     display: flex;
     justify-content: space-between;
     border-radius: 100px;
-    background-color: #272727;
+    background-color: #000000;
     border: none;
     order: 9;
   

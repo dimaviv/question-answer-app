@@ -8,7 +8,9 @@ import decorTriangleHover from 'static/layout/header/decor/decor__triangle_hover
 import {fetchCategories} from 'api/categoryAPI';
 import CategoriesLoading from 'components/ui/loading/categories/Categories';
 import {useActions} from 'hooks/useActions';
-import {translitWord} from '../../../../utils/translit';
+import {translitWord} from 'utils/translit';
+import {checkArr} from 'utils/check-arr';
+import {ROUTE_QUESTIONS} from 'utils/consts';
 
 const SectionCategories = () => {
     const navigate = useNavigate();
@@ -36,13 +38,13 @@ const SectionCategories = () => {
 
     const handleRedirectCategory = (categoryName) => {
         const path = categoryPathFromName(categoryName);
-        navigate(`/${path}`);
+        navigate(`${ROUTE_QUESTIONS}/${path}`);
     };
 
     useEffect(() => {
         if (categoryPath) {
             const categoryName = decodeURIComponent(categoryPath.replace('-', '%20'));
-            if (categories) {
+            if (checkArr(categories)) {
                 const category = categories.find(
                     category => translitWord(category.name) === categoryName
                 );
@@ -59,7 +61,7 @@ const SectionCategories = () => {
                     <CategoriesLoading />
                 ) : (
                     <div className={`container__categories ${!hiddenCategories ? 'container__categories_show' : ''}`}>
-                        {categories ? (
+                        {checkArr(categories) ? (
                             categories.map((category) => (
                                 <div className={'categories__item'}
                                      key={category.id}
