@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {NavLink, useParams} from 'react-router-dom';
 import {useQuery} from 'react-query';
 
 import {StyledSectionCategories} from './StyledSectionCategories';
@@ -9,15 +9,21 @@ import {fetchCategories} from 'api/categoryAPI';
 import CategoriesLoading from 'components/ui/loading/categories/Categories';
 import {useActions} from 'hooks/useActions';
 import {translitWord} from 'utils/translit';
-import {checkArr} from 'utils/check-arr';
 import {ROUTE_QUESTIONS} from 'utils/consts';
 
 const SectionCategories = () => {
-    const navigate = useNavigate();
     const categoryPath = useParams().categoryName;
+    const {setCategories, setSelectedCategory} = useActions();
 
-    const {data: categories, isLoading, isError} = useQuery('categories', fetchCategories);
-    const {setSelectedCategory} = useActions();
+    const {data: categories, isLoading, isError} = useQuery(
+        'categories',
+        fetchCategories,
+        {
+            refetchOnWindowFocus: false,
+            onSuccess: (categories) => {
+                setCategories(categories);
+            }
+        });
 
     const [hiddenCategories, setHiddenCategories] = useState(true);
 
@@ -31,25 +37,21 @@ const SectionCategories = () => {
     };
 
     const categoryPathFromName = (categoryName) => {
-        const translitName = translitWord(categoryName)
+        const translitName = translitWord(categoryName);
         const encodedName = encodeURIComponent(translitName);
-        return encodedName.replace('%20', '-')
-    };
-
-    const handleRedirectCategory = (categoryName) => {
-        const path = categoryPathFromName(categoryName);
-        navigate(`${ROUTE_QUESTIONS}/${path}`);
+        return encodedName.replace('%20', '-');
     };
 
     useEffect(() => {
         if (categoryPath) {
             const categoryName = decodeURIComponent(categoryPath.replace('-', '%20'));
-            if (checkArr(categories)) {
+            if (categories && categories.length > 0) {
                 const category = categories.find(
                     category => translitWord(category.name) === categoryName
                 );
-
-                setSelectedCategory(category);
+                if (category) {
+                    setSelectedCategory(category);
+                }
             }
         }
     }, [categoryPath, categories]);
@@ -61,7 +63,7 @@ const SectionCategories = () => {
                     <CategoriesLoading />
                 ) : (
                     <div className={`container__categories ${!hiddenCategories ? 'container__categories_show' : ''}`}>
-                        {checkArr(categories) ? (
+                        {categories.length > 0 ? (
                             categories.map((category) => (
                                 <div className={'categories__item'}
                                      key={category.id}
@@ -69,11 +71,13 @@ const SectionCategories = () => {
                                     <img src={process.env.REACT_APP_IMG_API_URL + category.image + '.png'}
                                          alt={category.name}
                                     />
-                                    <button className={`item__text ${categoryPath === categoryPathFromName(category.name) && 'item__text_active'}`}
-                                            onClick={() => handleRedirectCategory(category.name)}
+                                    <NavLink to={`${ROUTE_QUESTIONS}/${categoryPathFromName(category.name)}`}
+                                             className={({isActive, isPending}) =>
+                                                 isPending ? 'pending' : isActive ? 'active' : ''
+                                             }
                                     >
                                         {category.name}
-                                    </button>
+                                    </NavLink>
                                 </div>
                             ))
                         ) : (

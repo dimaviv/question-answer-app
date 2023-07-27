@@ -7,7 +7,7 @@ import appleAppImg from 'static/layout/footer/apps/apple.svg';
 import googleAppImg from 'static/layout/footer/apps/google.svg';
 import {ROUTE_HOME} from 'utils/consts';
 import {useNavigate} from 'react-router-dom';
-import ChangeModeBtn from 'components/ui/buttons/dark-mode/ChangeModeBtn';
+import ChangeModeBtn from 'components/ui/button/dark-mode/ChangeModeBtn';
 
 const SectionInform = () => {
     const navigate = useNavigate();

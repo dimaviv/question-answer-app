@@ -1,12 +1,11 @@
 import QuestionItem from './question-item/QuestionItem';
-import {checkArr} from 'utils/check-arr';
 import {StyledQuestionsList} from './StyledQuestionsList';
 
 const QuestionsList = ({questions}) => {
 
     return (
         <StyledQuestionsList>
-            {checkArr(questions) ? (
+            {questions.length > 0 ? (
                 questions.map((question) => (
                     <QuestionItem key={question.id}
                                   question={question}

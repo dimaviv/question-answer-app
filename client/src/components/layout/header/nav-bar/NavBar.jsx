@@ -1,19 +1,17 @@
-import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import {Link, NavLink, redirect} from 'react-router-dom';
 
 import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_SIGNUP} from 'utils/consts';
 import {useActions} from 'hooks/useActions';
 import {StyledNavBar} from './StyledNavBar';
 
 const NavBar = () => {
-    const navigate = useNavigate();
-
     const {signOut} = useActions();
     const {isAuth} = useSelector(state => state.authReducer);
 
-    const handleSignOut = () => {
-        signOut();
-        navigate(ROUTE_HOME);
+    const handleSignOut = async () => {
+        await signOut();
+        redirect(ROUTE_HOME);
     };
 
     return (
@@ -21,11 +19,11 @@ const NavBar = () => {
             <div className={'nav__container'}>
                 <div className={'container__leftBarContainer'}>
                     <div className={'leftBarContainer__logoBox'}>
-                        <a href={ROUTE_HOME}
+                        <Link to={ROUTE_HOME}
                            className={'logoBox__text'}
                         >
                             ExpertMint
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className={'container__rightBarContainer'}>
@@ -35,30 +33,40 @@ const NavBar = () => {
                                 <li onClick={handleSignOut}
                                     className={'list__item'}
                                 >
-                                    <p className={'item__text'}>Log out</p>
+                                    <p className={'item__text'}>
+                                        Log out
+                                    </p>
                                 </li>
-                                <li className={'list__item list__itemDecor'}
-                                    onClick={() => navigate(ROUTE_HOME)}
-                                >
-                                    <p className={'item__text'}>Ask your question</p>
+                                <li className={'list__item list__itemDecor'}>
+                                    <NavLink to={ROUTE_HOME}
+                                             className={'item__text'}
+                                    >
+                                        Ask your question
+                                    </NavLink>
                                 </li>
                             </ul>
                         ) : (
                             <ul className={'menu__list'}>
-                                <li onClick={() => navigate(ROUTE_LOGIN)}
-                                    className={'list__item'}
-                                >
-                                    <p className={'item__text'}>Log in</p>
+                                <li className={'list__item'}>
+                                    <NavLink to={ROUTE_LOGIN}
+                                             className={'item__text'}
+                                    >
+                                        Log in
+                                    </NavLink>
                                 </li>
-                                <li onClick={() => navigate(ROUTE_SIGNUP)}
-                                    className={'list__item'}
-                                >
-                                    <p className={'item__text'}>Sign up</p>
+                                <li className={'list__item'}>
+                                    <NavLink to={ROUTE_SIGNUP}
+                                             className={'item__text'}
+                                    >
+                                        Sign up
+                                    </NavLink>
                                 </li>
-                                <li className={'list__item list__itemDecor'}
-                                    onClick={() => navigate(ROUTE_HOME)}
-                                >
-                                    <p className={'item__text'}>Ask your question</p>
+                                <li className={'list__item list__itemDecor'}>
+                                    <NavLink to={ROUTE_HOME}
+                                             className={'item__text'}
+                                    >
+                                        Ask your question
+                                    </NavLink>
                                 </li>
                             </ul>
                         )}

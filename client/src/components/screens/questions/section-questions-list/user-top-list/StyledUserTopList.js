@@ -29,7 +29,7 @@ export const StyledUserTopList = styled.div`
   }
 
   .emptyList {
-    padding-bottom: 20px;
+    padding: 20px 0;
     display: flex;
     justify-content: center;
   }

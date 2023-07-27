@@ -1,79 +1,88 @@
-import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import {useState} from 'react';
+import {useMutation, useQueryClient} from 'react-query';
 
-import styles from './SectionAskQuestion.module.css';
 import {createQuestion} from 'api/questionAPI';
+import {StyledSectionAskQuestion} from './StyledSectionAskQuestion';
 
 const SectionAskQuestion = () => {
     const navigate = useNavigate();
-    const {selectedCategory} = useSelector(state => state.categoriesReducer)
+    const {selectedCategory} = useSelector(state => state.categoriesReducer);
 
-    const [questionText, setQuestionText] = useState('');
-    const [selectedFile, setSelectedFile] = useState(null);
-    const categoryId = selectedCategory ? selectedCategory.id : null;
+    const queryClient = useQueryClient();
+    const mutation = useMutation(
+        newQuestion => createQuestion(newQuestion),
+        {
+            onSuccess: () => queryClient.invalidateQueries(['questions'])
+        }
+    );
 
-    const clearValues = () => {
-        setQuestionText('');
-        setSelectedFile(null);
-    };
-
-    const handleFileInput = e => {
-        setSelectedFile(e.target.files[0]);
-    };
+    const [errors, setErrors] = useState({});
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
-        if (questionText !== '' && categoryId) {
-            const newQuestion = {
-                text: questionText,
-                categoryId: categoryId,
-                file: selectedFile
-            };
-            createQuestion(newQuestion)
-                .then(
-                    () => {
-                        console.log('Question created');
-                        clearValues();
-                        navigate(`/subject/${selectedCategory.name.toLowerCase().replace(/\s+/g, '')}`);
-                    }
-                )
-                .catch(
-                    error => console.error('Error while getting data:', error)
-                );
+        const formData = new FormData(e.target);
+        const requiredFields = ['text'];
+        let isValid = true;
+
+        if (selectedCategory && !(Object.keys(selectedCategory).length > 0)) {
+            isValid = false;
+        }
+        for (const field of requiredFields) {
+            if (!formData.get(field).trim()) {
+                isValid = false;
+                setErrors(prevState => ({...prevState, [field]: 'This field is required'}));
+            } else {
+                setErrors((prevErrors) => ({...prevErrors, [field]: ''}));
+            }
+        }
+
+        if (isValid) {
+            formData.append('categoryId', selectedCategory.id);
+            const fileInput = document.getElementById('questionFile');
+            const file = fileInput.files[0];
+            formData.append('file', file ? file : null);
+
+            const fields = Object.fromEntries(formData);
+            mutation.mutate(fields);
+
+            e.target.reset();
         }
     };
 
     return (
-        <div className={styles.sectionAskQuestion}>
-            <div className={styles.sectionAskQuestion__content}>
-                <div className={styles.askQuestionContainer}>
-                    <form
-                        className={styles.askQuestionForm}
-                        onSubmit={handleSubmitForm}
+        <StyledSectionAskQuestion>
+            <div className={'sectionAskQuestion__content'}>
+                <div className={'askQuestionContainer'}>
+                    <form className={'askQuestionForm'}
+                          onSubmit={handleSubmitForm}
                     >
-                        <div className={styles.questionTextBox}
+                        <div className={'questionTextBox'}
                         >
-                      <textarea
-                          className={styles.questionText}
-                          placeholder="I want to ask..."
-                          value={questionText}
-                          onChange={e => setQuestionText(e.target.value)}
+                      <textarea id={'questionText'}
+                                name={'text'}
+                                className={'questionText'}
+                                placeholder='I want to ask...'
                       />
+                            {errors.text &&
+                                <label id={'textError'}
+                                       htmlFor={'questionText'}
+                                >
+                                    {errors.text}
+                                </label>
+                            }
                         </div>
-                        <div className={styles.btnBox}>
-                            <div className={styles.leftSideBtnBox}>
-                                <input
-                                    type="file"
-                                    id="fileInput"
-                                    value={selectedFile ? selectedFile.name : ''}
-                                    onChange={handleFileInput}
+                        <div className={'btnBox'}>
+                            <div className={'leftSideBtnBox'}>
+                                <input id={'questionFile'}
+                                       name={'file'}
+                                       type='file'
                                 />
                             </div>
-                            <div className={styles.rightSideBtnBox}>
-                                <button
-                                    type="submit"
-                                    className={styles.btnSend}
+                            <div className={'rightSideBtnBox'}>
+                                <button type='submit'
+                                        className={'btnSend'}
                                 >
                                     Send
                                 </button>
@@ -82,7 +91,7 @@ const SectionAskQuestion = () => {
                     </form>
                 </div>
             </div>
-        </div>
+        </StyledSectionAskQuestion>
     );
 };
 

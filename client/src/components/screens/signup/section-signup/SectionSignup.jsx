@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 import {ROUTE_HOME, ROUTE_LOGIN} from 'utils/consts';
 import googleIcon from 'static/pages/login/google-icon.svg';
 // import appleIcon from 'static/login-page/apple-icon.svg';
@@ -10,11 +12,11 @@ const SectionSignup = () => {
     return (
         <StyledSectionSignup>
             <div className={'sectionSignup__redirectContainer'}>
-                <a href={ROUTE_HOME}
+                <Link to={ROUTE_HOME}
                    className={'redirectContainer__text'}
                 >
                     No, thanks
-                </a>
+                </Link>
             </div>
             <div className={'sectionSignup__titleContainer'}>
                 <h1>
@@ -59,7 +61,7 @@ const SectionSignup = () => {
             </div>
             <div className={'sectionSignup__askSignupContainer'}>
                 <p className={'askSignupContainer__text'}>
-                    Do you have an account? <span><a href={ROUTE_LOGIN}>Log in</a></span>
+                    Do you have an account? <span><Link to={`/${ROUTE_LOGIN}`}>Log in</Link></span>
                 </p>
             </div>
         </StyledSectionSignup>

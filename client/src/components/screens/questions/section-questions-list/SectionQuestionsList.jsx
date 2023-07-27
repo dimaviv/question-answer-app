@@ -7,38 +7,39 @@ import {fetchQuestions} from 'api/questionAPI';
 import UserTopList from './user-top-list/UserTopList';
 import QuestionsList from './questions-list/QuestionsList';
 import {ROUTE_ASK_QUESTION, ROUTE_LOGIN} from 'utils/consts';
-import Loader from 'components/ui/loading/loader/Loader';
 import {StyledSectionQuestionsList} from './StyledSectionQuestionsList';
-import {checkArr} from 'utils/check-arr';
-import QuestionsLoading from '../../../ui/loading/questions/Questions';
+import QuestionsLoading from 'components/ui/loading/questions/Questions';
 
 const SectionQuestionsList = () => {
     const navigate = useNavigate();
     const categoryName = useParams().categoryName;
+
     const {isAuth} = useSelector(state => state.authReducer);
     const {selectedCategory} = useSelector(state => state.categoriesReducer);
+
     const [limit, setLimit] = useState(10);
 
     const {data: questions, isLoading: isQuestionsLoading, isError: isQuestionsError} = useQuery(
-        ['questions', categoryName !== 'all' ? selectedCategory.id : null, null, limit, null],
-        () => fetchQuestions(categoryName !== 'all' ? selectedCategory.id : null, null, limit, null),
+        ['questions',(selectedCategory && categoryName !== 'all') ? selectedCategory.id : null, null, limit, null],
+        () => fetchQuestions((selectedCategory && categoryName !== 'all') ? selectedCategory.id : null, null, limit, null),
         {
             refetchOnWindowFocus: false,
             keepPreviousData: true,
         }
     );
-    const [isLoading, setIsLoading] = useState(true);
-    const pathToAskQuestionPage = selectedCategory && `${ROUTE_ASK_QUESTION}/${categoryName}`;
 
     const handleRedirectToAsk = () => {
-        if (isAuth) {
-            navigate(pathToAskQuestionPage);
-        } else {
-            navigate(ROUTE_LOGIN);
+        if(selectedCategory) {
+            if (isAuth) {
+                const pathToAskQuestionPage = `/${ROUTE_ASK_QUESTION}/${categoryName}`;
+                navigate(pathToAskQuestionPage);
+            } else {
+                navigate(`/${ROUTE_LOGIN}`);
+            }
         }
     };
 
-    const handleShowMore = () => {
+    const getMoreQuestions = () => {
         setLimit(prevState => prevState + 10);
     };
 
@@ -66,23 +67,19 @@ const SectionQuestionsList = () => {
                 </button>
             </div>
             <div className={'sectionQuestionList__container'}>
-                {(isQuestionsLoading || isQuestionsError || !questions) ? (
+                {(isQuestionsLoading || isQuestionsError) ? (
                     <div className={'container__questionListContainer'}>
                         <QuestionsLoading />
                     </div>
                 ) : (
                     <div className={'container__questionListContainer'}>
-                        <QuestionsList questions={questions} />
-                        {isQuestionsLoading ? (
-                            <Loader />
-                        ) : (
-                            checkArr(questions) && (
-                                <button onClick={handleShowMore}
-                                        className={'questionListContainer__showMoreBtn'}
-                                >
-                                    Show more
-                                </button>
-                            )
+                        <QuestionsList questions={questions.rows} />
+                        {questions.rows.length < questions.count && (
+                            <button onClick={getMoreQuestions}
+                                    className={'questionListContainer__showMoreBtn'}
+                            >
+                                Show more
+                            </button>
                         )}
                     </div>
                 )}

@@ -1,23 +1,22 @@
-import {useEffect, useState} from 'react';
-
 import UserPlaceItem from './user-place-item/UserPlaceItem';
 import {fetchUserRating} from 'api/userAPI';
 import {topImages} from 'utils/pages/questions/img-places';
-import {checkArr} from 'utils/check-arr';
 import {StyledUserTopList} from './StyledUserTopList';
-import {useSelector} from 'react-redux';
+import {useQuery} from 'react-query';
+import UserTopListLoading from 'components/ui/loading/user-top-list/UserTopList';
 
 const UserTopList = () => {
-    const {selectedCategory} = useSelector(state => state.categoriesReducer)
-    const [userRating, setUserRating] = useState([]);
+    const {
+        data: userRating,
+        isLoading: isUserRatingLoading,
+        isError: isUserRatingError
+    } = useQuery('user-rating', () => fetchUserRating());
 
-    useEffect(() => {
-        fetchUserRating()
-            .then(data => {
-                setUserRating(data);
-            })
-            .catch(error => console.error(error));
-    }, [selectedCategory]);
+    if (isUserRatingLoading || isUserRatingError) {
+        return (
+            <UserTopListLoading />
+        );
+    }
 
     return (
         <StyledUserTopList>
@@ -25,7 +24,7 @@ const UserTopList = () => {
                 <p className={'titleContainer__text'}>The best users</p>
             </div>
             <div className={'userTopList__container'}>
-                {checkArr(userRating) ? (
+                {userRating.length > 0 ? (
                     userRating.map((user, index) => (
                         <UserPlaceItem
                             key={user.id}
@@ -36,7 +35,7 @@ const UserTopList = () => {
                 ) : (
                     <div className={'emptyList'}>
                         <p className={'emptyList__text'}>
-                            Be the first to be on the leaderboard!
+                            Be the first in the best users!
                         </p>
                     </div>
                 )}

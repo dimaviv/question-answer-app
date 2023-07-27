@@ -6,7 +6,6 @@ import {ROUTE_LOGIN, ROUTE_QUESTION} from 'utils/consts';
 import {formatDate} from 'utils/pages/questions/format-date';
 import {getEmailPrefix} from 'utils/pages/questions/get-email-prefix';
 import {fetchCategories} from 'api/categoryAPI';
-import {checkArr} from 'utils/check-arr';
 import {translitWord} from 'utils/translit';
 import {StyledQuestionItem} from './StyledQuestionItem';
 import {stringToColor} from 'utils/pages/questions/string-to-color';
@@ -24,15 +23,17 @@ const QuestionItem = ({question}) => {
         return encodedName.replace('%20', '-');
     };
 
-    const itemCategory = checkArr(categories) ? categories.find(category => category.id === question.categoryId) : {};
+    const itemCategory = (categories && categories.length > 0) ? categories.find(category => category.id === question.categoryId) : {};
 
     const handleRedirectQuestion = (questionId) => {
-        if (isAuth) {
-            const pathToCategory = categoryPathFromName(selectedCategory.name);
-            sessionStorage.setItem('questionId', questionId);
-            navigate(`${ROUTE_QUESTION}/${pathToCategory}/${questionId}`);
-        } else {
-            navigate(ROUTE_LOGIN);
+        if (selectedCategory && Object.keys(selectedCategory).length > 0) {
+            if (isAuth) {
+                const pathToCategory = categoryPathFromName(selectedCategory.name);
+                sessionStorage.setItem('questionId', questionId);
+                navigate(`/${ROUTE_QUESTION}/${pathToCategory}/${questionId}`);
+            } else {
+                navigate(`/${ROUTE_LOGIN}`);
+            }
         }
     };
 

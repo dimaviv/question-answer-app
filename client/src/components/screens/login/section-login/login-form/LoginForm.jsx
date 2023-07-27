@@ -10,7 +10,7 @@ import shownPasswordImg from 'static/icons/eye-open.svg';
 import hiddenPasswordImg from 'static/icons/eye-closed.svg';
 
 const LoginForm = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const {signIn, setIsAuth} = useActions();
 
     const setStorageItem = (key, value, storage) => {

@@ -3,7 +3,6 @@ import {useQuery} from 'react-query';
 
 import AnswersList from './answers-list/AnswersList';
 import {fetchOneQuestion} from 'api/questionAPI';
-import {checkArr} from 'utils/check-arr';
 import {StyledSectionAnswers} from './StyledSectionAnswers';
 import QuestionLoading from 'components/ui/loading/question/Question';
 import QuestionItem from './question-item/QuestionItem';
@@ -30,7 +29,7 @@ const SectionAnswers = () => {
                     <div className={'container__answersTitleContainer'}>
                         <div className={'answersTitleContainer__decorTextBox'}>
                             <h1 className={'decorTextBox__text'}>
-                                {checkArr(question.answers) ? (
+                                {question.answers.length > 0 ? (
                                     'Answers'
                                 ) : (
                                     'Write your answer first'
@@ -38,7 +37,7 @@ const SectionAnswers = () => {
                             </h1>
                         </div>
                     </div>
-                    {checkArr(question.answers) > 0 &&
+                    {question.answers.length > 0 &&
                         <AnswersList question={question} />
                     }
                 </div>

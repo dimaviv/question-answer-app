@@ -68,7 +68,7 @@ const QuestionItem = ({question}) => {
                     {question.user.login ? question.user.login : getEmailPrefix(question.user.email)}
                 </a>
                 <p className={'titleContainer__categoryName'}>
-                    {selectedCategory.name}
+                    {(selectedCategory && Object.keys(selectedCategory).length > 0) && selectedCategory.name}
                 </p>
                 <p className={'titleContainer__dateAdd'}>
                     {formatDate(question.createdAt)}

@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {ROUTE_HOME, ROUTE_SIGNUP} from 'utils/consts';
 import {useActions} from 'hooks/useActions';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import googleIcon from 'static/pages/login/google-icon.svg';
 // import appleIcon from 'static/login-page/apple-icon.svg';
 import facebookIcon from 'static/pages/login/facebook-icon.svg';
@@ -66,11 +66,11 @@ const SectionLogin = () => {
         return (
             <StyledSectionLogin>
                 <div className={'sectionAuth__redirectContainer'}>
-                    <a href={ROUTE_HOME}
-                       className={'redirectContainer__text'}
+                    <Link to={ROUTE_HOME}
+                          className={'redirectContainer__text'}
                     >
                         No, thanks
-                    </a>
+                    </Link>
                 </div>
                 <div className={'sectionAuth__titleContainer'}>
                     <h1>
@@ -119,7 +119,7 @@ const SectionLogin = () => {
                 </div>
                 <div className={'sectionAuth__askSignUpContainer'}>
                     <p className={'askSignUpContainer__text'}>
-                        Don't have an account? <span><a href={ROUTE_SIGNUP}>Sign up</a></span>
+                        Don't have an account? <span><Link to={`/${ROUTE_SIGNUP}`}>Sign up</Link></span>
                     </p>
                 </div>
             </StyledSectionLogin>

@@ -1,13 +1,13 @@
 import {$authHost, $host} from "./index"
 import {API_QUESTION} from 'utils/api-consts';
 
-export const fetchQuestions = async (categoryId, isAnswered, limit = 20, page) => {
+export const fetchQuestions = async (categoryId, isAnswered, limit = 10, page) => {
     const {data} = await $host.get(API_QUESTION, {
         params: {
             categoryId, isAnswered, limit, page
         }
     })
-    return data.rows
+    return data
 }
 
 export const fetchOneQuestion = async (id) => {

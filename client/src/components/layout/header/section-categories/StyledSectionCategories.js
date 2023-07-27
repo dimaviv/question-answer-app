@@ -6,7 +6,7 @@ export const StyledSectionCategories = styled.div`
   align-items: center;
   background: transparent;
   position: relative;
-  
+
 
   .sectionCategories__container {
     width: 1280px;
@@ -43,22 +43,13 @@ export const StyledSectionCategories = styled.div`
     height: 32px;
   }
 
-  .item__text {
+  .categories__item a {
     padding-top: 6px;
     margin-left: 5px;
-    border: none;
-    background: transparent;
   }
 
-  .item__text:hover {
-    text-decoration: underline;
-  }
-
-  .item__text_active {
-    text-decoration: underline;
-  }
-
-  .sectionCategories__categoryText:hover {
+  .categories__item a:hover,
+  .categories__item a.active {
     text-decoration: underline;
   }
 
