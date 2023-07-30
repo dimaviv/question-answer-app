@@ -1,37 +1,33 @@
-import React, {useState} from 'react';
-import styles from './CommentsList.module.css';
+import {useState} from 'react';
 import {formatDate} from 'utils/pages/questions/format-date';
 import userAvatarImg from 'static/pages/questions/userAvatar.svg';
+import {StyledCommentsList} from './StyledCommentsList';
 
 const CommentsList = ({answer}) => {
     const [commentText, setCommentText] = useState('');
 
     const handleSubmitForm = async (e) => {
         e.preventDefault();
-        if (commentText) {
-            // const newComment = {id: Date.now(), text: commentText, avatar: userAvatarImg}
-            setCommentText('');
-        }
     };
 
     return (
-        <div className={styles.commentsList}>
+        <StyledCommentsList>
             {(answer.comments && answer.comments.length > 0) &&
-                <div className={styles.commentsList__content}>
+                <div className={'commentsList__content'}>
                     {answer.comments.map(comment =>
-                        <div className={styles.content__commentItem}
+                        <div className={'content__commentItem'}
                              key={comment.id}
                         >
-                            <div className={styles.commentItem__commentInfoContainer}>
-                                <div className={styles.commentInfoContainer__avatarBox}>
+                            <div className={'commentItem__commentInfoContainer'}>
+                                <div className={'commentInfoContainer__avatarBox'}>
                                     <img src={userAvatarImg}
                                          alt="user-avatar"
                                     />
                                 </div>
-                                <p className={styles.commentInfoContainer__commentText}>
+                                <p className={'commentInfoContainer__commentText'}>
                                     {comment.text}
                                 </p>
-                                <p className={styles.commentInfoContainer__dateAdd}>
+                                <p className={'commentInfoContainer__dateAdd'}>
                                     {formatDate(comment.createdAt)}
                                 </p>
                             </div>
@@ -39,25 +35,25 @@ const CommentsList = ({answer}) => {
                     )}
                 </div>
             }
-            <form className={styles.commentsList__sendForm}
+            <form className={'commentsList__sendForm'}
                   onSubmit={handleSubmitForm}
             >
-                {/*<div className={styles.sendForm__userAvatarBox}>*/}
+                {/*<div className={'sendForm__userAvatarBox'}>*/}
                 {/*    <img src={userAvatarImg}*/}
                 {/*         alt="user-avatar"*/}
                 {/*    />*/}
                 {/*</div>*/}
-                <input className={styles.sendForm__inputComment}
+                <input className={'sendForm__inputComment'}
                     type="text"
                     placeholder="Comment"
                     value={commentText}
                     onChange={e => setCommentText(e.target.value)}
                 />
-                <button className={styles.sendForm__btnSend}>
+                <button className={'sendForm__btnSend'}>
                     Send
                 </button>
             </form>
-        </div>
+        </StyledCommentsList>
     );
 };
 

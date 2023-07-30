@@ -20,24 +20,13 @@ const SectionQuestionsList = () => {
     const [limit, setLimit] = useState(10);
 
     const {data: questions, isLoading: isQuestionsLoading, isError: isQuestionsError} = useQuery(
-        ['questions',(selectedCategory && categoryName !== 'all') ? selectedCategory.id : null, null, limit, null],
+        ['questions', (selectedCategory && categoryName !== 'all') ? selectedCategory.id : null, null, limit, null],
         () => fetchQuestions((selectedCategory && categoryName !== 'all') ? selectedCategory.id : null, null, limit, null),
         {
             refetchOnWindowFocus: false,
             keepPreviousData: true,
         }
     );
-
-    const handleRedirectToAsk = () => {
-        if(selectedCategory) {
-            if (isAuth) {
-                const pathToAskQuestionPage = `/${ROUTE_ASK_QUESTION}/${categoryName}`;
-                navigate(pathToAskQuestionPage);
-            } else {
-                navigate(`/${ROUTE_LOGIN}`);
-            }
-        }
-    };
 
     const getMoreQuestions = () => {
         setLimit(prevState => prevState + 10);
@@ -61,7 +50,7 @@ const SectionQuestionsList = () => {
                     </h1>
                 </div>
                 <button className={'askQuestionContainer__redirectBtn'}
-                        onClick={handleRedirectToAsk}
+                        onClick={() => {navigate(`/${isAuth ? ROUTE_ASK_QUESTION : ROUTE_LOGIN}`)}}
                 >
                     I want to ask...
                 </button>

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import {StyledQuestionItem} from './StyledQuestionItem';
 import {getEmailPrefix} from 'utils/pages/questions/get-email-prefix';
@@ -10,9 +10,7 @@ import reportBtnImg from 'static/pages/question/reportBtn.svg';
 import {stringToColor} from 'utils/pages/questions/string-to-color';
 import {wc_hex_is_light} from 'utils/pages/questions/get-text-color';
 
-const QuestionItem = ({question}) => {
-    const {selectedCategory} = useSelector(state => state.categoriesReducer);
-
+const QuestionItem = ({question, selectedCategory, setIsAnswerForm, isAnswerForm}) => {
     const avatarColor = stringToColor(question.user.login ? question.user.login : getEmailPrefix(question.user.email));
 
     const avatarStyle = {
@@ -62,11 +60,11 @@ const QuestionItem = ({question}) => {
                         )
                     )}
                 </div>
-                <a className={'titleContainer__userName'}
-                   href={ROUTE_LOGIN}
+                <Link className={'titleContainer__userName'}
+                      to={`/${ROUTE_LOGIN}`}
                 >
                     {question.user.login ? question.user.login : getEmailPrefix(question.user.email)}
-                </a>
+                </Link>
                 <p className={'titleContainer__categoryName'}>
                     {(selectedCategory && Object.keys(selectedCategory).length > 0) && selectedCategory.name}
                 </p>
@@ -89,7 +87,10 @@ const QuestionItem = ({question}) => {
                     {question.text}
                 </p>
             </div>
-            <button className={'questionContainer__btnAnswer'}>
+            <button className={`questionContainer__btnAnswer ${isAnswerForm ? 'disabled' : 'active'}`}
+                    disabled={isAnswerForm}
+                    onClick={() => setIsAnswerForm(true)}
+            >
                 Answer
             </button>
         </StyledQuestionItem>

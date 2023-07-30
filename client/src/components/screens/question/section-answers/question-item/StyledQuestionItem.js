@@ -6,7 +6,9 @@ export const StyledQuestionItem = styled.div`
   flex-direction: column;
   border-radius: 15px;
   background-color: #FFFFFF;
+  color: #333333;
   gap: 15px 0;
+  z-index: 1000;
 
   .questionContainer__titleContainer {
     display: flex;
@@ -72,15 +74,20 @@ export const StyledQuestionItem = styled.div`
     margin-left: auto;
     padding: 7px 20px 5px;
     background: transparent;
-    border: 2px solid #1D6178;
+    border: 2px solid ${props => props.theme.primaryColor};
     border-radius: 100px;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: bold;
   }
 
-  .questionContainer__btnAnswer:hover {
-    background-color: #1D6178;
+  .questionContainer__btnAnswer.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .questionContainer__btnAnswer.active:hover {
+    background-color: ${props => props.theme.primaryColor};
     color: #FFFFFF;
   }
 `;

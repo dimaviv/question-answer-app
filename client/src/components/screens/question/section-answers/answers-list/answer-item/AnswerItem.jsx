@@ -1,15 +1,17 @@
-import React, {useState} from 'react';
-import styles from './AnswerItem.module.css';
+import {useState} from 'react';
+import {Link} from 'react-router-dom';
+
 import {ROUTE_LOGIN} from 'utils/consts';
 import CommentsList from './comments-list/CommentsList';
 import {formatDate} from 'utils/pages/questions/format-date';
-import userAvatarImg from 'static/pages/questions/userAvatar.svg';
 import reportBtnHoverImg from 'static/pages/question/reportBtnHover.svg';
 import reportBtnImg from 'static/pages/question/reportBtn.svg';
 import commentOnBtnImg from 'static/pages/question/commentOnBtn.svg';
 import commentOffBtnImg from 'static/pages/question/commentOffBtn.svg';
-import gradeUpBtnImg from 'static/pages/question/gradeUpBtn.svg';
-import gradeDownBtnImg from 'static/pages/question/gradeDownBtn.svg';
+import {StyledAnswerItem} from './StyledAnswerItem';
+import {getEmailPrefix} from 'utils/pages/questions/get-email-prefix';
+import {stringToColor} from 'utils/pages/questions/string-to-color';
+import {wc_hex_is_light} from 'utils/pages/questions/get-text-color';
 
 const AnswerItem = ({answer}) => {
     const [hoveredReport, setHoveredReport] = useState(false);
@@ -37,37 +39,64 @@ const AnswerItem = ({answer}) => {
         setIsComment(!isComment);
     };
 
+    const avatarColor = stringToColor(answer.user.login ? answer.user.login : getEmailPrefix(answer.user.email));
+
+    const avatarStyle = {
+        backgroundColor: avatarColor,
+        color: wc_hex_is_light(avatarColor) ? '#000000' : '#FFFFFF'
+    };
+
     return (
-        <div className={styles.answerItem}>
-            <div className={styles.answerItem__userInfoContainer}>
-                <div className={styles.userInfoContainer__avatarBox}>
-                    <img src={userAvatarImg}
-                         alt=""
-                    />
+        <StyledAnswerItem>
+            <div className={'answerItem__userInfoContainer'}>
+                <div className={'userInfoContainer__avatarBox'}>
+                    {answer.user.provider ? (
+                        answer.user.provider === 'google' ? (
+                            <img src={` https://lh3.googleusercontent.com${answer.user.avatar}`}
+                                 alt={`${answer.user.login ? answer.user.login : getEmailPrefix(answer.user.email)} avatar`}
+                            />
+                        ) : (
+                            <img src={` https://facebook${answer.user.avatar}`}
+                                 alt={`${answer.user.login ? answer.user.login : getEmailPrefix(answer.user.email)} avatar`}
+                            />
+                        )
+                    ) : (
+                        answer.user.avatar ? (
+                            <img src={answer.user.avatar}
+                                 alt={`${answer.user.login ? answer.user.login : getEmailPrefix(answer.user.email)} avatar`}
+                            />
+                        ) : (
+                            <div className={'defaultAvatar'}
+                                 style={avatarStyle}
+                            >
+                                {answer.user.login ? answer.user.login : getEmailPrefix(answer.user.email).charAt(0)}
+                            </div>
+                        )
+                    )}
                 </div>
-                <a className={styles.userInfoContainer__userName}
-                   href={ROUTE_LOGIN}
+                <Link className={'userInfoContainer__userName'}
+                      to={`/${ROUTE_LOGIN}`}
                 >
-                    userNick
-                </a>
-                <p className={styles.userInfoContainer__categoryName}>
-                    Learner
+                    {answer.user.login ? answer.user.login : getEmailPrefix(answer.user.email)}
+                </Link>
+                <p className={'userInfoContainer__categoryName'}>
+                    learner
                 </p>
-                <p className={styles.userInfoContainer__dateAdd}>
+                <p className={'userInfoContainer__dateAdd'}>
                     {formatDate(answer.createdAt)}
                 </p>
-                <div className={styles.userInfoContainer__btnBox}>
-                    <button className={styles.btnBox__btnReport}
+                <div className={'userInfoContainer__btnBox'}>
+                    <button className={'btnBox__btnReport'}
                             onClick={handleReport}
                     >
                         <img
                             src={(isReport && reportBtnHoverImg) || (hoveredReport ? reportBtnHoverImg : reportBtnImg)}
-                            alt="report"
+                            alt='report'
                             onMouseEnter={handleMouseEnter(setHoveredReport)}
                             onMouseLeave={handleMouseLeave(setHoveredReport)}
                         />
                     </button>
-                    <button className={styles.btnBox__btnCommentOff}
+                    <button className={'btnBox__btnCommentOff'}
                             onClick={handleComment}
                     >
                         <img
@@ -78,54 +107,46 @@ const AnswerItem = ({answer}) => {
                                     :
                                     (!hoveredComment ? commentOffBtnImg : commentOnBtnImg)
                             }
-                            alt="comment"
+                            alt='comment'
                             onMouseEnter={handleMouseEnter(setHoveredComment)}
                             onMouseLeave={handleMouseLeave(setHoveredComment)}
                         />
                     </button>
                 </div>
             </div>
-            <div className={styles.answerItem__textContainer}>
-                <div className={styles.textContainer__gradeBox}>
-                    <button className={styles.gradeBox__btnGrade}
+            <div className={'answerItem__textContainer'}>
+                <div className={'textContainer__gradeBox'}>
+                    <button className={'gradeBox__btnGrade up'}
                             onClick={handleGradeUp}
                     >
-                        <img src={gradeUpBtnImg}
-                             alt="like"
-                        />
                     </button>
-                    <div className={styles.gradeBox__gradeTextContainer}>
-                        <p className={
-                            `${styles.gradeTextContainer__text} ${grade < 0 && styles.gradeTextContainer__text_red} ${grade > 0 && styles.gradeTextContainer__text_green}`
-                        }>
+                    <div className={'gradeBox__gradeTextContainer'}>
+                        <p className={`gradeTextContainer__text ${grade < 0 && 'gradeTextContainer__text_red'} ${grade > 0 && 'gradeTextContainer__text_green'}`}>
                             {grade}
                         </p>
                     </div>
-                    <button className={styles.gradeBox__btnGrade}
+                    <button className={'gradeBox__btnGrade down'}
                             onClick={handleGradeDown}
                     >
-                        <img src={gradeDownBtnImg}
-                             alt="dislike"
-                        />
                     </button>
                 </div>
-                <p className={styles.textContainer__text}>
+                <p className={'textContainer__text'}>
                     {answer.text}
                 </p>
             </div>
-            <div className={styles.answerItem__commentContainer}>
+            <div className={'answerItem__commentContainer'}>
                 {isComment
                     ?
                     <CommentsList answer={answer} />
                     :
-                    <button className={styles.commentContainer__btnAnswer}
+                    <button className={'commentContainer__btnAnswer'}
                             onClick={() => setIsComment(!isComment)}
                     >
                         Comment
                     </button>
                 }
             </div>
-        </div>
+        </StyledAnswerItem>
     );
 };
 

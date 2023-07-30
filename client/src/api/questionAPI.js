@@ -20,15 +20,5 @@ export const createQuestion = async (question) => {
     return data
 }
 
-// export const createAnswer = async (answer) => {
-//     const {data} = await $host.post('api/answer', answer)
-//     return data
-// }
-//
-// export const fetchAnswers = async () => {
-//     const {data} = await $host.get('api/answer')
-//     return data
-// }
-
 
 

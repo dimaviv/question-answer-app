@@ -26,7 +26,7 @@ export const publicRoutes = [
 
 export const privateRoutes = [
     {path: `${ROUTE_QUESTIONS}/:categoryName`, component: QuestionsPage},
-    {path: `${ROUTE_ASK_QUESTION}/:categoryName`, component: AskQuestionPage},
+    {path: ROUTE_ASK_QUESTION, component: AskQuestionPage},
     {path: `${ROUTE_QUESTION}/:categoryName/:questionId`, component: QuestionPage},
     {path: ROUTE_ERROR, component: NotFoundPage},
 ];
