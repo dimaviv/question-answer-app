@@ -66,9 +66,7 @@ const SectionAskQuestion = () => {
                                 placeholder='I want to ask...'
                       />
                             {errors.text &&
-                                <label id={'textError'}
-                                       htmlFor={'questionText'}
-                                >
+                                <label htmlFor={'questionText'}>
                                     {errors.text}
                                 </label>
                             }

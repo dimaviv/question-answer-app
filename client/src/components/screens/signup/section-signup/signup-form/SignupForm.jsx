@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 
 import {passwordPattern, emailPattern} from 'utils/patterns/auth';
 import {registration} from 'api/authAPI';
@@ -7,103 +7,92 @@ import {ROUTE_LOGIN} from 'utils/consts';
 import {StyledSignupForm} from './StyledSignupForm';
 import hiddenPasswordImg from 'static/icons/eye-closed.svg';
 import shownPasswordImg from 'static/icons/eye-open.svg';
+import {useMutation, useQueryClient} from 'react-query';
 
 const SignupForm = () => {
-    const navigate = useNavigate()
-    const [emailValue, setEmailValue] = useState('');
-    const [passwordValue, setPasswordValue] = useState('');
-    const [emailErrorValue, setEmailErrorValue] = useState('');
-    const [passwordErrorValue, setPasswordErrorValue] = useState('');
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    const formRegRef = useRef(null);
+    const mutation = useMutation(
+        newUser => registration(newUser),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(['user-rating'])
+                    .then(() => {
+                        formRegRef.current.reset();
+                        navigate(`/${ROUTE_LOGIN}`);
+                    });
+            },
+            onError: (e) => {
+                setErrors(prevState => ({...prevState, request: e?.message || 'Something went wrong.'}));
+            }
+        }
+    );
 
     const [isHiddenPassword, setIsHiddenPassword] = useState(true);
-
-    const cleanRegInputs = () => {
-        setEmailValue('');
-        setPasswordValue('');
-    };
-
-    const handleEmailChange = (e) => {
-        const emailInput = e.target.value;
-        let emailError = '';
-        if (emailInput === '') {
-            emailError = 'Email is empty';
-        } else if (!emailPattern.test(emailInput)) {
-            emailError = 'Incorrect email';
-        }
-
-        setEmailValue(emailInput);
-        setTimeout(() => {
-            setEmailErrorValue(emailError);
-        }, 1000);
-    };
-
-    const handlePasswordChange = (e) => {
-        const passwordInput = e.target.value;
-        let passwordError = '';
-        if (passwordInput === '') {
-            passwordError = 'Password is empty';
-        } else if (!passwordPattern.test(passwordInput)) {
-            passwordError = 'Incorrect password';
-        }
-
-        setPasswordValue(passwordInput);
-        setTimeout(() => {
-            setPasswordErrorValue(passwordError);
-        }, 1000);
-    };
+    const [errors, setErrors] = useState({});
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let emailError = '';
-        let passwordError = '';
-        if (emailValue === '') {
-            emailError = 'Email is empty';
-        } else if (!emailPattern.test(emailValue)) {
-            emailError = 'Incorrect email';
+        const formData = new FormData(e.target);
+        const requiredFields = ['email', 'password'];
+        let isValid = true;
+        let newErrors = {};
+
+        for (const field of requiredFields) {
+            if (!formData.get(field).trim()) {
+                isValid = false;
+                newErrors = {...newErrors, [field]: 'This field is required'};
+            } else {
+                newErrors = {...newErrors, [field]: ''};
+            }
         }
-        if (passwordValue === '') {
-            passwordError = 'Password is empty';
-        } else if (!passwordPattern.test(passwordValue)) {
-            passwordError = 'Incorrect password';
+        if (!newErrors.email && !emailPattern.test(formData.get('email'))) {
+            isValid = false;
+            newErrors = {
+                ...newErrors,
+                ['email']: 'Email is not valid. Please use a valid email address, e.g., example@example.com.'
+            };
+        }
+        if (!newErrors.password && !passwordPattern.test(formData.get('password'))) {
+            isValid = false;
+            newErrors = {
+                ...newErrors,
+                ['password']: `Password is not valid. Please make sure it is 8 to 16 characters long.`
+            };
         }
 
-        setEmailErrorValue(emailError);
-        setPasswordErrorValue(passwordError);
+        setErrors(newErrors);
 
-        if (emailError === '' && passwordError === '') {
-            registration(emailValue, passwordValue)
-                .then(
-                    () => {
-                        console.log('Congrats with a registration!');
-                        navigate(ROUTE_LOGIN);
-                        cleanRegInputs();
-                    }
-                )
-                .catch(e => console.error(e));
+        if (isValid) {
+            const fields = Object.fromEntries(formData);
+            mutation.mutate(fields);
         }
     };
 
     return (
-        <StyledSignupForm onSubmit={handleSubmit}>
-            <input type='text'
+        <StyledSignupForm ref={formRegRef}
+                          onSubmit={handleSubmit}
+        >
+            <input id={'emailSignup'}
+                   name={'email'}
+                   type='text'
                    placeholder='E-mail'
-                   value={emailValue}
-                   onChange={handleEmailChange}
-                   className={`form__inputItem ${emailErrorValue !== '' && 'form__inputItem_error'}`}
+                   className={`form__inputItem ${errors.email && 'form__inputItem_error'}`}
             />
-            {emailErrorValue !== '' &&
-                <div className={'form__errorTextBox'}>
-                    <p className={'errorTextBox__text'}>
-                        {emailErrorValue}
-                    </p>
-                </div>
+            {errors.email &&
+                <label htmlFor={'emailSignup'}
+                       className={'errorTextBox__text'}
+                >
+                    {errors.email}
+                </label>
             }
             <div className='inputPasswordBox'>
-                <input type={isHiddenPassword ? 'password' : 'text'}
+                <input id={'passwordSignup'}
+                       name={'password'}
+                       type={isHiddenPassword ? 'password' : 'text'}
                        placeholder='Password'
-                       value={passwordValue}
-                       onChange={handlePasswordChange}
-                       className={`form__inputItem ${passwordErrorValue !== '' && 'form__inputItem_error'}`}
+                       className={`form__inputItem ${errors.password && 'form__inputItem_error'}`}
                 />
                 <button className='passwordSecurityBtn'
                         type='button'
@@ -116,16 +105,25 @@ const SignupForm = () => {
                     />
                 </button>
             </div>
-            {passwordErrorValue !== '' &&
-                <div className={'form__errorTextBox'}>
-                    <p className={'errorTextBox__text'}>
-                        {passwordErrorValue}
-                    </p>
-                </div>
+            {errors.password &&
+                <label htmlFor={'emailSignup'}
+                       className={'errorTextBox__text'}
+                >
+                    {errors.password}
+                </label>
             }
-            <button className={'form_signupBtn'}>
+            <button type={'submit'}
+                    className={'form_signupBtn'}
+            >
                 Sign Up
             </button>
+            {errors.request &&
+                <label htmlFor={'emailLogin'}
+                       className={'errorTextBox__text'}
+                >
+                    {errors.request}
+                </label>
+            }
         </StyledSignupForm>
     );
 };

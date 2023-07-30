@@ -62,12 +62,7 @@ export const StyledLoginForm = styled.form`
     display: flex;
     justify-content: space-between;
   }
-
-  .form__errorTextBox {
-    padding-left: 20px;
-    display: flex;
-  }
-
+  
   .errorTextBox__text {
     color: #cf1d00;
   }
