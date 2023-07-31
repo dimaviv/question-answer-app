@@ -23,7 +23,7 @@ const SectionCategoryAsk = () => {
                     <div className={'askQuestionContainer__titleContainer'}>
                         <div className={'titleContainer__decorTextBox'}>
                             <h1 className={'decorTextBox__text'}>
-                                {(selectedCategory && Object.keys(selectedCategory).length !== 0) && selectedCategory.name}
+                                {Object.keys(selectedCategory).length > 0 && selectedCategory.name}
                             </h1>
                         </div>
                     </div>

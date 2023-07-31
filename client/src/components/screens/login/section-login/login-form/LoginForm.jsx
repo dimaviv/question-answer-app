@@ -5,7 +5,7 @@ import {useMutation} from 'react-query';
 import {ROUTE_HOME} from 'utils/consts';
 import {emailPattern, passwordPattern} from 'utils/patterns/auth';
 import {useActions} from 'hooks/useActions';
-import {login} from 'api/authAPI';
+import {login} from 'api/auth';
 import {StyledLoginForm} from './StyledLoginForm';
 import shownPasswordImg from 'static/icons/eye-open.svg';
 import hiddenPasswordImg from 'static/icons/eye-closed.svg';

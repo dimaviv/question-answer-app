@@ -1,11 +1,11 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {NavLink, useParams} from 'react-router-dom';
 import {useQuery} from 'react-query';
 
 import {StyledSectionCategories} from './StyledSectionCategories';
 import decorTriangle from 'static/layout/header/decor/decor__triangle.svg';
 import decorTriangleHover from 'static/layout/header/decor/decor__triangle_hover.svg';
-import {fetchCategories} from 'api/categoryAPI';
+import {fetchCategories} from 'api/category';
 import CategoriesLoading from 'components/ui/loading/categories/Categories';
 import {useActions} from 'hooks/useActions';
 import {translitWord} from 'utils/translit';
@@ -36,11 +36,13 @@ const SectionCategories = () => {
         setHoveredShowMore(false);
     };
 
-    const categoryPathFromName = (categoryName) => {
-        const translitName = translitWord(categoryName);
-        const encodedName = encodeURIComponent(translitName);
-        return encodedName.replace('%20', '-');
-    };
+    const categoryPathFromName = useMemo(() => {
+        return (categoryName) => {
+            const translitName = translitWord(categoryName);
+            const encodedName = encodeURIComponent(translitName);
+            return encodedName.replace('%20', '-');
+        };
+    }, []);
 
     useEffect(() => {
         if (categoryPath) {
@@ -59,11 +61,11 @@ const SectionCategories = () => {
     return (
         <StyledSectionCategories>
             <div className={'sectionCategories__container'}>
-                {isLoading || isError ? (
+                {isLoading || isError || !categories ? (
                     <CategoriesLoading />
                 ) : (
                     <div className={`container__categories ${!hiddenCategories ? 'container__categories_show' : ''}`}>
-                        {categories.length > 0 ? (
+                        {categories.length > 0 && (
                             categories.map((category) => (
                                 <div className={'categories__item'}
                                      key={category.id}
@@ -80,8 +82,6 @@ const SectionCategories = () => {
                                     </NavLink>
                                 </div>
                             ))
-                        ) : (
-                            <div>No categories</div>
                         )}
                     </div>
                 )}

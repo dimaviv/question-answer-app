@@ -1,5 +1,5 @@
 import UserPlaceItem from './user-place-item/UserPlaceItem';
-import {fetchUserRating} from 'api/userAPI';
+import {fetchUserRating} from 'api/user';
 import {topImages} from 'utils/pages/questions/img-places';
 import {StyledUserTopList} from './StyledUserTopList';
 import {useQuery} from 'react-query';

@@ -1,7 +1,7 @@
 import {useRef, useState} from 'react';
 
 import {passwordPattern, emailPattern} from 'utils/patterns/auth';
-import {registration} from 'api/authAPI';
+import {registration} from 'api/auth';
 import {useNavigate} from 'react-router-dom';
 import {ROUTE_LOGIN} from 'utils/consts';
 import {StyledSignupForm} from './StyledSignupForm';

@@ -92,21 +92,21 @@ export const StyledSectionQuestionsList = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
 
-  .questionListContainer__showMoreBtn {
-    margin-top: 30px;
-    padding: 9px 20px 7px;
-    border-radius: 100px;
-    border: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    background-color: ${props => props.theme.primaryColor};;
-    color: #FFFFFF;
-  }
+    .showMoreBtn {
+      margin: 30px auto 0;
+      padding: 9px 20px 7px;
+      border-radius: 100px;
+      border: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      background-color: ${props => props.theme.primaryColor};;
+      color: #FFFFFF;
+    }
 
-  .questionListContainer__showMoreBtn:hover {
-    background-color: ${props => props.theme.strongPrimaryColor};;
+    .showMoreBtn:hover {
+      background-color: ${props => props.theme.strongPrimaryColor};;
+    }
   }
 
 `;

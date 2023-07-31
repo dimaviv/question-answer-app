@@ -1,11 +1,9 @@
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {useQuery} from 'react-query';
 
 import {ROUTE_LOGIN, ROUTE_QUESTION} from 'utils/consts';
 import {formatDate} from 'utils/pages/questions/format-date';
 import {getEmailPrefix} from 'utils/pages/questions/get-email-prefix';
-import {fetchCategories} from 'api/categoryAPI';
 import {translitWord} from 'utils/translit';
 import {StyledQuestionItem} from './StyledQuestionItem';
 import {stringToColor} from 'utils/pages/questions/string-to-color';
@@ -13,20 +11,19 @@ import {wc_hex_is_light} from 'utils/pages/questions/get-text-color';
 
 const QuestionItem = ({question}) => {
     const navigate = useNavigate();
-    const {selectedCategory} = useSelector(state => state.categoriesReducer);
-    const {data: categories, isLoading, isError} = useQuery('categories', fetchCategories);
-
+    const {selectedCategory, categories} = useSelector(state => state.categoriesReducer);
     const {isAuth} = useSelector(state => state.authReducer);
+
     const categoryPathFromName = (categoryName) => {
         const translitName = translitWord(categoryName);
         const encodedName = encodeURIComponent(translitName);
         return encodedName.replace('%20', '-');
     };
 
-    const itemCategory = (categories && categories.length > 0) ? categories.find(category => category.id === question.categoryId) : {};
+    const itemCategory = categories.length > 0 ? categories.find(category => category.id === question.categoryId) : {};
 
     const handleRedirectQuestion = (questionId) => {
-        if (selectedCategory && Object.keys(selectedCategory).length > 0) {
+        if (Object.keys(selectedCategory).length > 0) {
             if (isAuth) {
                 const pathToCategory = categoryPathFromName(selectedCategory.name);
                 sessionStorage.setItem('questionId', questionId);

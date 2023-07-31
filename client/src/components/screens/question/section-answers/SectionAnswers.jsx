@@ -1,14 +1,14 @@
 import {useParams} from 'react-router-dom';
 import {useQuery} from 'react-query';
 import {useState} from 'react';
+import {useSelector} from 'react-redux';
 
 import AnswersList from './answers-list/AnswersList';
-import {fetchOneQuestion} from 'api/questionAPI';
+import {fetchOneQuestion} from 'api/question';
 import {StyledSectionAnswers} from './StyledSectionAnswers';
 import QuestionLoading from 'components/ui/loading/question/Question';
 import QuestionItem from './question-item/QuestionItem';
 import NotFoundPage from 'pages/NotFound';
-import {useSelector} from 'react-redux';
 import AnswerForm from './answer-form/AnswerForm';
 
 const SectionAnswers = () => {
@@ -20,7 +20,7 @@ const SectionAnswers = () => {
     );
     const [isAnswerForm, setIsAnswerForm] = useState(false);
 
-    if (!question || (question.categoryId !== selectedCategory.id)) {
+    if (!question || question.categoryId !== selectedCategory.id) {
         return (
             <NotFoundPage />
         );
@@ -53,9 +53,15 @@ const SectionAnswers = () => {
                         />
                     )}
                     {question.answers.length > 0 &&
-                        <AnswersList question={question} />
+                        <AnswersList answers={question.answers} />
                     }
+                    {isAnswerForm && (
+                        <div className={'answerBackground'}
+                             onClick={() => setIsAnswerForm(false)}
+                        >
 
+                        </div>
+                    )}
                 </div>
             )}
         </StyledSectionAnswers>

@@ -2,7 +2,7 @@ import {useNavigate} from 'react-router-dom';
 import {useRef, useState} from 'react';
 import {useMutation, useQueryClient} from 'react-query';
 
-import {createQuestion} from 'api/questionAPI';
+import {createQuestion} from 'api/question';
 import {StyledSectionAskQuestion} from './StyledSectionAskQuestion';
 import CategoriesSelect from 'components/ui/select/categories/Categories';
 

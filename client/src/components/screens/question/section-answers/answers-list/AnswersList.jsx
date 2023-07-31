@@ -1,26 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import styles from './AnswersList.module.css';
-import AnswerItem from './answer-item/AnswerItem';
+import {useEffect, useState} from 'react';
 import _ from 'lodash';
 
-const AnswersList = ({question}) => {
+import AnswerItem from './answer-item/AnswerItem';
+import {StyledAnswersList} from './StyledAnswersList';
+
+const AnswersList = ({answers}) => {
     const [sortedAnswers, setSortedAnswers] = useState([]);
 
     useEffect(() => {
-        if (question.answers) {
-            setSortedAnswers(_.sortBy(question.answers, 'createdAt'));
+        if (answers) {
+            setSortedAnswers(_.sortBy(answers, 'createdAt'));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [question.answers, question]);
+    }, [answers])
     return (
-        <div className={styles.answersList}>
+        <StyledAnswersList>
             {sortedAnswers.map(answer =>
                 <AnswerItem
                     key={answer.id}
                     answer={answer}
                 />
             )}
-        </div>
+        </StyledAnswersList>
     );
 };
 

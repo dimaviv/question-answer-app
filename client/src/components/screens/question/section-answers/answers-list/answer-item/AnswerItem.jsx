@@ -6,8 +6,8 @@ import CommentsList from './comments-list/CommentsList';
 import {formatDate} from 'utils/pages/questions/format-date';
 import reportBtnHoverImg from 'static/pages/question/reportBtnHover.svg';
 import reportBtnImg from 'static/pages/question/reportBtn.svg';
-import commentOnBtnImg from 'static/pages/question/commentOnBtn.svg';
 import commentOffBtnImg from 'static/pages/question/commentOffBtn.svg';
+import commentOnBtnImg from 'static/pages/question/commentOnBtn.svg';
 import {StyledAnswerItem} from './StyledAnswerItem';
 import {getEmailPrefix} from 'utils/pages/questions/get-email-prefix';
 import {stringToColor} from 'utils/pages/questions/string-to-color';
@@ -114,7 +114,7 @@ const AnswerItem = ({answer}) => {
                     </button>
                 </div>
             </div>
-            <div className={'answerItem__textContainer'}>
+            <div className={'answerItem__content'}>
                 <div className={'textContainer__gradeBox'}>
                     <button className={'gradeBox__btnGrade up'}
                             onClick={handleGradeUp}
@@ -130,9 +130,11 @@ const AnswerItem = ({answer}) => {
                     >
                     </button>
                 </div>
-                <p className={'textContainer__text'}>
-                    {answer.text}
-                </p>
+                <div className={'answerItem__textContainer'}>
+                    <p className={'textContainer__text'}>
+                        {answer.text}
+                    </p>
+                </div>
             </div>
             <div className={'answerItem__commentContainer'}>
                 {isComment

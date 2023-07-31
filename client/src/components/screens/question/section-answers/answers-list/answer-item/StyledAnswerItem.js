@@ -82,10 +82,14 @@ export const StyledAnswerItem = styled.div`
     object-fit: cover;
   }
 
-  .answerItem__textContainer {
+  .answerItem__content {
     padding: 0 30px;
     display: flex;
     gap: 0 15px;
+  }
+
+  .answerItem__textContainer {
+    width: 100%;
   }
 
   .textContainer__text {
@@ -134,25 +138,23 @@ export const StyledAnswerItem = styled.div`
   }
 
   .gradeTextContainer__text_green {
-    color: forestgreen;
+    color: #008000;
   }
 
   .answerItem__commentContainer {
     padding: 0 40px 20px;
     display: flex;
-    border-top: 2px solid #D9D3D8;
   }
 
   .commentContainer__btnAnswer {
     margin: 20px 0 0 auto;
     padding: 7px 20px 5px;
     background: transparent;
-    border: 2px solid #D9D3D8;
+    border: 2px solid ${props => props.theme.primaryColor};
     border-radius: 100px;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: bold;
-    color: #D9D3D8;
   }
 
   .commentContainer__btnAnswer:hover {

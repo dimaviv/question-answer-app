@@ -1,12 +1,9 @@
-import React from 'react';
-import classes from './Loader.module.css';
+import {StyledLoader} from './StyledLoader';
 
 const Loader = () => {
     return (
-        <div className={classes.loader}>
-            <div className={classes.roller}>
-            </div>
-        </div>
+        <StyledLoader>
+        </StyledLoader>
     );
 };
 

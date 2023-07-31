@@ -1,11 +1,11 @@
-import QuestionItem from './question-item/QuestionItem';
 import {StyledQuestionsList} from './StyledQuestionsList';
+import QuestionItem from './question-item/QuestionItem';
 
 const QuestionsList = ({questions}) => {
 
     return (
         <StyledQuestionsList>
-            {questions.length > 0 ? (
+            {questions && questions.length > 0 ? (
                 questions.map((question) => (
                     <QuestionItem key={question.id}
                                   question={question}

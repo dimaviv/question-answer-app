@@ -13,5 +13,6 @@ export const login = async (user) => {
 
 export const checkAuth = async () => {
     const {data} = await $authHost.get(API_USER + '/auth')
+    localStorage.setItem('token', data.token)
     return data
 }

@@ -2,7 +2,7 @@ import {useRef, useState} from 'react';
 import {useMutation, useQueryClient} from 'react-query';
 
 import {StyledAnswerForm} from './StyledAnswerForm';
-import {createAnswer} from 'api/answerAPI';
+import {createAnswer} from 'api/answer';
 
 const AnswerForm = ({questionId, setIsAnswerForm}) => {
     const formAnswerRef = useRef(null);

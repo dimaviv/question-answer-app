@@ -1,35 +1,34 @@
-import {useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import {useState} from 'react';
 import {useQuery} from 'react-query';
 
-import {fetchQuestions} from 'api/questionAPI';
 import UserTopList from './user-top-list/UserTopList';
 import QuestionsList from './questions-list/QuestionsList';
 import {ROUTE_ASK_QUESTION, ROUTE_LOGIN} from 'utils/consts';
 import {StyledSectionQuestionsList} from './StyledSectionQuestionsList';
+import {fetchQuestions} from 'api/question';
+import Loader from 'components/ui/loading/loader/Loader';
 import QuestionsLoading from 'components/ui/loading/questions/Questions';
 
 const SectionQuestionsList = () => {
-    const navigate = useNavigate();
-    const categoryName = useParams().categoryName;
-
-    const {isAuth} = useSelector(state => state.authReducer);
     const {selectedCategory} = useSelector(state => state.categoriesReducer);
+    const categoryName = useParams().categoryName;
+    const navigate = useNavigate();
+    const {isAuth} = useSelector(state => state.authReducer);
 
     const [limit, setLimit] = useState(10);
 
     const {data: questions, isLoading: isQuestionsLoading, isError: isQuestionsError} = useQuery(
-        ['questions', (selectedCategory && categoryName !== 'all') ? selectedCategory.id : null, null, limit, null],
-        () => fetchQuestions((selectedCategory && categoryName !== 'all') ? selectedCategory.id : null, null, limit, null),
+        ['questions', categoryName !== 'all' ? selectedCategory.id : null, null, limit, null],
+        () => Object.keys(selectedCategory).length > 0 && fetchQuestions(categoryName !== 'all' ? selectedCategory.id : null, null, limit, null),
         {
-            refetchOnWindowFocus: false,
             keepPreviousData: true,
         }
     );
 
     const getMoreQuestions = () => {
-        setLimit(prevState => prevState + 10);
+        setLimit((prevState) => prevState + 10);
     };
 
     return (
@@ -50,28 +49,32 @@ const SectionQuestionsList = () => {
                     </h1>
                 </div>
                 <button className={'askQuestionContainer__redirectBtn'}
-                        onClick={() => {navigate(`/${isAuth ? ROUTE_ASK_QUESTION : ROUTE_LOGIN}`)}}
+                        onClick={() => {
+                            navigate(`/${isAuth ? ROUTE_ASK_QUESTION : ROUTE_LOGIN}`);
+                        }}
                 >
                     I want to ask...
                 </button>
             </div>
             <div className={'sectionQuestionList__container'}>
-                {(isQuestionsLoading || isQuestionsError) ? (
-                    <div className={'container__questionListContainer'}>
+                <div className={'container__questionListContainer'}>
+                    {(!questions || isQuestionsLoading || isQuestionsError) ? (
                         <QuestionsLoading />
-                    </div>
-                ) : (
-                    <div className={'container__questionListContainer'}>
-                        <QuestionsList questions={questions.rows} />
-                        {questions.rows.length < questions.count && (
+                    ) : (
+                        <QuestionsList questions={questions?.rows || []} />
+                    )}
+                    {(questions && questions.rows.length < questions.count) && (
+                        isQuestionsLoading ? (
+                            <Loader />
+                        ) : (
                             <button onClick={getMoreQuestions}
-                                    className={'questionListContainer__showMoreBtn'}
+                                    className={'showMoreBtn'}
                             >
                                 Show more
                             </button>
-                        )}
-                    </div>
-                )}
+                        )
+                    )}
+                </div>
                 <UserTopList />
             </div>
         </StyledSectionQuestionsList>

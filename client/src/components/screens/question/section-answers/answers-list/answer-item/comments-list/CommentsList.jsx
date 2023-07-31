@@ -1,9 +1,12 @@
 import {useState} from 'react';
-import {formatDate} from 'utils/pages/questions/format-date';
-import userAvatarImg from 'static/pages/questions/userAvatar.svg';
+
 import {StyledCommentsList} from './StyledCommentsList';
+import CommentItem from './comment-item/CommentItem';
+import CommentForm from './comment-form/CommentForm';
+import {useParams} from 'react-router-dom';
 
 const CommentsList = ({answer}) => {
+    const questionId = useParams().questionId
     const [commentText, setCommentText] = useState('');
 
     const handleSubmitForm = async (e) => {
@@ -15,44 +18,15 @@ const CommentsList = ({answer}) => {
             {(answer.comments && answer.comments.length > 0) &&
                 <div className={'commentsList__content'}>
                     {answer.comments.map(comment =>
-                        <div className={'content__commentItem'}
-                             key={comment.id}
-                        >
-                            <div className={'commentItem__commentInfoContainer'}>
-                                <div className={'commentInfoContainer__avatarBox'}>
-                                    <img src={userAvatarImg}
-                                         alt="user-avatar"
-                                    />
-                                </div>
-                                <p className={'commentInfoContainer__commentText'}>
-                                    {comment.text}
-                                </p>
-                                <p className={'commentInfoContainer__dateAdd'}>
-                                    {formatDate(comment.createdAt)}
-                                </p>
-                            </div>
-                        </div>
+                        <CommentItem key={comment.id}
+                                     comment={comment}
+                        />
                     )}
                 </div>
             }
-            <form className={'commentsList__sendForm'}
-                  onSubmit={handleSubmitForm}
-            >
-                {/*<div className={'sendForm__userAvatarBox'}>*/}
-                {/*    <img src={userAvatarImg}*/}
-                {/*         alt="user-avatar"*/}
-                {/*    />*/}
-                {/*</div>*/}
-                <input className={'sendForm__inputComment'}
-                    type="text"
-                    placeholder="Comment"
-                    value={commentText}
-                    onChange={e => setCommentText(e.target.value)}
-                />
-                <button className={'sendForm__btnSend'}>
-                    Send
-                </button>
-            </form>
+            <CommentForm questionId={questionId}
+                         answerId={answer.id}
+            />
         </StyledCommentsList>
     );
 };

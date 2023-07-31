@@ -1,5 +1,4 @@
 import {authSlice} from './AuthSlice';
-import {checkAuth} from 'api/authAPI';
 
 // reusable error handling function
 const handleError = error => {
@@ -45,26 +44,4 @@ export const AuthActionCreator = {
             handleError(error);
         }
     },
-
-    checkAuth: () => dispatch => {
-        try {
-            checkAuth()
-                .then(
-                    data => {
-                        console.log('Congrats!');
-                        setStorageItem('token', data.token, localStorage);
-                        setStorageItem('auth', 'true', localStorage);
-                        dispatch(AuthActionCreator.setIsAuth(true));
-                    }
-                )
-                .catch(
-                    error => {
-                        handleError(error);
-                        dispatch(AuthActionCreator.signOut());
-                    }
-                );
-        } catch (error) {
-            handleError(error);
-        }
-    }
 };
