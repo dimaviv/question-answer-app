@@ -16,6 +16,7 @@ router.patch('/profile', authMiddleware, userController.updateProfile)
 // Auth
 router.get('/most-scored', userController.getMostScored)
 router.post('/registration', userController.registration)
+router.get('/activate/:link', userController.activate) // Email verification
 router.post('/login', userController.login)
 router.get('/auth', authMiddleware, userController.check)
 router.get('/login/google', authenticateGoogle)

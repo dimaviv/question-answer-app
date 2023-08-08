@@ -7,7 +7,8 @@ const {allowedAvatarExtensions} = require("../config/config");
 const {generateJwt} = require("../utils/jwtUtils");
 const {generateNickname} = require("../utils/helpers");
 const {isNicknameUnique} = require("../utils/validationUtils");
-
+const uuid = require('uuid')
+const mailService = require('../services/mailService')
 
 class UserController {
 
@@ -55,7 +56,7 @@ class UserController {
     async getProfile(req, res, next) {
         try {
             let data = await User.findByPk(req.user.id, {
-                attributes: {exclude: ['password', 'role']}
+                attributes: {exclude: ['password', 'role', 'activationLink']}
             })
 
             return res.json(data)
@@ -161,7 +162,9 @@ class UserController {
             }
             const nickname = await generateNickname(email);
             const hashPassword = await bcrypt.hash(password, 5)
-            const user = await User.create({nickname, email, password: hashPassword})
+            const activationLink = uuid.v4()
+            const user = await User.create({nickname, email, password: hashPassword, activationLink})
+            await mailService.sendActivationMail(email, `${process.env.API_URL}/api/user/activate/${activationLink}`)
 
             const token = await generateJwt(user.id, user.email, user.role)
 
@@ -183,11 +186,25 @@ class UserController {
             if (!comparePassword) {
                 return next(ApiError.internal('Incorrect password'))
             }
-            const token = await generateJwt(user.id, user.email, user.role)
+            const token = await generateJwt(user.id, user.email, user.role, user.isActivated)
             res.json({token})
         } catch (e) {
             next(ApiError.internal(e.message))
         }
+
+    }
+
+    async activate(req, res, next) {
+        try {
+            const activationLink = req.params.link;
+            const user = await User.findOne({where: {activationLink}})
+            user.isActivated = true;
+            await user.save()
+            return res.redirect(process.env.CLIENT_URL)
+        } catch (e) {
+            next(ApiError.internal(e.message))
+        }
+
 
     }
 
