@@ -14,7 +14,7 @@ const options = {
             },
         ],
     },
-    apis: ['./routes/*.js'], // Path to the API docs
+    apis: ['./docs/*.yaml'], // Path to the API docs
 
 };
 
