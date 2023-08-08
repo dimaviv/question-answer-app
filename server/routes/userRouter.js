@@ -9,10 +9,15 @@ const {
     authenticateFacebookCallback
 } = require('../middleware/OauthMiddleware')
 
+// User
+router.get('/profile', authMiddleware, userController.getProfile)
+router.patch('/profile', authMiddleware, userController.updateProfile)
+
+// Auth
+router.get('/most-scored', userController.getMostScored)
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
 router.get('/auth', authMiddleware, userController.check)
-router.get('/most-scored', userController.getMostScored)
 router.get('/login/google', authenticateGoogle)
 router.get('/login/google/callback', authenticateGoogleCallback, userController.oauthGoogle)
 router.get('/login/facebook', authenticateFacebook)

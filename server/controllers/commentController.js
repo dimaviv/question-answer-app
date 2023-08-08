@@ -10,7 +10,7 @@ class CommentController {
             return res.json(comment)
 
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
 
     }
@@ -25,7 +25,7 @@ class CommentController {
             return res.json(comment)
 
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 

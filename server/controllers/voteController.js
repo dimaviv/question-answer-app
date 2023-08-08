@@ -22,7 +22,7 @@ class VoteController {
             }
             return res.json(newVote)
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -34,7 +34,7 @@ class VoteController {
 
             return res.json(votes)
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -51,7 +51,7 @@ class VoteController {
                 return res.json("Deletion error!")
             }
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 

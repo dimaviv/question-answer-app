@@ -3,6 +3,8 @@ const path = require('path')
 const {Question, File, User, Comment} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const {oneQuestionIncludes, questionVotesLiteral} = require('../utils/sequelizeOptions')
+const {handleFilesUpload} = require("../utils/fileUtils");
+const {allowedFileExtensions} = require("../config/config");
 
 class QuestionController {
 
@@ -12,27 +14,11 @@ class QuestionController {
             let question = await Question.create({text, userId: req.user.id, categoryId});
 
             if (req.files) {
-                let {files} = req.files
-
-                let extension;
-                if (!files.length) files = [files]
-
-                await Promise.all(files.map(async (f) => {
-                    extension = f.name.slice((f.name.lastIndexOf(".") - 1 >>> 0) + 2);
-                    let fileName = uuid.v4() + '.' + extension
-
-                    await f.mv(path.resolve(__dirname, '..', 'static', fileName))
-
-                    await File.create({
-                        name: fileName,
-                        extension: extension,
-                        questionId: question.id
-                    })
-                }));
+                await handleFilesUpload(req.files.files, 'questionId', question.id, allowedFileExtensions);
             }
             return res.json(question)
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -73,7 +59,7 @@ class QuestionController {
             }
             return res.json(questions)
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -94,7 +80,7 @@ class QuestionController {
 
             return res.json(question);
         } catch (error) {
-            next(ApiError.badRequest(error.message));
+            next(ApiError.internal(error.message));
         }
     }
 
@@ -108,7 +94,7 @@ class QuestionController {
             return res.json(question)
 
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
 
     }

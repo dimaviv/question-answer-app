@@ -3,15 +3,27 @@ const {DataTypes} = require('sequelize')
 
 const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    login: {type: DataTypes.STRING, unique: true},
+    nickname: {type: DataTypes.STRING, unique: true, maxLength: 40, allowNull: false},
     email: {type: DataTypes.STRING, unique: true},
     password: {type: DataTypes.STRING},
     role: {type: DataTypes.STRING, defaultValue: "USER"},
     balance: {type: DataTypes.DECIMAL, defaultValue: 0},
     avatar: {type: DataTypes.TEXT},
     score: {type: DataTypes.INTEGER, defaultValue: 0},
+    createdAt: new Date(),
+    updatedAt: new Date(),
     provider: {type: DataTypes.STRING, defaultValue: null},
+    nicknameUpdatedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+    },
 })
+
+User.beforeUpdate(async (user, options) => {
+    if (user.changed('nickname')) {
+        user.nicknameUpdatedAt = new Date();
+    }
+});
 
 const Question = sequelize.define('question', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},

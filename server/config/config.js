@@ -1,32 +1,10 @@
-require('dotenv').config()
+const allowedAvatarExtensions = ['.jpg', '.jpeg', '.png'];
+const allowedFileExtensions = ['.jpg', '.jpeg', '.png', '.docx', '.pdf',
+    '.txt', '.mp3', '.gif', '.svg', '.doc', '.wpd', '.wps', '.psd', '.tif', '.bmp', '.epc'];
+const nicknameUpdateIntervalDays = 14;
+
 module.exports = {
-    development: {
-        username: process.env.POSTGRES_USER,
-        password: process.env.POSTGRES_PASSWORD,
-        database: process.env.POSTGRES_DATABASE,
-        host: process.env.POSTGRES_HOST,
-        port: process.env.POSTGRES_PORT,
-        dialect: "postgres",
-    },
-    test: {
-        username: "root",
-        password: null,
-        database: "database_test",
-        host: "127.0.0.1",
-        dialect: "mysql",
-    },
-    production: {
-        username: process.env.PGUSER,
-        password: process.env.PGPASSWORD,
-        database: process.env.PGDATABASE,
-        host: process.env.PGHOST,
-        port: process.env.PGPORT,
-        dialect: "postgres",
-        dialectOptions: {
-            ssl: {
-                require: true,
-                rejectUnauthorized: false,
-            },
-        },
-    },
+    allowedAvatarExtensions,
+    allowedFileExtensions,
+    nicknameUpdateIntervalDays
 };
