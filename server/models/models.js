@@ -17,6 +17,8 @@ const User = sequelize.define('user', {
         type: DataTypes.DATE,
         allowNull: true,
     },
+    activationLink: {type: DataTypes.STRING},
+    isActivated: {type: DataTypes.BOOLEAN, defaultValue: false},
 })
 
 User.beforeUpdate(async (user, options) => {
