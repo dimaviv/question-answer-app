@@ -17,13 +17,6 @@ paths:
       tags: [ Comment ]
       summary: Create a new answer
       description: Create a new comment for question or answer
-      parameters:
-        - in: header
-          name: Authorization
-          description: Bearer token
-          required: true
-          schema:
-            type: string
       requestBody:
         required: true
         content:
@@ -33,15 +26,12 @@ paths:
               properties:
                 text:
                   type: string
-                userId:
-                  type: number
                 questionId:
                   type: number
                 answerId:
                   type: number
               required:
                 - text
-                - userId
       security:
         - BearerAuth: [ ]
       responses:
@@ -60,12 +50,6 @@ paths:
       summary: Delete a comment by ID
       description: Deletes the comment with the specified ID. Requires ADMIN role.
       parameters:
-        - in: header
-          name: Authorization
-          description: Bearer token
-          required: true
-          schema:
-            type: string
         - in: path
           name: id
           required: true

@@ -7,26 +7,16 @@ tags:
     description: API for managing votes
 components:
   securitySchemes:
-    bearerAuth:
+    BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
 
 paths:
   /api/vote:
     post:
-      security:
-        - bearerAuth: [ ]
       tags: [ Vote ]
       summary: Create a new vote
       description: Create a new comment for question or answer
-      parameters:
-        - in: header
-          name: Authorization
-          description: Bearer token
-          required: true
-          schema:
-            type: string
       requestBody:
         required: true
         content:
@@ -36,15 +26,14 @@ paths:
               properties:
                 vote:
                   type: number
-                userId:
-                  type: number
                 questionId:
                   type: number
                 answerId:
                   type: number
               required:
                 - vote
-                - userId
+      security:
+        - BearerAuth: [ ]
       responses:
         '200':
           description: Vote created successfully.
@@ -55,47 +44,11 @@ paths:
         '500':
           description: Internal server error.
 
-  /api/vote/{answerId}:
-    get:
-      security:
-        - bearerAuth: [ ]
-      tags: [ Vote ]
-      summary: Get all votes
-      description: Get all user's votes for specified question
-      parameters:
-        - in: header
-          name: Authorization
-          description: Bearer token
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: questionId
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Votes fetched successfully.
-        '400':
-          description: Bad Request. Invalid input data.
-        '401':
-          description: Unauthorized. User is not authenticated.
-        '500':
-          description: Internal server error.
-
-  /api/vote:
     delete:
       tags: [ Vote ]
       summary: Delete a vote by userId, questionId, answerId
       description: Deletes the vote. Requires authentication.
       parameters:
-        - in: header
-          name: Authorization
-          description: Bearer token
-          required: true
-          schema:
-            type: string
         - in: path
           name: answerId
           required: false
@@ -109,7 +62,7 @@ paths:
           schema:
             type: integer
       security:
-        - bearerAuth: [ ]
+        - BearerAuth: [ ]
       responses:
         '200':
           description: Vote deleted successfully.
@@ -119,3 +72,29 @@ paths:
           description: Vote not found.
         '500':
           description: Internal server error.
+
+  /api/vote/{answerId}:
+    get:
+      tags: [ Vote ]
+      summary: Get all votes
+      description: Get all user's votes for specified question
+      parameters:
+        - in: path
+          name: questionId
+          required: true
+          schema:
+            type: integer
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: Votes fetched successfully.
+        '400':
+          description: Bad Request. Invalid input data.
+        '401':
+          description: Unauthorized. User is not authenticated.
+        '500':
+          description: Internal server error.
+
+
+

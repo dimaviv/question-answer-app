@@ -5,14 +5,16 @@ info:
 tags:
   - name: Question
     description: Questions API
-
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
 paths:
   /api/question:
     post:
       summary: Create a new question
       tags: [ Question ]
-      security:
-        - bearerAuth: [ ]
       requestBody:
         required: true
         content:
@@ -22,19 +24,18 @@ paths:
               properties:
                 text:
                   type: string
-                userId:
-                  type: integer
                 categoryId:
                   type: integer
-                file:
+                files:
                   type: array
                   items:
                     type: string
                     format: binary
               required:
                 - text
-                - userId
                 - categoryId
+      security:
+        - BearerAuth: [ ]
       responses:
         '200':
           description: A question object
@@ -84,8 +85,6 @@ paths:
     delete:
       summary: Delete a question by ID
       tags: [ Question ]
-      security:
-        - bearerAuth: [ ]
       parameters:
         - in: path
           name: id
@@ -93,6 +92,8 @@ paths:
           schema:
             type: integer
           description: ID of the question to delete
+      security:
+        - BearerAuth: [ ]
       responses:
         '200':
           description: Deletion successful message

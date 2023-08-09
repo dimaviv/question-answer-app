@@ -11,7 +11,7 @@ const createValidationRules = [
         .isLength({max: 1500}).withMessage('Text should not exceed 1500 characters'),
     body('categoryId')
         .notEmpty().withMessage('Category ID is required')
-        .isInt({min: 1}).withMessage('ID must be a positive integer'), ,
+        .isInt({min: 1}).withMessage('ID must be a positive integer'),
 ];
 
 const getOneValidationRules = [

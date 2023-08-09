@@ -45,9 +45,9 @@ const loginValidationRules = [
 // User
 router.get('/profile', authMiddleware, userController.getProfile)
 router.patch('/profile', authMiddleware, patchProfileValidationRules, userController.updateProfile)
+router.get('/most-scored', mostScoredValidationRules, userController.getMostScored);
 
 // Auth
-router.get('/most-scored', mostScoredValidationRules, userController.getMostScored);
 router.post('/registration', registrationValidationRules, userController.registration)
 router.get('/activate/:link', userController.activate) // Email verification
 router.post('/login', loginValidationRules, userController.login)

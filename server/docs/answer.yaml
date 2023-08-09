@@ -5,6 +5,12 @@ info:
 tags:
   - name: Answer
     description: API for managing answers
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+
 paths:
   /api/answer:
     post:
@@ -20,18 +26,15 @@ paths:
               properties:
                 text:
                   type: string
-                userId:
-                  type: number
                 questionId:
                   type: number
-                file:
+                files:
                   type: array
                   items:
                     type: string
                     format: binary
               required:
                 - text
-                - userId
                 - questionId
           application/json:
             schema:
@@ -45,16 +48,15 @@ paths:
                   type: number
               required:
                 - text
-                - userId
                 - questionId
+      security:
+        - BearerAuth: [ ]
       responses:
         '200':
           description: Answer created successfully.
 
   /api/answer/{id}:
     delete:
-      security:
-        - bearerAuth: [ ]
       tags: [ Answer ]
       summary: Delete an answer by ID
       description: Deletes the answer with the specified ID. Requires ADMIN role.
@@ -65,6 +67,8 @@ paths:
           description: Numeric ID of the answer to delete.
           schema:
             type: integer
+      security:
+        - BearerAuth: [ ]
       responses:
         '200':
           description: Answer deleted successfully.

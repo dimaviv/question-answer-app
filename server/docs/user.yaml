@@ -7,6 +7,13 @@ tags:
     description: API for managing users
   - name: Authorization
     description: Authentication operations
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+
 paths:
   /api/user/registration:
     post:
@@ -22,8 +29,6 @@ paths:
                 email:
                   type: string
                 password:
-                  type: string
-                role:
                   type: string
               required:
                 - email
@@ -73,7 +78,7 @@ paths:
       summary: Check if the user is authenticated
       tags: [ Authorization ]
       security:
-        - bearerAuth: [ ]
+        - BearerAuth: [ ]
       responses:
         '200':
           description: Token to authenticate the user
@@ -133,3 +138,39 @@ paths:
       responses:
         '200':
           description: An array of question objects
+
+  /api/user/profile:
+    get:
+      summary: Get user profile
+      tags: [ User ]
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: User profile retrieved successfully.
+
+    patch:
+      summary: Update user profile
+      tags: [ User ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nickname:
+                  type: string
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: User profile updated successfully.
+        '429':
+          description: Too Many Requests. The nickname can only be changed once every two weeks.
+

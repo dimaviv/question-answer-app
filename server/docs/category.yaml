@@ -5,13 +5,16 @@ info:
 tags:
   - name: Category
     description: Category management
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
 paths:
   /api/category:
     post:
       summary: Create a new category
       tags: [ Category ]
-      security:
-        - bearerAuth: [ ]
       requestBody:
         required: true
         content:
@@ -23,6 +26,8 @@ paths:
                   type: string
               required:
                 - name
+      security:
+        - BearerAuth: [ ]
       responses:
         '200':
           description: A category creation
@@ -38,8 +43,6 @@ paths:
     delete:
       summary: Delete a category by ID
       tags: [ Category ]
-      security:
-        - bearerAuth: [ ]
       parameters:
         - in: path
           name: id
@@ -48,6 +51,8 @@ paths:
             minimum: 1
           required: true
           description: ID of the category to delete
+      security:
+        - BearerAuth: [ ]
       responses:
         '200':
           description: A category deletion
@@ -55,8 +60,6 @@ paths:
     patch:
       summary: Update a category by ID
       tags: [ Category ]
-      security:
-        - bearerAuth: [ ]
       parameters:
         - in: path
           name: id
@@ -74,10 +77,10 @@ paths:
               properties:
                 name:
                   type: string
-                avatar:
-                  type: string
               required:
                 - name
+      security:
+        - BearerAuth: [ ]
       responses:
         '200':
           description: A category update
