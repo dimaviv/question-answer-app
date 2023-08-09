@@ -6,7 +6,7 @@ const {calculateNextUpdateDate, isLaterDate} = require("../utils/dateUtils");
 const {allowedAvatarExtensions} = require("../config/config");
 const {generateJwt} = require("../utils/jwtUtils");
 const {generateNickname} = require("../utils/helpers");
-const {isNicknameUnique} = require("../utils/validationUtils");
+const {isNicknameUnique, handleValidationErrors} = require("../utils/validationUtils");
 const uuid = require('uuid')
 const mailService = require('../services/mailService')
 
@@ -14,6 +14,7 @@ class UserController {
 
     async updateProfile(req, res, next) {
         try {
+            await handleValidationErrors(...arguments)
             const {nickname} = req.body;
             let user = await User.findByPk(req.user.id, {
                 attributes: {exclude: ['password', 'role']}
@@ -55,6 +56,7 @@ class UserController {
 
     async getProfile(req, res, next) {
         try {
+            await handleValidationErrors(...arguments)
             let data = await User.findByPk(req.user.id, {
                 attributes: {exclude: ['password', 'role', 'activationLink']}
             })
@@ -133,6 +135,7 @@ class UserController {
 
     async getMostScored(req, res, next) {
         try {
+            await handleValidationErrors(...arguments)
             let {categoryId, limit} = req.query
             limit = limit || 10
             let users
@@ -151,6 +154,7 @@ class UserController {
 
     async registration(req, res, next) {
         try {
+            await handleValidationErrors(...arguments)
             const {email, password} = req.body
 
             if (!email || !password) {
@@ -177,6 +181,7 @@ class UserController {
 
     async login(req, res, next) {
         try {
+            await handleValidationErrors(...arguments)
             const {email, password} = req.body
             const user = await User.findOne({where: {email}})
             if (!user) {

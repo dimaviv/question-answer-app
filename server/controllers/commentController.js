@@ -1,9 +1,12 @@
-const {Comment} = require('../models/models')
+const {Comment, User} = require('../models/models')
 const ApiError = require('../error/ApiError')
+const {handleValidationErrors} = require("../utils/validationUtils");
 
 class CommentController {
     async create(req, res, next) {
         try {
+            await handleValidationErrors(req, res, next);
+
             let {text, questionId, answerId} = req.body
             let comment = await Comment.create({text, userId: req.user.id, questionId, answerId});
 
@@ -17,12 +20,30 @@ class CommentController {
 
     async delete(req, res, next) {
         try {
-            const {id} = req.params
+            await handleValidationErrors(req, res, next);
 
-            const comment = await Comment.destroy({where: {id}})
+            const {id} = req.params;
+            const userId = req.user.id;
+
+            const comment = await Comment.findByPk(id, {
+                include: [
+                    {
+                        model: User,
+                        as: "user",
+                        attributes: {include: ["id"]},
+                    },
+                ]
+            });
+
             if (!comment) return next(ApiError.notFound('Comment not found'))
+            if (comment.user.id !== userId && req.user.role === 'USER')
+                return next(ApiError.forbidden('You are not authorized to delete this comment'))
 
-            return res.json(comment)
+
+            const deletedComment = await Comment.findByPk(id);
+            await Comment.destroy({where: {id}});
+
+            return res.json(deletedComment);
 
         } catch (e) {
             next(ApiError.internal(e.message))

@@ -1,13 +1,15 @@
-const uuid = require('uuid')
-const path = require('path')
-const {Answer, File} = require('../models/models')
+const {Answer} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const {handleFilesUpload} = require("../utils/fileUtils");
 const {allowedFileExtensions} = require("../config/config");
+const {handleValidationErrors} = require("../utils/validationUtils");
+
 
 class AnswerController {
     async create(req, res, next) {
         try {
+            await handleValidationErrors(req, res, next);
+
             let {text, questionId} = req.body
             let answer = await Answer.create({text, userId: req.user.id, questionId});
 
@@ -25,6 +27,8 @@ class AnswerController {
 
     async delete(req, res, next) {
         try {
+            await handleValidationErrors(req, res, next);
+
             const {id} = req.params
 
             const answer = await Answer.destroy({where: {id}})

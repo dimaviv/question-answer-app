@@ -56,7 +56,7 @@ const Vote = sequelize.define('votes', {
     vote: {type: DataTypes.SMALLINT, allowNull: false, validate: {isIn: [[1, -1]],}},
 })
 
-const File = sequelize.define('file', {
+const File = sequelize.define('files', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     extension: {type: DataTypes.STRING, allowNull: false},

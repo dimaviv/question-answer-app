@@ -1,8 +1,11 @@
 const {Category} = require('../models/models')
 const ApiError = require("../error/ApiError");
+const {handleValidationErrors} = require("../utils/validationUtils");
 
 class CategoryController {
     async create(req, res, next) {
+        await handleValidationErrors(req, res, next);
+
         const {name} = req.body
         const category = await Category.create({name})
             .catch(err => next(ApiError.badRequest(err.message)))
@@ -11,6 +14,8 @@ class CategoryController {
     }
 
     async getAll(req, res, next) {
+        await handleValidationErrors(req, res, next);
+
         const categories = await Category.findAll({order: [['id', 'ASC']]})
             .catch(err => next(ApiError.badRequest(err.message)))
 
@@ -18,6 +23,8 @@ class CategoryController {
     }
 
     async update(req, res, next) {
+        await handleValidationErrors(req, res, next);
+
         const {id, name, avatar} = req.params
 
         const category = await Category.update(
@@ -36,6 +43,8 @@ class CategoryController {
     }
 
     async delete(req, res, next) {
+        await handleValidationErrors(req, res, next);
+
         const {id} = req.params
 
         const category = await Category.destroy({where: {id}})

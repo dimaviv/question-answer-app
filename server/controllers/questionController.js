@@ -5,11 +5,13 @@ const ApiError = require('../error/ApiError')
 const {oneQuestionIncludes, questionVotesLiteral} = require('../utils/sequelizeOptions')
 const {handleFilesUpload} = require("../utils/fileUtils");
 const {allowedFileExtensions} = require("../config/config");
+const {handleValidationErrors} = require("../utils/validationUtils");
 
 class QuestionController {
 
     async create(req, res, next) {
         try {
+            await handleValidationErrors(...arguments)
             let {text, categoryId} = req.body
             let question = await Question.create({text, userId: req.user.id, categoryId});
 
@@ -24,6 +26,7 @@ class QuestionController {
 
     async getAll(req, res, next) {
         try {
+            await handleValidationErrors(...arguments)
             let {categoryId, isAnswered, limit, page} = req.query
             page = page || 1
             limit = limit || 5
@@ -65,6 +68,7 @@ class QuestionController {
 
     async getOne(req, res, next) {
         try {
+            await handleValidationErrors(...arguments)
             const {id} = req.params;
 
             const question = await Question.findOne({
@@ -86,6 +90,7 @@ class QuestionController {
 
     async delete(req, res, next) {
         try {
+            await handleValidationErrors(...arguments)
             const {id} = req.params
 
             const question = await Comment.destroy({where: {id}})

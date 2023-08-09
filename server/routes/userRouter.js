@@ -8,177 +8,54 @@ const {
     authenticateFacebook,
     authenticateFacebookCallback
 } = require('../middleware/OauthMiddleware')
+const {body, query} = require("express-validator");
+
+
+const patchProfileValidationRules = [
+    body('nickname')
+        .optional()
+        .isLength({max: 50})
+        .withMessage('Nickname should not exceed 50 characters'),
+    // Add validation for avatar if needed
+];
+
+const mostScoredValidationRules = [
+    query('categoryId')
+        .optional()
+        .isInt({min: 1})
+        .withMessage('CategoryId must be a positive integer'),
+    query('limit')
+        .optional()
+        .isInt({min: 1})
+        .withMessage('Limit must be a positive integer'),
+];
+
+const registrationValidationRules = [
+    body('email').isEmail().withMessage('Invalid email format'),
+    body('password')
+        .isLength({min: 6})
+        .withMessage('Password must be at least 6 characters long'),
+];
+
+const loginValidationRules = [
+    body('email').isEmail().withMessage('Invalid email format'),
+];
+
 
 // User
 router.get('/profile', authMiddleware, userController.getProfile)
-router.patch('/profile', authMiddleware, userController.updateProfile)
+router.patch('/profile', authMiddleware, patchProfileValidationRules, userController.updateProfile)
 
 // Auth
-router.get('/most-scored', userController.getMostScored)
-router.post('/registration', userController.registration)
+router.get('/most-scored', mostScoredValidationRules, userController.getMostScored);
+router.post('/registration', registrationValidationRules, userController.registration)
 router.get('/activate/:link', userController.activate) // Email verification
-router.post('/login', userController.login)
+router.post('/login', loginValidationRules, userController.login)
 router.get('/auth', authMiddleware, userController.check)
 router.get('/login/google', authenticateGoogle)
 router.get('/login/google/callback', authenticateGoogleCallback, userController.oauthGoogle)
 router.get('/login/facebook', authenticateFacebook)
 router.get('/login/facebook/callback', authenticateFacebookCallback, userController.oauthFacebook)
-
-/**
- * @swagger
- * tags:
- *   name: User
- *   description: API for managing users
- */
-/**
- * @swagger
- * tags:
- *   name: Authorization
- *   description: Authentication operations
- */
-/**
- * @swagger
- * /api/user/registration:
- *   post:
- *     summary: Register a new user
- *     tags: [Authorization]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *               role:
- *                 type: string
- *             required:
- *               - email
- *               - password
- *     responses:
- *       '200':
- *         description: Token to authenticate the user
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- */
-
-/**
- * @swagger
- * /api/user/login:
- *   post:
- *     summary: Login with existing credentials
- *     tags: [Authorization]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *             required:
- *               - email
- *               - password
- *     responses:
- *       '200':
- *         description: Token to authenticate the user
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- */
-
-/**
- * @swagger
- * /api/user/auth:
- *   get:
- *     summary: Check if the user is authenticated
- *     tags: [Authorization]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       '200':
- *         description: Token to authenticate the user
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- */
-
-/**
- * @swagger
- * /login/google:
- *   get:
- *     summary: Log in using google oauth 2.0
- *     tags: [Authorization]
- *     responses:
- *       '200':
- *         description: Token to authenticate the user
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- */
-
-/**
- * @swagger
- * /login/facebook:
- *   get:
- *     summary: Log in using facebook oauth 2.0
- *     tags: [Authorization]
- *     responses:
- *       '200':
- *         description: Token to authenticate the user
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- */
-
-/**
- * @swagger
- * /api/user/most-scored:
- *  get:
- *     summary: Get a list of most scored users
- *     tags: [User]
- *     parameters:
- *       - in: query
- *         name: categoryId
- *         schema:
- *           type: integer
- *         description: ID of the category to filter by
- *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *         description: Maximum number of users to return
- *     responses:
- *       200:
- *         description: An array of question objects
- */
 
 
 module.exports = router
