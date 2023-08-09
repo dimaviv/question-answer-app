@@ -7,7 +7,6 @@ const handleValidationErrors = async (req, res, next) => {
     if (!errors.isEmpty()) {
         return next(ApiError.badRequest('Validation error', errors.array()));
     }
-    next();
 }
 
 const isNicknameUnique = async (nickname) => {
