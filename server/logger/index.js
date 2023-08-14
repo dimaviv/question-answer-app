@@ -9,4 +9,4 @@ if (process.env.NODE_ENV === 'development') {
     logger = buildProdLogger();
 }
 
-module.exports = buildDevLogger()
+module.exports = logger

@@ -10,11 +10,14 @@ const swaggerSpecs = require('./swagger')
 const swaggerUi = require("swagger-ui-express");
 require('./passport.js');
 //const logger = require('./logger')
-
+const loggerMiddleware = require('./middleware/LoggerMiddleware')
 
 const PORT = process.env.PORT || 5000
 
 const app = express()
+
+// Logs middleware
+app.use(loggerMiddleware)
 
 app.use(cors())
 app.use(express.static(path.resolve(__dirname, 'static')))
