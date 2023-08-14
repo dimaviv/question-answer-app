@@ -1,11 +1,15 @@
 const {Comment, User} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const {handleValidationErrors} = require("../utils/validationUtils");
+const {validationResult} = require("express-validator");
 
 class CommentController {
     async create(req, res, next) {
         try {
-            await handleValidationErrors(req, res, next);
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
 
             let {text, questionId, answerId} = req.body
             let comment = await Comment.create({text, userId: req.user.id, questionId, answerId});
@@ -20,7 +24,10 @@ class CommentController {
 
     async delete(req, res, next) {
         try {
-            await handleValidationErrors(req, res, next);
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
 
             const {id} = req.params;
             const userId = req.user.id;

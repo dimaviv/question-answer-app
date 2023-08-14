@@ -1,11 +1,16 @@
 const {Vote} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const voteQueries = require('../queries/voteQueries')
+const {validationResult} = require("express-validator");
 
 
 class VoteController {
     async create(req, res, next) {
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             let {vote, questionId, answerId} = req.body
             if (questionId === undefined) questionId = null
             if (answerId === undefined) answerId = null
@@ -28,6 +33,10 @@ class VoteController {
 
     async getUserVotes(req, res, next) {
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             let {questionId} = req.params
 
             const votes = await voteQueries.getUserVotes(req.user.id, questionId)
@@ -40,6 +49,10 @@ class VoteController {
 
     async delete(req, res, next) {
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             let {questionId, answerId} = req.query
             if (questionId === undefined) questionId = null
             if (answerId === undefined) answerId = null

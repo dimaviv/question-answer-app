@@ -9,6 +9,7 @@ const {generateNickname} = require("../utils/helpers");
 const {isNicknameUnique, handleValidationErrors} = require("../utils/validationUtils");
 const uuid = require('uuid')
 const mailService = require('../services/mailService')
+const {validationResult} = require("express-validator");
 
 class UserController {
 
@@ -56,7 +57,10 @@ class UserController {
 
     async getProfile(req, res, next) {
         try {
-            await handleValidationErrors(...arguments)
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             let data = await User.findByPk(req.user.id, {
                 attributes: {exclude: ['password', 'role', 'activationLink']}
             })
@@ -154,7 +158,10 @@ class UserController {
 
     async registration(req, res, next) {
         try {
-            await handleValidationErrors(...arguments)
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             const {email, password} = req.body
 
             if (!email || !password) {

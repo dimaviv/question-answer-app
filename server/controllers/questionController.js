@@ -3,7 +3,6 @@ const ApiError = require('../error/ApiError')
 const {oneQuestionIncludes, questionVotesLiteral} = require('../utils/sequelizeOptions')
 const {handleFilesUpload} = require("../utils/fileUtils");
 const {allowedFileExtensions} = require("../config/config");
-const {handleValidationErrors} = require("../utils/validationUtils");
 const sequelize = require('../db')
 const {containsCyrillic, formatQuestionWithNestedUser} = require("../utils/helpers");
 
@@ -11,7 +10,10 @@ class QuestionController {
 
     async search(req, res, next) {
         try {
-            await handleValidationErrors(...arguments)
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             let {search} = req.query;
 
             const isCyrillic = await containsCyrillic(search)
@@ -40,7 +42,10 @@ class QuestionController {
 
     async create(req, res, next) {
         try {
-            await handleValidationErrors(...arguments)
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             let {text, categoryId} = req.body
             let question = await Question.create({text, userId: req.user.id, categoryId});
 
@@ -55,7 +60,10 @@ class QuestionController {
 
     async getAll(req, res, next) {
         try {
-            await handleValidationErrors(...arguments)
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             let {categoryId, isAnswered, limit, page} = req.query
             page = page || 1
             limit = limit || 5
@@ -97,7 +105,10 @@ class QuestionController {
 
     async getOne(req, res, next) {
         try {
-            await handleValidationErrors(...arguments)
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             const {id} = req.params;
 
             const question = await Question.findOne({
@@ -119,7 +130,10 @@ class QuestionController {
 
     async delete(req, res, next) {
         try {
-            await handleValidationErrors(...arguments)
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             const {id} = req.params
 
             const question = await Comment.destroy({where: {id}})

@@ -2,13 +2,16 @@ const {Answer} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const {handleFilesUpload} = require("../utils/fileUtils");
 const {allowedFileExtensions} = require("../config/config");
-const {handleValidationErrors} = require("../utils/validationUtils");
+const {validationResult} = require("express-validator");
 
 
 class AnswerController {
     async create(req, res, next) {
         try {
-            await handleValidationErrors(req, res, next);
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
 
             let {text, questionId} = req.body
             let answer = await Answer.create({text, userId: req.user.id, questionId});
@@ -27,7 +30,10 @@ class AnswerController {
 
     async delete(req, res, next) {
         try {
-            await handleValidationErrors(req, res, next);
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
 
             const {id} = req.params
 
