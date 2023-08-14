@@ -9,6 +9,7 @@ const path = require('path')
 const swaggerSpecs = require('./swagger')
 const swaggerUi = require("swagger-ui-express");
 require('./passport.js');
+const logger = require('./logger')
 
 
 const PORT = process.env.PORT || 5000
