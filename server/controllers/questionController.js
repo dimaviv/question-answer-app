@@ -1,13 +1,42 @@
-const uuid = require('uuid')
-const path = require('path')
-const {Question, File, User, Comment} = require('../models/models')
+const {Question, User, Comment} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const {oneQuestionIncludes, questionVotesLiteral} = require('../utils/sequelizeOptions')
 const {handleFilesUpload} = require("../utils/fileUtils");
 const {allowedFileExtensions} = require("../config/config");
 const {handleValidationErrors} = require("../utils/validationUtils");
+const sequelize = require('../db')
+const {containsCyrillic, formatQuestionWithNestedUser} = require("../utils/helpers");
 
 class QuestionController {
+
+    async search(req, res, next) {
+        try {
+            await handleValidationErrors(...arguments)
+            let {search} = req.query;
+
+            const isCyrillic = await containsCyrillic(search)
+            const lang = isCyrillic ? 'russian' : 'english'
+
+            const sql = `
+              SELECT q.id, q."text", q."isAnswered", q."createdAt", q."updatedAt", q."userId", q."categoryId",
+              u.id AS "user.id", u.nickname AS "user.nickname", u.avatar AS "user.avatar", u.score AS "user.score"
+              FROM questions q
+              JOIN users u ON q."userId" = u.id
+              WHERE text_search_vector @@ to_tsquery(:lang, :search)
+            `;
+
+            const result = await sequelize.query(sql, {
+                replacements: {lang, search},
+                type: sequelize.QueryTypes.SELECT,
+            });
+
+            const formatedResult = await formatQuestionWithNestedUser(result)
+
+            res.json(formatedResult);
+        } catch (e) {
+            next(ApiError.internal(e.message))
+        }
+    }
 
     async create(req, res, next) {
         try {

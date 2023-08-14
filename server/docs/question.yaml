@@ -101,3 +101,17 @@ paths:
             application/json:
               schema:
                 type: string
+  /api/question/search:
+    get:
+      summary: Get a questions by search input
+      tags: [ Question ]
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: Search input
+          required: true
+      responses:
+        '200':
+          description: A question objects

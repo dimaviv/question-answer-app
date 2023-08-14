@@ -22,6 +22,8 @@ const deleteValidationRules = [
     param('id').notEmpty().withMessage('ID parameter is required').isInt({min: 1}).withMessage('ID must be a positive integer'),
 ];
 
+
+router.get('/search', questionController.search);
 router.post('/', authMiddleware, createValidationRules, questionController.create);
 router.get('/', questionController.getAll);
 router.get('/:id', getOneValidationRules, questionController.getOne);
