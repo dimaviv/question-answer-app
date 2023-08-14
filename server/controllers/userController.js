@@ -15,7 +15,10 @@ class UserController {
 
     async updateProfile(req, res, next) {
         try {
-            await handleValidationErrors(...arguments)
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             const {nickname} = req.body;
             let user = await User.findByPk(req.user.id, {
                 attributes: {exclude: ['password', 'role']}
@@ -139,7 +142,10 @@ class UserController {
 
     async getMostScored(req, res, next) {
         try {
-            await handleValidationErrors(...arguments)
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             let {categoryId, limit} = req.query
             limit = limit || 10
             let users
@@ -188,7 +194,10 @@ class UserController {
 
     async login(req, res, next) {
         try {
-            await handleValidationErrors(...arguments)
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest('Validation error', errors.array()));
+            }
             const {email, password} = req.body
             const user = await User.findOne({where: {email}})
             if (!user) {
