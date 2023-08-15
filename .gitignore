@@ -9,4 +9,5 @@ npm-debug.log
 server/.env
 client/.env
 /pgdata/
-
+app*.log
+error*.log
