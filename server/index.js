@@ -2,14 +2,13 @@ require('dotenv').config()
 const express = require('express')
 const sequelize = require('./db')
 const cors = require('cors')
-const fileUpload = require('express-fileupload')
-const router = require('./routes/index')
-const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const path = require('path')
 const swaggerSpecs = require('./swagger')
 const swaggerUi = require("swagger-ui-express");
 require('./passport.js');
-//const logger = require('./logger')
+const fileUpload = require('express-fileupload')
+const router = require('./routes/index')
+const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const loggerMiddleware = require('./middleware/LoggerMiddleware')
 
 const PORT = process.env.PORT || 5000

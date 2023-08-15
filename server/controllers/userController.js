@@ -11,6 +11,7 @@ const uuid = require('uuid')
 const mailService = require('../services/mailService')
 const {validationResult} = require("express-validator");
 
+
 class UserController {
 
     async updateProfile(req, res, next) {
@@ -142,6 +143,7 @@ class UserController {
 
     async getMostScored(req, res, next) {
         try {
+            
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return next(ApiError.badRequest('Validation error', errors.array()));
