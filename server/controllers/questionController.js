@@ -5,6 +5,7 @@ const {handleFilesUpload} = require("../utils/fileUtils");
 const {allowedFileExtensions} = require("../config/config");
 const sequelize = require('../db')
 const {containsCyrillic, formatQuestionWithNestedUser} = require("../utils/helpers");
+const {validationResult} = require("express-validator");
 
 class QuestionController {
 

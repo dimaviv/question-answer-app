@@ -20,10 +20,6 @@ const patchProfileValidationRules = [
 ];
 
 const mostScoredValidationRules = [
-    query('categoryId')
-        .optional()
-        .isInt({min: 1})
-        .withMessage('CategoryId must be a positive integer'),
     query('limit')
         .optional()
         .isInt({min: 1})

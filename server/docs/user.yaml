@@ -126,11 +126,6 @@ paths:
       tags: [ User ]
       parameters:
         - in: query
-          name: categoryId
-          schema:
-            type: integer
-          description: ID of the category to filter by
-        - in: query
           name: limit
           schema:
             type: integer

@@ -143,19 +143,15 @@ class UserController {
 
     async getMostScored(req, res, next) {
         try {
-            
+
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return next(ApiError.badRequest('Validation error', errors.array()));
             }
-            let {categoryId, limit} = req.query
+            let {limit} = req.query
             limit = limit || 10
-            let users
-            if (categoryId) {
-                users = await User.findAll({where: {categoryId}, limit, order: [['score', 'ASC']]})
-            } else {
-                users = await User.findAll({limit, order: [['score', 'DESC']]})
-            }
+
+            let users = await User.findAll({limit, order: [['score', 'DESC']]})
 
             return res.json(users)
         } catch (e) {
