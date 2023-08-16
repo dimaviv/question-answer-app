@@ -3,7 +3,7 @@ const logger = require('../logger/index');
 
 // Configure express-winston middleware for request logs
 const requestLoggerMiddleware = expressWinston.logger({
-    winstonInstance: logger,
+    winstonInstance: logger.appLogger,
     meta: true, // Include request metadata
     msg: 'HTTP {{req.method}} {{req.url}}',
 });
@@ -15,7 +15,7 @@ module.exports = function (req, res, next) {
         // Override the default `res.send` function to capture the response status
         const originalSend = res.send;
         res.send = (body) => {
-            logger.info(`[${req.method}] ${req.url} - Status: ${res.statusCode}`);
+            logger.appLogger.info(`[${req.method}] ${req.url} - Status: ${res.statusCode}`);
             originalSend.call(res, body);
         };
 
@@ -23,9 +23,13 @@ module.exports = function (req, res, next) {
         const originalError = res.json;
         res.json = (body) => {
             if (res.statusCode >= 400) {
-                logger.error(`[${req.method}] ${req.url} - Status: ${res.statusCode}`);
+                if (logger.appLogger !== logger.errorLogger) {
+                    logger.errorLogger.error(`[${req.method}] ${req.url} - Status: ${res.statusCode}`);
+                }
+                logger.appLogger.error(`[${req.method}] ${req.url} - Status: ${res.statusCode}`);
+
                 if (body && body.error) {
-                    logger.error(`Error Message: ${body.error.message}`);
+                    logger.errorLogger.error(`Error Message: ${body.error.message}`);
                 }
             }
             originalError.call(res, body);
